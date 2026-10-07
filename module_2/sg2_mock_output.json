@@ -1,0 +1,14 @@
+{
+    "frame_id": 355,
+    "timestamp_sec": 14.2,
+    "eye_state": "CLOSED",
+    "ear": 0.08,
+    "ear_threshold": 0.15,
+    "valid": true,
+    "closure_event": {
+        "event_type": "EYE_CLOSURE",
+        "start_sec": 14.2,
+        "end_sec": 14.56,
+        "duration_sec": 0.36
+    }
+}

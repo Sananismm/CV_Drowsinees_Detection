@@ -1,0 +1,24 @@
+{
+    "frame_id": 355,
+    "timestamp_sec": 14.2,
+    "face_valid": true,
+    "eyes_valid": true,
+    "landmark_format": "MediaPipe Face Landmarker",
+    "coordinate_system": "normalized_xy",
+    "left_eye_landmark_indices": [
+        33,
+        160,
+        158,
+        133,
+        153,
+        144
+    ],
+    "right_eye_landmark_indices": [
+        362,
+        385,
+        387,
+        263,
+        373,
+        380
+    ]
+}
