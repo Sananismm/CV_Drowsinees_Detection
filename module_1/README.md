@@ -18,6 +18,14 @@ For a complete explanation with system diagrams, frame-processing flow, normaliz
 
 These results cover five mostly nighttime clips (2,932 frames) and only 20 manually labeled boxes. The 192 px setting is a provisional speed candidate, not a final accuracy or Jetson decision. See the experiment record for the one all-black missed frame and interpretation. Do not commit source videos, annotated face videos, or model binaries; this repository keeps aggregate evidence and small manual-label CSVs while the full streams are regenerated locally.
 
+## Visual input/output example
+
+Each panel below shows an input frame from a sample driver-facing clip with the **MediaPipe output overlaid**: the green rectangle is the landmark-derived face ROI and the yellow dots are the predicted facial landmarks. This is a qualitative demonstration of what SG-1 emits, not the manual ground-truth label. The frame is both the input image and the annotated output view; the full original video is not included.
+
+![SG-1 sample inputs with MediaPipe face-box and landmark outputs overlaid](results/downloaded_samples/qualitative_review.png)
+
+See [`docs/INPUT_OUTPUT_EXAMPLE.md`](docs/INPUT_OUTPUT_EXAMPLE.md) for exactly what is being shown and how to reproduce it locally. The video frames contain visible people and this repository is public; do not add additional source footage or face overlays without confirming permission to publish them.
+
 ## SG-1 processing idea and algorithm choices
 
 | Stage | What the code does | Method / tool |
