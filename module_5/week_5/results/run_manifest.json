@@ -1,0 +1,38 @@
+{
+  "data_source": "synthetic hand-labelled SG-4 temporal messages",
+  "input_sha256": "cf9f9e8a3f568b21a75cbee9311e827ead4cfad6c347300bb6f68d7355867867",
+  "scenario_count": 9,
+  "samples_per_config": 310,
+  "python_version": "3.11.0",
+  "platform": "Windows",
+  "configs": {
+    "week4_baseline": {
+      "engine": "week4",
+      "description": "Original Week 4 engine retained unchanged",
+      "eye_weight": 0.55,
+      "yawn_weight": 0.25,
+      "persistence_weight": 0.2,
+      "min_confidence": 0.55,
+      "caution_threshold": 0.35,
+      "drowsy_threshold": 0.65,
+      "release_threshold": 0.25,
+      "drowsy_entry_ms": 0,
+      "release_ms": 5000
+    },
+    "week5_stable": {
+      "engine": "week5",
+      "description": "Same weights and thresholds; sustained entry and consistent release",
+      "eye_weight": 0.55,
+      "yawn_weight": 0.25,
+      "persistence_weight": 0.2,
+      "min_confidence": 0.55,
+      "caution_threshold": 0.35,
+      "drowsy_threshold": 0.65,
+      "release_threshold": 0.25,
+      "drowsy_entry_ms": 2000,
+      "release_ms": 5000,
+      "max_update_gap_ms": 2500
+    }
+  },
+  "week4_baseline_sha256": "a2e19fe6f98439c86216344ce64a98526a5eae44768ae54cf45beb08e10ea326"
+}
