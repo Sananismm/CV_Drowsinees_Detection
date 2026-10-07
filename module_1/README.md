@@ -1,6 +1,6 @@
 # CS-477 Week 5 - SG-1 Face and Landmark Detection
 
-**Students:** Muhammad Bilal Maqbool (470990) , Muhammad Sharjeel Hanif(455543)
+**Students:** Muhammad Bilal Maqbool (470990) , Muhammad Sharjeel Hanif (455543) 
 **Project stream:** B - Driver Drowsiness Monitoring
 **Sub-group:** SG-1 - Driver Face and Landmark Detection
 
