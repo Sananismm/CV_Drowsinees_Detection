@@ -15,12 +15,12 @@ SG1/2/3 per-frame cues ──► SG4 TemporalAnalyzer (sliding window) ──►
 
 | Requirement | Evidence | Location |
 |---|---|---|
-| Frame cues → temporal indicators | `TemporalAnalyzer.process_frame()` + `get_temporal_vector()` | Notebook Block 1 |
-| Compare ≥ 2 temporal configurations | Config A (10 s) vs Config B (30 s) on same stream | Notebook Block 3, [Results](#3-experiment-results) |
+| Frame cues → temporal indicators | `TemporalAnalyzer.process_frame()` + `get_temporal_vector()` | Block 1 |
+| Compare ≥ 2 temporal configurations | Config A (10 s) vs Config B (30 s) on same stream | Block 3, [Results](#3-experiment-results) |
 | Stability vs detection-delay trade-off | Analysis table | [Trade-off](#4-stability-vs-detection-delay-trade-off) |
 | Select Week 6 configuration | 30 s sliding window | [Week 6 Decision](#5-week-6-configuration) |
 | Version temporal logic & window parameters | V1 parameters table, Git history | [Parameters](#2-temporal-logic--parameters-v1) |
-| Accept standardized / mock cue streams | `generate_mock_stream()` (alert / drowsy / distraction) | Notebook Block 2 |
+| Accept standardized / mock cue streams | `generate_mock_stream()` (alert / drowsy / distraction) |  Block 2 |
 | Document output schema for SG5 | V1 output contract | [SG5 Schema](#6-output-schema-for-sg5-v1-contract) |
 
 ---
