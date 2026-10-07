@@ -1,0 +1,28 @@
+{
+  "model_path": "models/face_landmarker.task",
+  "max_frames": 0,
+  "frame_stride": 1,
+  "configurations": [
+    {
+      "name": "baseline",
+      "input_long_side": 256,
+      "min_face_detection_confidence": 0.5,
+      "min_face_presence_confidence": 0.5,
+      "min_tracking_confidence": 0.5
+    },
+    {
+      "name": "lower_threshold",
+      "input_long_side": 256,
+      "min_face_detection_confidence": 0.35,
+      "min_face_presence_confidence": 0.35,
+      "min_tracking_confidence": 0.35
+    },
+    {
+      "name": "lower_resolution",
+      "input_long_side": 192,
+      "min_face_detection_confidence": 0.5,
+      "min_face_presence_confidence": 0.5,
+      "min_tracking_confidence": 0.5
+    }
+  ]
+}
