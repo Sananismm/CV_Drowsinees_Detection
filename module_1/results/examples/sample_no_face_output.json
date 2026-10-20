@@ -1,0 +1,13 @@
+{
+  "frame_id": 576,
+  "timestamp_ms": 23040,
+  "image_width": 1920,
+  "image_height": 1080,
+  "config_name": "baseline",
+  "status": "NO_FACE",
+  "face_bbox_xyxy": null,
+  "landmarks_xy_normalized": [],
+  "landmark_count": 0,
+  "detection_confidence": null,
+  "inference_ms": 6.8488000001707405
+}

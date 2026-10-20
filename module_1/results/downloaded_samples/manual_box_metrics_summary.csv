@@ -1,0 +1,4 @@
+config_name,annotated_frames,true_positive,false_positive_iou_mismatch,false_negative_iou_mismatch,iou_threshold,precision,recall,f1
+baseline,20,17,3,3,0.5,0.85,0.85,0.85
+lower_threshold,20,17,3,3,0.5,0.85,0.85,0.85
+lower_resolution,20,17,3,3,0.5,0.85,0.85,0.85
