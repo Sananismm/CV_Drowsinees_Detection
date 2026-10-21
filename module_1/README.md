@@ -1,12 +1,26 @@
-# CS-477 Week 5 - SG-1 Face and Landmark Detection
+# CS-477 SG-1 Face and Landmark Detection
 
 **Students:** Muhammad Bilal Maqbool (470990) , Muhammad Sharjeel Hanif (455543) 
 **Project stream:** B - Driver Drowsiness Monitoring
 **Sub-group:** SG-1 - Driver Face and Landmark Detection
 
-This folder is a runnable Week 5 experiment package. It compares MediaPipe Face Landmarker configurations on the *same video frames*, writes detection/landmark outputs, records latency and coverage, and can calculate precision/recall against manually annotated face boxes. It does not invent results for footage that has not been supplied or labeled.
+This folder contains the runnable SG-1 module, its Week 5 experiment evidence and its midterm hardening work. It compares MediaPipe Face Landmarker configurations on the *same video frames*, writes validated detection/landmark outputs, records latency and coverage, and can calculate precision/recall against manually annotated face boxes. It does not invent results for footage that has not been supplied or labeled.
 
 For a complete explanation with system diagrams, frame-processing flow, normalization, interface, metric definitions, results, and limitations, start with [`docs/SG1_DEEP_DIVE.md`](docs/SG1_DEEP_DIVE.md). The hands-on presentation/demo script is [`docs/SG1_DEMO_AND_EXPLANATION.md`](docs/SG1_DEMO_AND_EXPLANATION.md), and the course-rubric audit is [`docs/SG1_EVALUATION_CHECKLIST.md`](docs/SG1_EVALUATION_CHECKLIST.md).
+
+## Documentation map
+
+Start with [`docs/README.md`](docs/README.md). It links the technical specifications, real execution flow, concise methodology, draft interface contract, integration handoff, test plan, status, decisions, and team dependencies.
+
+Important current state:
+
+- The verified local environment uses Python 3.12.14, MediaPipe 0.10.35, OpenCV 4.11.0.86, and NumPy 1.26.4.
+- `requirements-lock.txt` records the exact working package set.
+- The V1 interface in `docs/INTERFACE_CONTRACT.md` is still a draft.
+- SG-2 and SG-3 must accept the contract before it is called frozen.
+- The 192 px configuration remains provisional until broader and Jetson testing.
+- The detector, runtime validator, JSON Schema and tracked fixtures now implement the same V1 field set.
+- The local automated suite currently contains 31 passing tests.
 
 ## Headline results
 
@@ -63,11 +77,14 @@ pip install -r requirements.txt
 python scripts\download_model.py
 ```
 
+Contributors running the schema and unit tests should install `requirements-dev.txt` instead.
+
 If PowerShell blocks virtual-environment activation, run the environment's Python directly instead:
 
 ```powershell
 .\.venv\Scripts\python.exe -m pip install -r requirements.txt
 .\.venv\Scripts\python.exe scripts\download_model.py
+.\.venv\Scripts\python.exe scripts\verify_setup.py --smoke-model
 ```
 
 Python 3.10-3.12 is recommended. On Jetson, install the Python/OpenCV/MediaPipe builds compatible with the team's JetPack image; desktop wheels are not necessarily compatible with Jetson ARM64.
@@ -139,6 +156,7 @@ Each JSONL line contains a result for one frame:
 
 ```json
 {
+  "schema_version": "sg1.v1",
   "frame_id": 0,
   "timestamp_ms": 0,
   "image_width": 1280,
@@ -147,18 +165,22 @@ Each JSONL line contains a result for one frame:
   "face_bbox_xyxy": [410, 88, 832, 612],
   "landmarks_xy_normalized": [[0.42, 0.25], [0.43, 0.24]],
   "landmark_count": 478,
+  "landmark_topology": "mediapipe_face_landmarker_478",
   "detection_confidence": null,
-  "config_name": "baseline"
+  "config_name": "baseline",
+  "inference_ms": 6.27
 }
 ```
 
 MediaPipe's Face Landmarker task returns landmarks, but its high-level result does not expose a per-face detection confidence. The configured confidence values are minimum acceptance thresholds, not observed scores. Therefore `detection_confidence` is `null`; downstream SG-2/SG-3 must not interpret the threshold as a measured confidence. Missing-face outputs use `status: NO_FACE`, a null box, and an empty landmark list. The interface retains frame IDs/timestamps for downstream synchronization.
 
+The normative draft is [`docs/INTERFACE_CONTRACT.md`](docs/INTERFACE_CONTRACT.md). The machine schema and fixtures are documented in [`../interfaces/README.md`](../interfaces/README.md). Validate a saved JSON or JSONL stream with `scripts/validate_output.py`.
+
 ## Week 5 decision record
 
 The comparison on five downloaded driver-facing clips, including exploratory manual face-box evaluation on 20 sampled frames, is recorded in `docs/WEEK5_EXPERIMENT_RECORD.md`. The annotation rules and label files are in `docs/MANUAL_ANNOTATION_PROTOCOL.md` and `results/downloaded_samples/ground_truth/`; pooled box metrics are in `results/downloaded_samples/manual_box_metrics_summary.csv`. The 192 px recommendation is provisional: it performed similarly on this small label set and was faster on this desktop, but broader accuracy and Jetson performance remain unverified. If the group selects different common clips, rerun all configurations on those same clips before finalizing. Keep results and the chosen configuration with the subgroup branch; avoid committing raw or personally identifying video unless the team has permission.
 
-The recorded 100-frame demo and presentation explanation are in `docs/SG1_DEMO_AND_EXPLANATION.md`; generated overlay videos and a comparison table are under `results/demo/` in the full local working package (video outputs are intentionally excluded from the GitHub-ready export). The official SG-1 criterion/rubric status is in `docs/SG1_EVALUATION_CHECKLIST.md`.
+The historical 100-frame presentation explanation is in `docs/SG1_DEMO_AND_EXPLANATION.md`; its private video outputs are not distributed. A reproducible generated fallback is documented in `docs/MIDTERM_DEMO.md`, with its non-sensitive aggregate table under `results/midterm_demo/comparison.csv`. The official SG-1 criterion/rubric status is in `docs/SG1_EVALUATION_CHECKLIST.md`.
 
 To repeat the comparison on the same local downloads in PowerShell:
 

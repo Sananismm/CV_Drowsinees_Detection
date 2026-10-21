@@ -1,7 +1,9 @@
 .venv/
+.tmp/
 __pycache__/
 *.py[cod]
 models/*.task
+models/*.part
 data/videos/*
 data/labels/*
 results/*
@@ -16,3 +18,7 @@ results/*
 !results/downloaded_samples/qualitative_review.png
 !results/downloaded_samples/ground_truth/
 !results/downloaded_samples/ground_truth/*.csv
+results/**/predictions_*.jsonl
+results/**/failures_*.csv
+results/**/annotated_*.mp4
+results/**/run_metadata.json

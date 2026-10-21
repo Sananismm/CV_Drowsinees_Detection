@@ -1,0 +1,28 @@
+{
+  "frame_id": 1,
+  "timestamp_sec": 0.04,
+  "image_width": 320,
+  "image_height": 240,
+  "face_valid": false,
+  "eyes_valid": false,
+  "landmark_format": "mediapipe_face_landmarker_478",
+  "coordinate_system": "normalized_xy",
+  "left_eye_landmark_indices": [
+    33,
+    160,
+    158,
+    133,
+    153,
+    144
+  ],
+  "right_eye_landmark_indices": [
+    362,
+    385,
+    387,
+    263,
+    373,
+    380
+  ],
+  "left_eye_points_xy_normalized": [],
+  "right_eye_points_xy_normalized": []
+}

@@ -14,6 +14,48 @@ def iou(a, b):
     return inter / union if union else 0.0
 
 
+def score_boxes(predictions, labels, iou_threshold=0.5):
+    """Score optional prediction/ground-truth boxes keyed by frame ID."""
+
+    if not 0 <= iou_threshold <= 1:
+        raise ValueError("iou_threshold must be between 0 and 1")
+    tp = fp = fn = 0
+    errors = []
+    for frame_idx, gt in labels.items():
+        pred = predictions.get(frame_idx)
+        if gt is None and pred is None:
+            continue
+        overlap = iou(gt, pred) if gt is not None and pred is not None else 0.0
+        if gt is not None and pred is not None and overlap >= iou_threshold:
+            tp += 1
+        else:
+            if pred is not None:
+                fp += 1
+            if gt is not None:
+                fn += 1
+            errors.append(
+                {
+                    "frame_idx": frame_idx,
+                    "ground_truth": gt,
+                    "prediction": pred,
+                    "iou": round(overlap, 4),
+                }
+            )
+    precision = tp / (tp + fp) if tp + fp else 0.0
+    recall = tp / (tp + fn) if tp + fn else 0.0
+    f1 = 2 * precision * recall / (precision + recall) if precision + recall else 0.0
+    return {
+        "annotated_frames": len(labels),
+        "true_positive": tp,
+        "false_positive": fp,
+        "false_negative": fn,
+        "precision": round(precision, 6),
+        "recall": round(recall, 6),
+        "f1": round(f1, 6),
+        "errors": errors,
+    }
+
+
 def main():
     parser = argparse.ArgumentParser(description="Score single-driver face boxes against labeled frames.")
     parser.add_argument("--predictions", required=True, type=Path)
@@ -34,35 +76,12 @@ def main():
             vals = [row.get(k, "").strip() for k in ("x1", "y1", "x2", "y2")]
             labels[idx] = [int(float(v)) for v in vals] if all(vals) else None
 
-    tp = fp = fn = 0
-    annotated = 0
-    errors = []
-    for frame_idx, gt in labels.items():
-        annotated += 1
-        pred = predictions.get(frame_idx)
-        if gt is not None and pred is not None and iou(gt, pred) >= args.iou_threshold:
-            tp += 1
-        else:
-            if pred is not None:
-                fp += 1
-            if gt is not None:
-                fn += 1
-            errors.append({"frame_idx": frame_idx, "ground_truth": gt, "prediction": pred, "iou": round(iou(gt, pred), 4) if gt and pred else 0.0})
-    precision = tp / (tp + fp) if tp + fp else 0.0
-    recall = tp / (tp + fn) if tp + fn else 0.0
-    f1 = 2 * precision * recall / (precision + recall) if precision + recall else 0.0
+    scores = score_boxes(predictions, labels, args.iou_threshold)
     result = {
         "predictions": str(args.predictions),
         "labels": str(args.labels),
         "iou_threshold": args.iou_threshold,
-        "annotated_frames": annotated,
-        "true_positive": tp,
-        "false_positive": fp,
-        "false_negative": fn,
-        "precision": round(precision, 6),
-        "recall": round(recall, 6),
-        "f1": round(f1, 6),
-        "errors": errors,
+        **scores,
     }
     output = args.output or args.predictions.with_name("box_metrics_" + args.predictions.stem.removeprefix("predictions_") + ".json")
     output.write_text(json.dumps(result, indent=2), encoding="utf-8")
