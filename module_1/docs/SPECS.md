@@ -7,7 +7,7 @@
 | Project | Driver Drowsiness Monitoring |
 | Module | SG-1 Face and Landmark Detection |
 | Owners | Muhammad Sharjeel Hanif, Muhammad Bilal Maqbool |
-| Working branch | `sg1/week8-hardening` |
+| Shared SG-1 branch | `sg1/w5-face-landmark` (historical name; reused for current SG-1 progress) |
 | Input | One BGR video frame |
 | Output | Face status, face box, normalized landmarks and timing data |
 | Downstream modules | SG-2 Eye/Blink Analysis and SG-3 Yawn/Facial Cues |

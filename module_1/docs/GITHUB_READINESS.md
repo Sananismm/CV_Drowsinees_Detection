@@ -3,7 +3,7 @@
 Use these steps in the team's shared repository; do not create a separate project repository unless the team lead asks.
 
 1. Put this folder under the shared project's `module_sg1/` (or the team's agreed SG-1 folder).
-2. Work on a feature branch such as `sg1/w5-detector-config-study`.
+2. Continue on the team's shared SG-1 module branch. A temporary feature branch is optional for isolated or risky work; a new weekly branch is not required.
 3. Keep model weights and raw driver videos out of Git. Commit code, configuration, README, and anonymized result tables only where allowed.
 4. Commit incremental changes with descriptive messages, for example:
    - `Add MediaPipe SG1 video inference interface`

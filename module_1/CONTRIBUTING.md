@@ -2,10 +2,12 @@
 
 ## Branches
 
-- Use `sg1/week<number>-<short-task>`.
-- Start from the latest reviewed SG-1 branch.
+- Continue work on the team's shared SG-1 module branch.
+- Do not create a new branch only because a new project week has started.
+- Use a temporary feature branch only for isolated or risky work that needs separate review.
 - Merge current `main` before requesting final review.
 - Do not force-push a shared branch without agreement.
+- Preserve formal milestones with reviewed commits or tags.
 
 ## Commits
 

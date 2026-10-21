@@ -42,7 +42,7 @@ The handoff is not complete until these files are in a reviewed commit.
 ## Torch-pass sequence
 
 1. SG-1 gets the local diff reviewed by both SG-1 members.
-2. SG-1 commits the reviewed files on `sg1/week8-hardening`.
+2. SG-1 commits the reviewed files on the team's shared SG-1 module branch.
 3. SG-1 opens or updates the pull request.
 4. SG-2, SG-3 and SG-6 check out that exact commit.
 5. Each consumer runs the SG-1 contract tests.

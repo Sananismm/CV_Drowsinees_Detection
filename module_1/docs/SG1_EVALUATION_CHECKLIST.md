@@ -21,7 +21,7 @@ Source: CS-477 Week 5 Sub-group Tasks, GitHub Readiness Assessment, Project Stre
 | Working Week 4 baseline / relevant progress | 2 | **Partial / verify with team:** this package runs a functional MediaPipe baseline, but no Week 4 reference code/result was supplied for a direct baseline-retention comparison. |
 | Week 5 alternative / parameter experiment | 2 | **Strong:** lower thresholds and lower input resolution were both run against the same clips. |
 | Quantitative evidence | 2 | **Strong but limited:** full-frame coverage and latency/FPS over 2,932 frames plus box P/R/F1 on 20 manual frames; small, narrow-condition label sample. |
-| GitHub + interface readiness | 2 | **Not complete remotely:** hardening files are prepared on local branch `sg1/week8-hardening`, but the current diff is uncommitted and has no remote CI result. Downstream interface agreement is unverified. |
+| GitHub + interface readiness | 2 | **Prepared for remote review:** hardening work is committed for the shared SG-1 branch with automated checks and evidence links. Remote CI/reviewer results and downstream interface agreement must still be recorded. |
 | Analysis, Week 6 decision, individual understanding | 2 | **Analysis documented:** see experiment record and demo guide. Individual understanding must be shown by Muhammad during questioning; not something code can prove. |
 
 This is a readiness assessment, not a claim of awarded marks. The instructor assigns marks. Also note the supplied PDF contains group-level bonuses; SG-1 alone cannot earn the shared GitHub/project-board or reference-screening bonus.
@@ -29,7 +29,7 @@ This is a readiness assessment, not a claim of awarded marks. The instructor ass
 ## Before claiming complete submission
 
 1. Review and commit the local hardening diff, then confirm push permission and open or update the SG-1 pull request.
-2. Confirm whether the module folder should be `module_1/` (the existing repository path) and which branch/PR process the team requires.
+2. Keep SG-1 work in the existing `module_1/` folder and use the team's shared SG-1 branch; do not duplicate the module by week.
 3. Confirm the exact Week 4 baseline and agreed V1 schema with the team; this package's baseline is MediaPipe Face Landmarker at 256 px/0.50.
 4. Have SG-2/SG-3 consume a sample JSONL record and record acceptance.
 5. Run on the agreed common data and Jetson target; report platform, power mode, JetPack, memory, FPS and latency.
