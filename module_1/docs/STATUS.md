@@ -12,7 +12,7 @@ Real downstream integration is not complete.
 ## Completed
 
 - [x] SG-1 Week 5 implementation recovered.
-- [x] Current `main` merged into `sg1/week8-hardening`.
+- [x] Current `main` merged into the shared `sg1` branch.
 - [x] Python 3.12 virtual environment created.
 - [x] Dependencies installed.
 - [x] Imports verified.

@@ -6,7 +6,7 @@ All notable SG-1 changes should be recorded here.
 
 ### Added
 
-- `sg1/week8-hardening` integration branch.
+- Shared `sg1` integration branch.
 - Current `main` content merged into the SG-1 line.
 - Verified Python 3.12 development environment.
 - Exact dependency lock.
