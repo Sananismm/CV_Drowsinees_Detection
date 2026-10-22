@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "SG-5 to SG-6 Drowsiness Decision Output V1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "session_id", "driver_track_id", "timestamp_ms", "state", "risk_score", "confidence", "alert_action", "evidence", "reason"],
+  "properties": {
+    "schema_version": {"const": "sg5.decision.v1"},
+    "session_id": {"type": "string"},
+    "driver_track_id": {"type": "string"},
+    "timestamp_ms": {"type": "integer", "minimum": 0},
+    "state": {"enum": ["ALERT", "CAUTION", "DROWSY", "UNKNOWN"]},
+    "risk_score": {"type": "number", "minimum": 0, "maximum": 1},
+    "confidence": {"type": "number", "minimum": 0, "maximum": 1},
+    "alert_action": {"enum": ["NONE", "VISUAL", "AUDIO_VISUAL"]},
+    "evidence": {"type": "array", "items": {"type": "string"}},
+    "reason": {"type": "string"}
+  }
+}

@@ -1,0 +1,2 @@
+# Preserve snapshot and fixture bytes so their recorded checksums are portable.
+* -text
