@@ -1,6 +1,6 @@
 # SG-1 Status
 
-Last updated: 2026-10-21
+Last updated: 2026-10-27
 
 Overall status: **AMBER**
 
@@ -35,12 +35,15 @@ Real downstream integration is not complete.
 - [x] Fallback experiment evidence verified.
 - [x] Path-scoped pull-request checks added.
 - [x] Machine-oriented SG-2 and SG-3 integration handoffs added.
+- [x] Five downloaded clips rerun under all three configurations; each full run and a 100-frame annotated demo per configuration passed the experiment verifier.
+- [x] Provisional reference-box provenance, primary/backup decision and current real-video summary documented.
 
 ## In progress
 
 - [ ] Human review of code and documentation.
 - [ ] Midterm rehearsal.
-- [ ] Approved raw-video demonstration.
+- [ ] Confirm usage permission and rehearse the downloaded-video demonstration.
+- [ ] Independently review the 20 AI-assisted reference boxes.
 
 ## Blocked by team agreement
 
@@ -60,13 +63,13 @@ Real downstream integration is not complete.
 
 ## Immediate next actions
 
-1. Supply and run an approved raw driver video.
+1. Confirm permission for a downloaded driver video and rehearse the prepared demonstration.
 2. Have Bilal review this branch.
 3. Meet SG-2, SG-3 and SG-6 with the fixtures.
 4. Record interface acceptance or requested changes.
 5. Connect one real frame to SG-2 and SG-3.
 6. Rehearse the midterm demonstration.
-7. Commit and open a reviewed pull request.
+7. Keep the shared SG-1 branch and its evidence up to date.
 
 ## Known risks
 
@@ -78,4 +81,4 @@ Real downstream integration is not complete.
 - The public qualitative image contains identifiable people.
 - The interface documents a proposal, not team acceptance.
 - The fallback midterm video is generated from a tracked image and is not accuracy evidence.
-- The local changes are not committed or pushed.
+- Check the current branch head and its CI result when presenting; prior CI success does not verify subsequent changes.

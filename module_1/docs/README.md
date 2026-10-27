@@ -19,6 +19,10 @@ Use this page as the entry point for SG-1 documentation.
 | [TASKS.md](TASKS.md) | Prioritized work board with owners and evidence |
 | [MIDTERM_DEMO.md](MIDTERM_DEMO.md) | Exact evaluation demo commands and rehearsal order |
 | [MIDTERM_READINESS.md](MIDTERM_READINESS.md) | Evidence map, claim limits and external blockers |
+| [MIDTERM_METHOD_DECISION.md](MIDTERM_METHOD_DECISION.md) | Primary and backup configuration rationale |
+| [MIDTERM_REAL_VIDEO_RESULTS.md](MIDTERM_REAL_VIDEO_RESULTS.md) | Fresh five-video comparison and provisional box agreement |
+| [MIDTERM_PRESENTATION.md](MIDTERM_PRESENTATION.md) | Short speaking guide and likely questions |
+| [VSCODE_LIVE_DEMO.md](VSCODE_LIVE_DEMO.md) | VS Code webcam and saved-video preview setup |
 
 ## Existing evidence
 

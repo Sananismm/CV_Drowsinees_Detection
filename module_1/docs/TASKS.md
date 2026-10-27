@@ -13,14 +13,15 @@ Every task needs an owner and evidence.
 | Add full positive fixture | Sharjeel | Review | `interfaces/examples/sg1_v1_ok.json` |
 | Add no-face fixture to shared interfaces | Sharjeel | Review | `interfaces/examples/sg1_v1_no_face.json` |
 | Add setup verification command | Sharjeel | Review | `scripts/verify_setup.py`; local PASS |
-| Add unit tests | Sharjeel | Review | 31 tests pass locally |
+| Add unit tests | Sharjeel, Bilal | Review | 60 tests pass locally; confirm CI for current head |
 | Run generated fallback demo | Sharjeel | Review | `results/midterm_demo/comparison.csv`; verifier PASS |
-| Run approved raw-video demo | Sharjeel, Bilal | Blocked | No approved raw clip is present |
+| Run downloaded-video demo | Sharjeel, Bilal | Review | Five clips processed; verify usage permission and rehearse |
+| Review reference boxes independently | SG-1 | Todo | 20 AI-assisted boxes, human review pending |
 | Review interface with SG-2 | SG-1 and SG-2 | Blocked | Requires SG-2 acceptance record |
 | Review interface with SG-3 | SG-1 and SG-3 | Blocked | Requires SG-3 mouth-index decision |
 | Update SG-6 mock schema | SG-1 and SG-6 | Blocked | Requires SG-6 branch and review |
 | Prepare midterm demonstration | Sharjeel, Bilal | In progress | `docs/MIDTERM_DEMO.md`; rehearsal pending |
-| Open reviewed pull request | Sharjeel, Bilal | Blocked | Local diff needs human review and commit |
+| Review shared SG-1 branch evidence | Sharjeel, Bilal | In progress | Review current branch head and results |
 
 ## P1 - Integration gate
 
