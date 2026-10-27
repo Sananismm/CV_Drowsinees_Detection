@@ -1,0 +1,31 @@
+# Environments and caches
+.venv/
+venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.ipynb_checkpoints/
+
+# Datasets, videos, model caches - never commit (see datasets/sg4_manifest.md)
+data/
+datasets/raw/
+*.mp4
+*.avi
+*.mov
+*.mkv
+*.npz
+*.task
+*.tflite
+*.onnx
+*.pt
+
+# Local scratch output (committed results live in results/ and are small)
+out/
+*.log
+.DS_Store
+
+# Claude Code files (local only)
+.claude/
+CLAUDE.md
+CLAUDE.local.md
+KICKOFF_PROMPT.md

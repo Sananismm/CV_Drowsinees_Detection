@@ -1,0 +1,33 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "sg4.output.v1.1",
+  "title": "SG-4 -> SG-5 temporal indicator vector (flat JSON, 10 Hz)",
+  "description": "STATUS: AGREED WITH SG-5 (matches SG-5's input request table; written confirmation pending). Producer: SG-4, one vector every 100 ms of SG-1 capture time. The first block uses SG-5's names, units and windows exactly; SG-5 may ignore the extras. Built only by module_4/src/sg4/sg5_output.py::to_sg5. No-data behaviour: a vector is still sent with face_valid 0, validity_score 0, counts 0, eye_closure_s 0.0. Face lost: face_valid 0 and eye_closure_s 0.0 (looking away never triggers SG-5's micro-sleep override); counts keep their window values. SG-5 fields are valid from the first frame; calibration (first 60 s) affects only perclos_vs_baseline and trend.",
+  "type": "object",
+  "required": ["schema", "time_s", "perclos", "face_valid", "long_blinks", "yawn_count", "eye_closure_s",
+               "nod_count", "validity_score", "calibrating", "blink_rate_bpm", "mean_blink_ms", "slow_blinks",
+               "longest_closure_s", "head_down_s", "face_absent_s", "perclos_vs_baseline", "trend"],
+  "properties": {
+    "schema": {"const": "sg4.output.v1.1"},
+
+    "time_s": {"type": "number", "minimum": 0, "description": "[SG-5] SG-1 capture timestamp of the latest frame, seconds, increasing."},
+    "perclos": {"type": "number", "minimum": 0, "maximum": 1, "description": "[SG-5] Share of VALID time with eyes >= 80% closed (P80), 0-1 (not %). Window: last 60 s."},
+    "face_valid": {"enum": [0, 1], "description": "[SG-5] 1 if the CURRENT frame has a face with confidence >= threshold, else 0."},
+    "long_blinks": {"type": "integer", "minimum": 0, "description": "[SG-5] Eye-closure EVENTS lasting >= 0.5 s (= microsleeps). Window: last 30 s. Counted the moment the closure reaches 0.5 s."},
+    "yawn_count": {"type": "integer", "minimum": 0, "description": "[SG-5] Debounced yawn EVENTS (not frames); repeats < 1 s apart merged. Window: last 60 s."},
+    "eye_closure_s": {"type": "number", "minimum": 0, "description": "[SG-5] Length of the ONGOING closure, seconds, unsmoothed. 0.0 when eyes open or eye/face invalid."},
+
+    "nod_count": {"type": "integer", "minimum": 0, "description": "[extra] Nod / head-drop events (pitch <= -15 deg for >= 300 ms, or face lost right after head went down). Window: last 60 s."},
+    "validity_score": {"type": "number", "minimum": 0, "maximum": 1, "description": "[extra] Share of frames with a valid eye cue. Window: last 60 s."},
+    "calibrating": {"type": "boolean", "description": "[extra] True during the first 60 s of the drive (per-driver baseline)."},
+    "blink_rate_bpm": {"type": "number", "minimum": 0, "description": "[extra] Blinks (70-499 ms closures) per minute of valid time. Window: last 60 s."},
+    "mean_blink_ms": {"type": "integer", "minimum": 0, "description": "[extra] Mean blink duration, ms. Window: last 60 s."},
+    "slow_blinks": {"type": "integer", "minimum": 0, "description": "[extra] Blinks > 400 ms and < 500 ms. Window: last 60 s. (Renamed from SG-4's earlier long_blinks.)"},
+    "longest_closure_s": {"type": "number", "minimum": 0, "description": "[extra] Longest closure in the last 60 s, including the ongoing one, seconds."},
+    "head_down_s": {"type": "number", "minimum": 0, "description": "[extra] Time with pitch <= -15 deg in the last 60 s, seconds."},
+    "face_absent_s": {"type": "number", "minimum": 0, "description": "[extra] Time with no valid face in the last 60 s, seconds."},
+    "perclos_vs_baseline": {"type": ["number", "null"], "minimum": 0, "description": "[extra] perclos / driver's baseline PERCLOS (floor 0.02). null while calibrating."},
+    "trend": {"enum": ["stable", "worsening", "improving", null], "description": "[extra] Slope of perclos over the last 30 s (>= +0.05/min = worsening). null while calibrating."}
+  },
+  "additionalProperties": false
+}

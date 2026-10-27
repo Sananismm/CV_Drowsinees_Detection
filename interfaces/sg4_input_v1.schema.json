@@ -1,0 +1,51 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "sg4.input.v1",
+  "title": "SG-4 input: one per-frame cue record (JSON Lines, one object per line)",
+  "description": "STATUS: V1-PROPOSED (awaiting SG-1/SG-2/SG-3 confirmation; see documentation/interface_tracking.md). Producer: SG-1 (face, clock), SG-2 (eye), SG-3 (mouth, head). Consumer: SG-4. Any cue block may be null when unavailable. A null block, a null value, or confidence below the SG-4 threshold makes that cue INVALID for the frame: it never counts as closed or yawning. Out-of-order and duplicate timestamps are dropped by SG-4 and counted; gaps > 200 ms are logged. SG-4 also accepts SG-2's native eye record via module_4/src/sg4/adapters.py.",
+  "type": "object",
+  "required": ["schema", "frame_id", "timestamp_ms", "face", "eye", "mouth", "head"],
+  "properties": {
+    "schema": {"const": "sg4.input.v1"},
+    "frame_id": {"type": "integer", "minimum": 0, "description": "SG-1 frame counter. Not used for timing."},
+    "timestamp_ms": {"type": "integer", "minimum": 0, "description": "SG-1 monotonic capture clock in milliseconds. Never wall-clock, never frame_id x 33 ms. All SG-4 durations come from this field."},
+    "face": {
+      "type": ["object", "null"],
+      "required": ["present", "confidence"],
+      "properties": {
+        "present": {"type": "boolean"},
+        "confidence": {"type": ["number", "null"], "minimum": 0, "maximum": 1}
+      }
+    },
+    "eye": {
+      "type": ["object", "null"],
+      "required": ["closure_prob", "state", "confidence"],
+      "properties": {
+        "closure_prob": {"type": ["number", "null"], "minimum": 0, "maximum": 1, "description": "0 = fully open, 1 = fully closed. If null, SG-4 maps state closed -> 1.0, open -> 0.0, unknown -> invalid."},
+        "state": {"enum": ["open", "closed", "unknown"]},
+        "ear": {"type": ["number", "null"], "minimum": 0, "description": "Eye aspect ratio (reference only)."},
+        "confidence": {"type": ["number", "null"], "minimum": 0, "maximum": 1}
+      }
+    },
+    "mouth": {
+      "type": ["object", "null"],
+      "required": ["yawn_prob", "confidence"],
+      "properties": {
+        "yawn_prob": {"type": ["number", "null"], "minimum": 0, "maximum": 1, "description": "Per-frame probability the mouth is in a yawn. SG-4 forms debounced yawn EVENTS from it."},
+        "mar": {"type": ["number", "null"], "minimum": 0, "description": "Mouth aspect ratio (reference only)."},
+        "confidence": {"type": ["number", "null"], "minimum": 0, "maximum": 1}
+      }
+    },
+    "head": {
+      "type": ["object", "null"],
+      "required": ["pitch_deg", "confidence"],
+      "properties": {
+        "pitch_deg": {"type": ["number", "null"], "description": "Degrees. SIGN CONVENTION: negative = head down (chin towards chest), 0 = facing camera, positive = head up."},
+        "yaw_deg": {"type": ["number", "null"], "description": "Degrees, positive = driver turns to their left (reference only)."},
+        "roll_deg": {"type": ["number", "null"], "description": "Degrees (reference only)."},
+        "confidence": {"type": ["number", "null"], "minimum": 0, "maximum": 1}
+      }
+    }
+  },
+  "additionalProperties": true
+}

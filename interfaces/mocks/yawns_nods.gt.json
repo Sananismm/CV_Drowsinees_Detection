@@ -1,0 +1,189 @@
+{
+ "scenario": "yawns_nods",
+ "seed": 3,
+ "fps": 30.0,
+ "duration_ms": 90000,
+ "closures": [
+  {
+   "start_ms": 574,
+   "end_ms": 721,
+   "class": "blink"
+  },
+  {
+   "start_ms": 4917,
+   "end_ms": 5133,
+   "class": "blink"
+  },
+  {
+   "start_ms": 7281,
+   "end_ms": 7467,
+   "class": "blink"
+  },
+  {
+   "start_ms": 10722,
+   "end_ms": 10853,
+   "class": "blink"
+  },
+  {
+   "start_ms": 14879,
+   "end_ms": 15001,
+   "class": "blink"
+  },
+  {
+   "start_ms": 18074,
+   "end_ms": 18277,
+   "class": "blink"
+  },
+  {
+   "start_ms": 21380,
+   "end_ms": 21597,
+   "class": "blink"
+  },
+  {
+   "start_ms": 25546,
+   "end_ms": 25837,
+   "class": "blink"
+  },
+  {
+   "start_ms": 28442,
+   "end_ms": 28671,
+   "class": "blink"
+  },
+  {
+   "start_ms": 32491,
+   "end_ms": 32649,
+   "class": "blink"
+  },
+  {
+   "start_ms": 34595,
+   "end_ms": 34889,
+   "class": "blink"
+  },
+  {
+   "start_ms": 37531,
+   "end_ms": 37693,
+   "class": "blink"
+  },
+  {
+   "start_ms": 42128,
+   "end_ms": 42345,
+   "class": "blink"
+  },
+  {
+   "start_ms": 45547,
+   "end_ms": 45801,
+   "class": "blink"
+  },
+  {
+   "start_ms": 47732,
+   "end_ms": 47973,
+   "class": "blink"
+  },
+  {
+   "start_ms": 50880,
+   "end_ms": 50998,
+   "class": "blink"
+  },
+  {
+   "start_ms": 60445,
+   "end_ms": 60693,
+   "class": "blink"
+  },
+  {
+   "start_ms": 64567,
+   "end_ms": 64710,
+   "class": "blink"
+  },
+  {
+   "start_ms": 68990,
+   "end_ms": 69221,
+   "class": "blink"
+  },
+  {
+   "start_ms": 73002,
+   "end_ms": 73266,
+   "class": "blink"
+  },
+  {
+   "start_ms": 76302,
+   "end_ms": 76553,
+   "class": "blink"
+  },
+  {
+   "start_ms": 80862,
+   "end_ms": 80982,
+   "class": "blink"
+  },
+  {
+   "start_ms": 85341,
+   "end_ms": 85519,
+   "class": "blink"
+  },
+  {
+   "start_ms": 88784,
+   "end_ms": 88913,
+   "class": "blink"
+  }
+ ],
+ "yawns": [
+  {
+   "start_ms": 10000,
+   "end_ms": 14000
+  },
+  {
+   "start_ms": 25000,
+   "end_ms": 31600
+  },
+  {
+   "start_ms": 45000,
+   "end_ms": 50000
+  }
+ ],
+ "nods": [
+  {
+   "start_ms": 40000,
+   "end_ms": 40800,
+   "kind": "nod"
+  },
+  {
+   "start_ms": 55000,
+   "end_ms": 56000,
+   "kind": "nod"
+  },
+  {
+   "start_ms": 57500,
+   "end_ms": 58300,
+   "kind": "nod"
+  },
+  {
+   "start_ms": 70000,
+   "end_ms": 72000,
+   "kind": "head_drop_face_lost"
+  }
+ ],
+ "invalid": [
+  {
+   "start_ms": 70400,
+   "end_ms": 72000,
+   "reason": "head_drop"
+  }
+ ],
+ "artifacts": [
+  {
+   "start_ms": 18000,
+   "end_ms": 18600,
+   "kind": "talking"
+  },
+  {
+   "start_ms": 19000,
+   "end_ms": 19500,
+   "kind": "talking"
+  },
+  {
+   "start_ms": 37000,
+   "end_ms": 37700,
+   "kind": "talking"
+  }
+ ],
+ "dropped_records_note": null
+}
