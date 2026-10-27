@@ -1,0 +1,4 @@
+# Separate optional report-authoring environment, not an SG6 dependency.
+reportlab==4.4.9
+Pillow==12.3.0
+pypdfium2==5.14.0

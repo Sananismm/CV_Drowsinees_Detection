@@ -1,0 +1,7 @@
+# ReportLab PDFs can be ASCII-only but must never receive CRLF conversion.
+*.pdf binary
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.mp4 binary
+*.onnx binary

@@ -1,0 +1,139 @@
+{
+  "schema_version": "sg5.verification.v1",
+  "assessment_date": "2026-10-28",
+  "recorded_karachi": "2026-10-28T03:15:08.401332+05:00",
+  "platform": "Windows-10-10.0.26300-SP0",
+  "python": "3.11.0",
+  "branch": "sg5-midterm-integration",
+  "tested_code_commit": "5f75731959826bc124794926304cb684a42ac534",
+  "all_recorded_checks_pass": true,
+  "total_passing_tests": 255,
+  "checks": [
+    {
+      "command": [
+        "C:\\Users\\Lenovo\\Desktop\\7th Semester\\Computer Vision\\Project\\SG5 tasks\\Midterm\\.venv\\Scripts\\python.exe",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "module_5/midterm/tests",
+        "-q"
+      ],
+      "exit_code": 0,
+      "passed": true,
+      "test_count": 96,
+      "elapsed_s": 5.7869069000007585,
+      "stdout": "",
+      "stderr": "----------------------------------------------------------------------\nRan 96 tests in 5.415s\n\nOK\n"
+    },
+    {
+      "command": [
+        "C:\\Users\\Lenovo\\Desktop\\7th Semester\\Computer Vision\\Project\\SG5 tasks\\Midterm\\.venv\\Scripts\\python.exe",
+        "-m",
+        "pytest",
+        "module_1/tests",
+        "module_4/tests",
+        "-q",
+        "--disable-warnings"
+      ],
+      "exit_code": 0,
+      "passed": true,
+      "test_count": 114,
+      "elapsed_s": 3.7975366999744438,
+      "stdout": "........................................................................ [ 63%]\n..........................................                               [100%]\n114 passed, 14 warnings in 3.23s\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "C:\\Users\\Lenovo\\Desktop\\7th Semester\\Computer Vision\\Project\\SG5 tasks\\Midterm\\.venv\\Scripts\\python.exe",
+        "-m",
+        "pip",
+        "check"
+      ],
+      "exit_code": 0,
+      "passed": true,
+      "test_count": null,
+      "elapsed_s": 0.8440683999797329,
+      "stdout": "No broken requirements found.\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "C:\\Program Files\\Python311\\python.exe",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "module_2/tests",
+        "-q"
+      ],
+      "exit_code": 0,
+      "passed": true,
+      "test_count": 45,
+      "elapsed_s": 3.4181377000059,
+      "stdout": "",
+      "stderr": "C:\\Users\\Lenovo\\AppData\\Roaming\\Python\\Python311\\site-packages\\torch\\cuda\\__init__.py:58: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.\n  import pynvml  # type: ignore[import]\n----------------------------------------------------------------------\nRan 45 tests in 0.747s\n\nOK\n"
+    }
+  ],
+  "video_runs": [
+    {
+      "source": "driver_sample_01.mp4",
+      "frames": 720,
+      "vectors": 288,
+      "sg6_packets_valid": true,
+      "annotated_video_frames": 720,
+      "first_and_last_frame_decode": true,
+      "accuracy": null
+    },
+    {
+      "source": "driver_sample_02.mp4",
+      "frames": 577,
+      "vectors": 231,
+      "sg6_packets_valid": true,
+      "annotated_video_frames": 577,
+      "first_and_last_frame_decode": true,
+      "accuracy": null
+    },
+    {
+      "source": "driver_sample_03.mp4",
+      "frames": 560,
+      "vectors": 224,
+      "sg6_packets_valid": true,
+      "annotated_video_frames": 560,
+      "first_and_last_frame_decode": true,
+      "accuracy": null
+    },
+    {
+      "source": "driver_sample_04.mp4",
+      "frames": 475,
+      "vectors": 190,
+      "sg6_packets_valid": true,
+      "annotated_video_frames": 475,
+      "first_and_last_frame_decode": true,
+      "accuracy": null
+    },
+    {
+      "source": "driver_sample_05.mp4",
+      "frames": 600,
+      "vectors": 240,
+      "sg6_packets_valid": true,
+      "annotated_video_frames": 600,
+      "first_and_last_frame_decode": true,
+      "accuracy": null
+    }
+  ],
+  "total_real_video_frames": 2932,
+  "total_real_video_vectors": 1173,
+  "synthetic_rows": 5400,
+  "evaluation_sha256": "2d87d8d647d7ce04e96003f08c3b3bdd26a8d0ea6e734a73d4d6b42808c6232d",
+  "pull_request": "https://github.com/Sananismm/CV_Drowsinees_Detection/pull/21",
+  "hardware_verified": false,
+  "limitations": [
+    "No independent real-video drowsiness annotations",
+    "Optional SG2 tests may use a separate existing Torch environment; that is not a single universal environment claim",
+    "SG3/SG4 adapter and SG6 v2 acceptance remains open",
+    "PC tests do not verify Jetson, GPIO or live camera readiness"
+  ]
+}

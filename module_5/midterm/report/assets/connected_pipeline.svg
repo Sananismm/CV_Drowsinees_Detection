@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE svg
+  PUBLIC '-//W3C//DTD SVG 1.0//EN'
+  'http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd'>
+<svg width="503.27559055118115" height="295" preserveAspectRatio="xMinYMin meet" viewBox="0 0 503 295" xmlns="http://www.w3.org/2000/svg" version="1.0" fill-rule="evenodd" xmlns:xlink="http://www.w3.org/1999/xlink">
+	<title>...</title>
+	<desc>...</desc>
+	<clipPath id="clip">
+		<rect x="0" y="0" width="503.27559055118115" height="295"/>
+	</clipPath>
+	<g id="group" transform="scale(1,-1) translate(0,-295)" style="clip-path: url(#clip)">
+		<g transform="">
+			<rect x="4" y="205" width="95" height="53" rx="5" ry="5" style="stroke: rgb(79%,83%,87%); stroke-linecap: butt; stroke-width: 0.8; fill: rgb(94%,96%,97%); fill-rule: evenodd;"/>
+			<text x="19.89115" y="241" style="font-family: Helvetica-Bold; font-size: 9.1px;fill: rgb(14%,36%,51%); stroke:none;" transform="translate(0,482) scale(1,-1)">Source frames</text>
+			<text x="22.6712" y="227" style="font-family: Helvetica; font-size: 7.8px;fill: rgb(9%,16%,27%); stroke:none;" transform="translate(0,454) scale(1,-1)">Saved SG1 clips</text>
+			<text x="16.817299999999996" y="216" style="font-family: Helvetica; font-size: 7.8px;fill: rgb(9%,16%,27%); stroke:none;" transform="translate(0,432) scale(1,-1)">25 fps capture clock</text>
+			<rect x="127" y="205" width="110" height="53" rx="5" ry="5" style="stroke: rgb(79%,83%,87%); stroke-linecap: butt; stroke-width: 0.8; fill: rgb(94%,96%,97%); fill-rule: evenodd;"/>
+			<text x="148.87144999999998" y="241" style="font-family: Helvetica-Bold; font-size: 9.1px;fill: rgb(14%,36%,51%); stroke:none;" transform="translate(0,482) scale(1,-1)">SG1 landmarks</text>
+			<text x="159.4541" y="227" style="font-family: Helvetica; font-size: 7.8px;fill: rgb(9%,16%,27%); stroke:none;" transform="translate(0,454) scale(1,-1)">One detector</text>
+			<text x="139.9463" y="216" style="font-family: Helvetica; font-size: 7.8px;fill: rgb(9%,16%,27%); stroke:none;" transform="translate(0,432) scale(1,-1)">Shared 478-point record</text>
+			<rect x="275" y="242" width="143" height="51" rx="5" ry="5" style="stroke: rgb(79%,83%,87%); stroke-linecap: butt; stroke-width: 0.8; fill: rgb(94%,96%,97%); fill-rule: evenodd;"/>
+			<text x="316.65655" y="276" style="font-family: Helvetica-Bold; font-size: 9.1px;fill: rgb(14%,36%,51%); stroke:none;" transform="translate(0,552) scale(1,-1)">SG2 eye state</text>
+			<text x="313.5489" y="262" style="font-family: Helvetica; font-size: 7.8px;fill: rgb(9%,16%,27%); stroke:none;" transform="translate(0,524) scale(1,-1)">Selected EAR 0.15</text>
+			<text x="292.3251" y="251" style="font-family: Helvetica; font-size: 7.8px;fill: rgb(9%,16%,27%); stroke:none;" transform="translate(0,502) scale(1,-1)">OPEN / CLOSED / UNKNOWN</text>
+			<rect x="275" y="164" width="143" height="51" rx="5" ry="5" style="stroke: rgb(79%,83%,87%); stroke-linecap: butt; stroke-width: 0.8; fill: rgb(94%,96%,97%); fill-rule: evenodd;"/>
+			<text x="319.69595" y="198" style="font-family: Helvetica-Bold; font-size: 9.1px;fill: rgb(14%,36%,51%); stroke:none;" transform="translate(0,396) scale(1,-1)">SG3 adapter</text>
+			<text x="302.0712" y="184" style="font-family: Helvetica; font-size: 7.8px;fill: rgb(9%,16%,27%); stroke:none;" transform="translate(0,368) scale(1,-1)">Pixel MAR and hysteresis</text>
+			<text x="305.0976" y="173" style="font-family: Helvetica; font-size: 7.8px;fill: rgb(9%,16%,27%); stroke:none;" transform="translate(0,346) scale(1,-1)">Causal mouth-open flag</text>
+			<rect x="4" y="49" width="143" height="67" rx="5" ry="5" style="stroke: rgb(79%,83%,87%); stroke-linecap: butt; stroke-width: 0.8; fill: rgb(94%,96%,97%); fill-rule: evenodd;"/>
+			<text x="29.481299999999997" y="99" style="font-family: Helvetica-Bold; font-size: 9.1px;fill: rgb(14%,36%,51%); stroke:none;" transform="translate(0,198) scale(1,-1)">SG4 TemporalEngine</text>
+			<text x="29.5541" y="85" style="font-family: Helvetica; font-size: 7.8px;fill: rgb(9%,16%,27%); stroke:none;" transform="translate(0,170) scale(1,-1)">Actual timestamp windows</text>
+			<text x="19.570099999999996" y="74" style="font-family: Helvetica; font-size: 7.8px;fill: rgb(9%,16%,27%); stroke:none;" transform="translate(0,148) scale(1,-1)">Closures and debounced events</text>
+			<text x="21.3134" y="63" style="font-family: Helvetica; font-size: 7.8px;fill: rgb(9%,16%,27%); stroke:none;" transform="translate(0,126) scale(1,-1)">60 s PERCLOS / 10 Hz vectors</text>
+			<rect x="185" y="49" width="136" height="67" rx="5" ry="5" style="stroke: rgb(79%,83%,87%); stroke-linecap: butt; stroke-width: 0.8; fill: rgb(94%,96%,97%); fill-rule: evenodd;"/>
+			<text x="224.1712" y="99" style="font-family: Helvetica-Bold; font-size: 9.1px;fill: rgb(13%,45%,47%); stroke:none;" transform="translate(0,198) scale(1,-1)">SG5 decision</text>
+			<text x="208.5673" y="85" style="font-family: Helvetica; font-size: 7.8px;fill: rgb(9%,16%,27%); stroke:none;" transform="translate(0,170) scale(1,-1)">Quality and timing checks</text>
+			<text x="211.16469999999998" y="74" style="font-family: Helvetica; font-size: 7.8px;fill: rgb(9%,16%,27%); stroke:none;" transform="translate(0,148) scale(1,-1)">Weighted state machine</text>
+			<text x="202.924" y="63" style="font-family: Helvetica; font-size: 7.8px;fill: rgb(9%,16%,27%); stroke:none;" transform="translate(0,126) scale(1,-1)">State plus observation status</text>
+			<rect x="359" y="49" width="140" height="67" rx="5" ry="5" style="stroke: rgb(79%,83%,87%); stroke-linecap: butt; stroke-width: 0.8; fill: rgb(94%,96%,97%); fill-rule: evenodd;"/>
+			<text x="396.8861" y="99" style="font-family: Helvetica-Bold; font-size: 9.1px;fill: rgb(14%,36%,51%); stroke:none;" transform="translate(0,198) scale(1,-1)">SG6 consumer</text>
+			<text x="379.1502" y="85" style="font-family: Helvetica; font-size: 7.8px;fill: rgb(9%,16%,27%); stroke:none;" transform="translate(0,170) scale(1,-1)">Strict status-aware validation</text>
+			<text x="376.7595" y="74" style="font-family: Helvetica; font-size: 7.8px;fill: rgb(9%,16%,27%); stroke:none;" transform="translate(0,148) scale(1,-1)">Visual / buzzer / fault requests</text>
+			<text x="385.866" y="63" style="font-family: Helvetica; font-size: 7.8px;fill: rgb(9%,16%,27%); stroke:none;" transform="translate(0,126) scale(1,-1)">No hardware side effects</text>
+			<path d="M 99,231 L 127,231 Z" style="stroke: rgb(14%,36%,51%); stroke-linecap: butt; stroke-width: 1.2;"/>
+			<polygon points="127 231, 122 234, 122 228" style="stroke: rgb(14%,36%,51%); stroke-linecap: butt; stroke-width: 1; fill: rgb(14%,36%,51%); fill-rule: evenodd;"/>
+			<path d="M 237,231 L 255,231 Z" style="stroke: rgb(14%,36%,51%); stroke-linecap: butt; stroke-width: 1.2;"/>
+			<path d="M 255,231 L 255,267 Z" style="stroke: rgb(14%,36%,51%); stroke-linecap: butt; stroke-width: 1.2;"/>
+			<path d="M 255,267 L 275,267 Z" style="stroke: rgb(14%,36%,51%); stroke-linecap: butt; stroke-width: 1.2;"/>
+			<polygon points="275 267, 270 270, 270 264" style="stroke: rgb(14%,36%,51%); stroke-linecap: butt; stroke-width: 1; fill: rgb(14%,36%,51%); fill-rule: evenodd;"/>
+			<path d="M 255,231 L 255,189 Z" style="stroke: rgb(14%,36%,51%); stroke-linecap: butt; stroke-width: 1.2;"/>
+			<path d="M 255,189 L 275,189 Z" style="stroke: rgb(14%,36%,51%); stroke-linecap: butt; stroke-width: 1.2;"/>
+			<polygon points="275 189, 270 192, 270 186" style="stroke: rgb(14%,36%,51%); stroke-linecap: butt; stroke-width: 1; fill: rgb(14%,36%,51%); fill-rule: evenodd;"/>
+			<path d="M 418,267 L 455,267 Z" style="stroke: rgb(14%,36%,51%); stroke-linecap: butt; stroke-width: 1.2;"/>
+			<path d="M 455,267 L 455,140 Z" style="stroke: rgb(14%,36%,51%); stroke-linecap: butt; stroke-width: 1.2;"/>
+			<polygon points="455 140, 452 145, 458 145" style="stroke: rgb(14%,36%,51%); stroke-linecap: butt; stroke-width: 1; fill: rgb(14%,36%,51%); fill-rule: evenodd;"/>
+			<path d="M 418,189 L 455,189 Z" style="stroke: rgb(14%,36%,51%); stroke-linecap: butt; stroke-width: 1.2;"/>
+			<path d="M 455,189 L 455,140 Z" style="stroke: rgb(14%,36%,51%); stroke-linecap: butt; stroke-width: 1.2;"/>
+			<path d="M 455,140 L 75,140 Z" style="stroke: rgb(14%,36%,51%); stroke-linecap: butt; stroke-width: 1.2;"/>
+			<path d="M 75,140 L 75,116 Z" style="stroke: rgb(14%,36%,51%); stroke-linecap: butt; stroke-width: 1.2;"/>
+			<polygon points="75 116, 72 121, 78 121" style="stroke: rgb(14%,36%,51%); stroke-linecap: butt; stroke-width: 1; fill: rgb(14%,36%,51%); fill-rule: evenodd;"/>
+			<text x="175.40800000000002" y="145" style="font-family: Helvetica; font-size: 8px;fill: rgb(32%,38%,45%); stroke:none;" transform="translate(0,290) scale(1,-1)">Synchronized identity, capture time and availability</text>
+			<path d="M 147,82 L 185,82 Z" style="stroke: rgb(14%,36%,51%); stroke-linecap: butt; stroke-width: 1.2;"/>
+			<polygon points="185 82, 180 85, 180 79" style="stroke: rgb(14%,36%,51%); stroke-linecap: butt; stroke-width: 1; fill: rgb(14%,36%,51%); fill-rule: evenodd;"/>
+			<text x="158.9125" y="91" style="font-family: Helvetica; font-size: 7.5px;fill: rgb(32%,38%,45%); stroke:none;" transform="translate(0,182) scale(1,-1)">v1.1</text>
+			<path d="M 321,82 L 359,82 Z" style="stroke: rgb(14%,36%,51%); stroke-linecap: butt; stroke-width: 1.2;"/>
+			<polygon points="359 82, 354 85, 354 79" style="stroke: rgb(14%,36%,51%); stroke-linecap: butt; stroke-width: 1; fill: rgb(14%,36%,51%); fill-rule: evenodd;"/>
+			<text x="320.61625" y="91" style="font-family: Helvetica; font-size: 7.5px;fill: rgb(32%,38%,45%); stroke:none;" transform="translate(0,182) scale(1,-1)">v2 proposal</text>
+			<text x="97.15119999999999" y="18" style="font-family: Helvetica; font-size: 8.3px;fill: rgb(52%,36%,12%); stroke:none;" transform="translate(0,36) scale(1,-1)">PC integration verified; physical Jetson, camera and GPIO acceptance remain open</text>
+		</g>
+	</g>
+</svg>
