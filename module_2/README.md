@@ -142,7 +142,7 @@ Each run creates a new `run_*` folder under `module_2/results/instructor_demo`, 
 | `closures.json`, `summary.json`, `timing.json` | Events, frame counts and processing-time summaries | [Video demo](demo.py) |
 | `run_metadata.json`, `verification.json` | Input details and output checks | [Launcher](in_demo.py) |
 
-The lower-level demo also supports an explicit synchronized-record replay mode; that mode is separate from fresh SG1 inference. [CLI](demo.py)
+The lower-level demo also supports an explicit synchronized-record replay mode; that mode is separate from SG1 inference. [CLI](demo.py)
 
 ```powershell
 python -m module_2.demo --video VIDEO.mp4 --sg1-jsonl SG1_RECORDS.jsonl --mode EAR --output module_2/local/replay_demo
