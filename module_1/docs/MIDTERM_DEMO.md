@@ -1,5 +1,7 @@
 # SG-1 Midterm Demonstration
 
+For an interactive webcam or saved-video preview in VS Code, see [`VSCODE_LIVE_DEMO.md`](VSCODE_LIVE_DEMO.md). This complements the saved benchmark and annotated-video workflow below.
+
 ## What this demo proves
 
 - The model and dependencies load.

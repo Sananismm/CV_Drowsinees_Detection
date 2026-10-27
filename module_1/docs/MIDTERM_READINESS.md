@@ -12,7 +12,7 @@ Last checked: 2026-10-27.
 | Versioned interface | Implemented, not accepted | V1 contract, schema and fixtures | SG-2/SG-3/SG-6 sign-off absent |
 | Failure behavior | Ready locally | `NO_FACE` fixture, black-frame test, failure CSV check | Robustness set is incomplete |
 | Reproducible setup | Ready locally | lock file, verified model hash, setup script | Jetson package compatibility unknown |
-| Automated checks | Ready locally | 50 unit/contract tests passed on 2026-10-27; experiment verifier passed on each of five full clips and five short demo runs | Check CI for the current branch head after updates |
+| Automated checks | Ready locally | 60 unit/contract/preview tests passed on 2026-10-27; experiment verifier passed on each of five full clips and five short demo runs | Check CI for the current branch head after updates |
 | Real downstream integration | Blocked | SG-2 adapter fixture exists | Neighbor modules have not accepted it |
 | Jetson readiness | Not demonstrated | test plan exists | Requires SG-6 and target hardware |
 

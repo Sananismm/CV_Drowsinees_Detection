@@ -13,7 +13,7 @@ Every task needs an owner and evidence.
 | Add full positive fixture | Sharjeel | Review | `interfaces/examples/sg1_v1_ok.json` |
 | Add no-face fixture to shared interfaces | Sharjeel | Review | `interfaces/examples/sg1_v1_no_face.json` |
 | Add setup verification command | Sharjeel | Review | `scripts/verify_setup.py`; local PASS |
-| Add unit tests | Sharjeel, Bilal | Review | 50 tests pass locally; confirm CI for current head |
+| Add unit tests | Sharjeel, Bilal | Review | 60 tests pass locally; confirm CI for current head |
 | Run generated fallback demo | Sharjeel | Review | `results/midterm_demo/comparison.csv`; verifier PASS |
 | Run downloaded-video demo | Sharjeel, Bilal | Review | Five clips processed; verify usage permission and rehearse |
 | Review reference boxes independently | SG-1 | Todo | 20 AI-assisted boxes, human review pending |

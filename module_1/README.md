@@ -10,6 +10,8 @@ For a complete explanation with system diagrams, frame-processing flow, normaliz
 
 For the current midterm rerun, use [`docs/MIDTERM_DEMO.md`](docs/MIDTERM_DEMO.md), [`docs/MIDTERM_REAL_VIDEO_RESULTS.md`](docs/MIDTERM_REAL_VIDEO_RESULTS.md), and [`docs/MIDTERM_PRESENTATION.md`](docs/MIDTERM_PRESENTATION.md).
 
+For a live on-screen preview, open [`SG1-Live-Demo.code-workspace`](SG1-Live-Demo.code-workspace) in VS Code and select **SG-1: Live webcam** or **SG-1: Downloaded video fallback** in Run and Debug. The setup, double-click launchers, and troubleshooting steps are in [`docs/VSCODE_LIVE_DEMO.md`](docs/VSCODE_LIVE_DEMO.md).
+
 ## Documentation map
 
 Start with [`docs/README.md`](docs/README.md). It links the technical specifications, real execution flow, concise methodology, draft interface contract, integration handoff, test plan, status, decisions, and team dependencies.
@@ -22,7 +24,7 @@ Important current state:
 - SG-2 and SG-3 must accept the contract before it is called frozen.
 - The 192 px configuration remains provisional until broader and Jetson testing.
 - The detector, runtime validator, JSON Schema and tracked fixtures now implement the same V1 field set.
-- The local automated suite passed 50 tests on 2026-10-27, including evaluator input validation and pooled-summary checks. Check the current branch's CI status after any later change.
+- The local automated suite passed 60 tests on 2026-10-27, including live-preview, evaluator input validation and pooled-summary checks. Check the current branch's CI status after any later change.
 
 ## Headline results
 
