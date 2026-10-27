@@ -169,7 +169,4 @@ The demo passes these cues through the existing `SG4Bridge` and disables SG3 yaw
 ## Limitations
 
 - EAR depends on landmark quality and may fail with pose changes, occlusion, glare, glasses or low light. A valid landmark packet does not guarantee a correct eye-state prediction. [Geometry and validity](adapters.py) [Observed comparison](docs/experiments.md)
-- The manual comparison has one reviewer, a small purposive sample, ambiguous frames and no independent held-out test. It cannot establish general accuracy. [Experiment scope](docs/experiments.md)
-- The full-video run has no continuous eye-state or blink-event ground truth. Detected candidates are not confirmed blinks, and the duration rule is a project heuristic. [Run scope](results/live_integration_summary.json) [Tracker](events.py)
-- Threshold 0.15 may not suit every subject or camera setup. The current method does not estimate a calibrated closure probability. [Settings](final_method.json) [Output adapter](adapters.py)
 - Jetson timing, on-device dependencies and live camera capture still need SG6 testing. Desktop results do not demonstrate Jetson deployment or vehicle-safety performance. [Desktop environment](results/live_integration_summary.json) [NVIDIA setup](https://docs.nvidia.com/jetson/jetpack/install-setup/index.html)
