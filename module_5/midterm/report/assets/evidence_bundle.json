@@ -1,0 +1,3264 @@
+{
+  "schema_version": "sg5.report_evidence.v2",
+  "source_commit": "bf15c3b2d97040f9589cf0b9a9b07aad0e331268",
+  "source_note": "Verified full-run snapshots, not later partial interactive reruns",
+  "evaluation": {
+    "schema_version": "sg5.evaluation.v2",
+    "created_utc": "2026-10-27T22:12:49.044819+00:00",
+    "dataset": {
+      "kind": "synthetic development data",
+      "files": [
+        {
+          "name": "drive1_synthetic.csv",
+          "sha256": "4cb0ba96260fe8362cbb76029f0bd74951d86b4a803c2355e49a0ad2656c3f19",
+          "rows": 3000,
+          "duration_s": 300.0
+        },
+        {
+          "name": "drive2_synthetic.csv",
+          "sha256": "e1062e84ed3897abf479e8690a98ec560636fc309ebd3b9a5082b8f64b6f81f0",
+          "rows": 2400,
+          "duration_s": 240.0
+        }
+      ],
+      "total_rows": 5400,
+      "ground_truth": "Simulator reference labels; not independent real-driver annotations"
+    },
+    "protocol": {
+      "sample_classes": [
+        "NORMAL",
+        "WARNING",
+        "DROWSY"
+      ],
+      "prediction_classes": [
+        "NORMAL",
+        "WARNING",
+        "DROWSY",
+        "UNKNOWN"
+      ],
+      "macro_f1": "Unweighted mean of three target-class F1 values; undefined class P/R becomes zero",
+      "unknown": "Unusable engine status is scored UNKNOWN, remains an error in all denominators",
+      "strict_detection": "One-to-one new predicted DROWSY onset inside a labelled half-open interval",
+      "coverage": "Any DROWSY interval overlap; preexisting alerts reported separately, no negative latency",
+      "false_events": "All predicted DROWSY onsets not strictly matched; late alerts remain false",
+      "late_alerts": "Unmatched onset within five seconds after an unmatched labelled episode; diagnostic only",
+      "duration": "Left-constant source intervals; final interval is median positive source dt",
+      "state_changes": "state_changes/evaluated_prediction_changes include UNKNOWN abstention transitions; driver_state_changes counts native state changes; availability_status_changes is null for legacy methods without status outputs",
+      "legacy_comparison": "Original decision functions are unchanged; strict one-to-one onset scoring intentionally differs from the old overlap plus five-second grace, so event-count changes are metric changes, not algorithm changes",
+      "latency": "Nonnegative onset delay, pooled over strictly matched episodes only; null if none",
+      "fairness": "Identical six-field input rows; labels are allowlist-excluded from every engine call",
+      "selection": "Development comparison, not an independent held-out or real-video accuracy estimate"
+    },
+    "implementations": {
+      "baseline_source": "module_5\\SG5_drowsiness_decision\\sg5_three_methods.py",
+      "baseline_sha256": "bc5d990cb7da1f9e24ff9be697999a46da6119aefd985f93edfd2cfb8cdaf6e1",
+      "engine_sha256": "926164536bcaa06ae97c8e980b0e5306ee8184dee19f7c134d4a5988983db98c",
+      "candidate_configurations": {
+        "stable_c": {
+          "config_id": "midterm_c_v2",
+          "method": "C",
+          "weights": [
+            0.45,
+            0.2,
+            0.2,
+            0.15
+          ],
+          "warn_score": 0.2,
+          "drowsy_score": 0.5,
+          "enter_warn": 0.2,
+          "exit_warn": 0.14,
+          "enter_drowsy": 0.65,
+          "exit_drowsy": 0.53,
+          "smoothing_s": 2.0,
+          "confirm_s": 1.0,
+          "release_s": 3.0,
+          "microsleep_s": 1.5,
+          "max_gap_s": 0.5,
+          "min_quality": 0.55,
+          "a_drowsy_perclos": 0.22,
+          "a_drowsy_closure_s": 1.5,
+          "a_warn_perclos": 0.1,
+          "a_warn_yawns": 2,
+          "a_warn_long_blinks": 3
+        },
+        "c_fast_recovery": {
+          "config_id": "c_fast_recovery",
+          "method": "C",
+          "weights": [
+            0.45,
+            0.2,
+            0.2,
+            0.15
+          ],
+          "warn_score": 0.2,
+          "drowsy_score": 0.5,
+          "enter_warn": 0.18,
+          "exit_warn": 0.12,
+          "enter_drowsy": 0.65,
+          "exit_drowsy": 0.53,
+          "smoothing_s": 2.0,
+          "confirm_s": 1.0,
+          "release_s": 1.5,
+          "microsleep_s": 1.5,
+          "max_gap_s": 0.5,
+          "min_quality": 0.55,
+          "a_drowsy_perclos": 0.22,
+          "a_drowsy_closure_s": 1.5,
+          "a_warn_perclos": 0.1,
+          "a_warn_yawns": 2,
+          "a_warn_long_blinks": 3
+        }
+      }
+    },
+    "environment": {
+      "python": "3.11.0",
+      "numpy": "1.26.4",
+      "system": "Windows",
+      "architecture": "AMD64",
+      "timing_scope": "Local CPU decision processing only; Jetson FPS/memory not measured"
+    },
+    "baseline_parity": {
+      "status": "PASS",
+      "drive_method_comparisons": 6,
+      "row_predictions_checked": 16200
+    },
+    "results": [
+      {
+        "sample_count": 3000,
+        "duration_s": 300.0,
+        "accuracy": 0.6586666666666666,
+        "macro_f1": 0.6102924623081808,
+        "per_class": {
+          "NORMAL": {
+            "support": 2014,
+            "tp": 1291,
+            "fp": 11,
+            "fn": 723,
+            "precision": 0.9915514592933948,
+            "recall": 0.641012909632572,
+            "f1": 0.778648974668275
+          },
+          "WARNING": {
+            "support": 217,
+            "tp": 217,
+            "fp": 1002,
+            "fn": 0,
+            "precision": 0.17801476620180476,
+            "recall": 1.0,
+            "f1": 0.3022284122562674
+          },
+          "DROWSY": {
+            "support": 769,
+            "tp": 468,
+            "fp": 11,
+            "fn": 301,
+            "precision": 0.9770354906054279,
+            "recall": 0.6085825747724317,
+            "f1": 0.7499999999999999
+          }
+        },
+        "confusion": {
+          "rows": [
+            "NORMAL",
+            "WARNING",
+            "DROWSY"
+          ],
+          "columns": [
+            "NORMAL",
+            "WARNING",
+            "DROWSY",
+            "UNKNOWN"
+          ],
+          "counts": [
+            [
+              1291,
+              712,
+              11,
+              0
+            ],
+            [
+              0,
+              217,
+              0,
+              0
+            ],
+            [
+              11,
+              290,
+              468,
+              0
+            ]
+          ]
+        },
+        "drowsy_precision": 0.9770354906054279,
+        "drowsy_recall": 0.6085825747724317,
+        "drowsy_f1": 0.7499999999999999,
+        "false_drowsy_duration_s": 1.1,
+        "invalid_duration_s": 3.6,
+        "unknown_duration_s": 0,
+        "state_changes": 14,
+        "evaluated_prediction_changes": 14,
+        "driver_state_changes": 14,
+        "availability_status_changes": null,
+        "input_availability_changes": 4,
+        "events": {
+          "ground_truth_events": 2,
+          "predicted_events": 4,
+          "detected_events": 2,
+          "missed_events": 0,
+          "false_alert_events": 2,
+          "late_alert_events": 0,
+          "covered_events": 2,
+          "preexisting_alert_events": 0,
+          "event_precision": 0.5,
+          "event_recall": 1.0,
+          "event_f1": 0.6666666666666666,
+          "coverage": 1.0,
+          "mean_latency_s": 8.35,
+          "latencies_s": [
+            1.3,
+            15.4
+          ],
+          "ground_truth": [
+            {
+              "start_s": 75.0,
+              "end_s": 80.2
+            },
+            {
+              "start_s": 140.0,
+              "end_s": 211.7
+            }
+          ],
+          "predicted": [
+            {
+              "start_s": 76.3,
+              "end_s": 77.2
+            },
+            {
+              "start_s": 155.4,
+              "end_s": 199.7
+            },
+            {
+              "start_s": 201.0,
+              "end_s": 202.6
+            },
+            {
+              "start_s": 214.0,
+              "end_s": 215.1
+            }
+          ],
+          "matches": [
+            {
+              "ground_truth_index": 0,
+              "prediction_index": 0,
+              "latency_s": 1.3
+            },
+            {
+              "ground_truth_index": 1,
+              "prediction_index": 1,
+              "latency_s": 15.4
+            }
+          ],
+          "late_matches": []
+        },
+        "drive": "drive1_synthetic",
+        "method": "week5_A",
+        "processing_benchmark": {
+          "clock": "time.perf_counter",
+          "repeats": 3,
+          "scope": "whole-drive decision processing; parsing, metrics, plots and file I/O excluded",
+          "run_ms": [
+            0.3195000463165343,
+            0.32460002694278955,
+            0.311699986923486
+          ],
+          "mean_run_ms": 0.31860002006093663,
+          "p95_run_ms": 0.324090028880164,
+          "mean_amortized_ms_per_row": 0.00010620000668697887,
+          "p95_amortized_ms_per_row": 0.00010803000962672134,
+          "limitation": "Batch amortized CPU timings, not per-callback p95, alert delay or Jetson measurements"
+        }
+      },
+      {
+        "sample_count": 3000,
+        "duration_s": 300.0,
+        "accuracy": 0.7753333333333333,
+        "macro_f1": 0.6246975477998149,
+        "per_class": {
+          "NORMAL": {
+            "support": 2014,
+            "tp": 1693,
+            "fp": 169,
+            "fn": 321,
+            "precision": 0.9092373791621912,
+            "recall": 0.8406156901688183,
+            "f1": 0.8735810113519091
+          },
+          "WARNING": {
+            "support": 217,
+            "tp": 69,
+            "fp": 451,
+            "fn": 148,
+            "precision": 0.1326923076923077,
+            "recall": 0.31797235023041476,
+            "f1": 0.18724559023066484
+          },
+          "DROWSY": {
+            "support": 769,
+            "tp": 564,
+            "fp": 54,
+            "fn": 205,
+            "precision": 0.912621359223301,
+            "recall": 0.7334200260078023,
+            "f1": 0.8132660418168709
+          }
+        },
+        "confusion": {
+          "rows": [
+            "NORMAL",
+            "WARNING",
+            "DROWSY"
+          ],
+          "columns": [
+            "NORMAL",
+            "WARNING",
+            "DROWSY",
+            "UNKNOWN"
+          ],
+          "counts": [
+            [
+              1693,
+              284,
+              37,
+              0
+            ],
+            [
+              131,
+              69,
+              17,
+              0
+            ],
+            [
+              38,
+              167,
+              564,
+              0
+            ]
+          ]
+        },
+        "drowsy_precision": 0.912621359223301,
+        "drowsy_recall": 0.7334200260078023,
+        "drowsy_f1": 0.8132660418168709,
+        "false_drowsy_duration_s": 5.4,
+        "invalid_duration_s": 3.6,
+        "unknown_duration_s": 0,
+        "state_changes": 12,
+        "evaluated_prediction_changes": 12,
+        "driver_state_changes": 12,
+        "availability_status_changes": null,
+        "input_availability_changes": 4,
+        "events": {
+          "ground_truth_events": 2,
+          "predicted_events": 1,
+          "detected_events": 1,
+          "missed_events": 1,
+          "false_alert_events": 0,
+          "late_alert_events": 0,
+          "covered_events": 1,
+          "preexisting_alert_events": 0,
+          "event_precision": 1.0,
+          "event_recall": 0.5,
+          "event_f1": 0.6666666666666666,
+          "coverage": 0.5,
+          "mean_latency_s": 15.3,
+          "latencies_s": [
+            15.3
+          ],
+          "ground_truth": [
+            {
+              "start_s": 75.0,
+              "end_s": 80.2
+            },
+            {
+              "start_s": 140.0,
+              "end_s": 211.7
+            }
+          ],
+          "predicted": [
+            {
+              "start_s": 155.3,
+              "end_s": 217.1
+            }
+          ],
+          "matches": [
+            {
+              "ground_truth_index": 1,
+              "prediction_index": 0,
+              "latency_s": 15.3
+            }
+          ],
+          "late_matches": []
+        },
+        "drive": "drive1_synthetic",
+        "method": "week5_B",
+        "processing_benchmark": {
+          "clock": "time.perf_counter",
+          "repeats": 3,
+          "scope": "whole-drive decision processing; parsing, metrics, plots and file I/O excluded",
+          "run_ms": [
+            3.9143000030890107,
+            3.9280999917536974,
+            4.093300027307123
+          ],
+          "mean_run_ms": 3.9785666740499437,
+          "p95_run_ms": 4.07678002375178,
+          "mean_amortized_ms_per_row": 0.0013261888913499813,
+          "p95_amortized_ms_per_row": 0.0013589266745839268,
+          "limitation": "Batch amortized CPU timings, not per-callback p95, alert delay or Jetson measurements"
+        }
+      },
+      {
+        "sample_count": 3000,
+        "duration_s": 300.0,
+        "accuracy": 0.6066666666666667,
+        "macro_f1": 0.5202925335209385,
+        "per_class": {
+          "NORMAL": {
+            "support": 2014,
+            "tp": 1246,
+            "fp": 175,
+            "fn": 768,
+            "precision": 0.8768472906403941,
+            "recall": 0.6186693147964251,
+            "f1": 0.7254730713245997
+          },
+          "WARNING": {
+            "support": 217,
+            "tp": 38,
+            "fp": 919,
+            "fn": 179,
+            "precision": 0.03970741901776385,
+            "recall": 0.17511520737327188,
+            "f1": 0.06473594548551959
+          },
+          "DROWSY": {
+            "support": 769,
+            "tp": 536,
+            "fp": 86,
+            "fn": 233,
+            "precision": 0.8617363344051447,
+            "recall": 0.6970091027308193,
+            "f1": 0.7706685837526961
+          }
+        },
+        "confusion": {
+          "rows": [
+            "NORMAL",
+            "WARNING",
+            "DROWSY"
+          ],
+          "columns": [
+            "NORMAL",
+            "WARNING",
+            "DROWSY",
+            "UNKNOWN"
+          ],
+          "counts": [
+            [
+              1246,
+              699,
+              69,
+              0
+            ],
+            [
+              162,
+              38,
+              17,
+              0
+            ],
+            [
+              13,
+              220,
+              536,
+              0
+            ]
+          ]
+        },
+        "drowsy_precision": 0.8617363344051447,
+        "drowsy_recall": 0.6970091027308193,
+        "drowsy_f1": 0.7706685837526961,
+        "false_drowsy_duration_s": 8.6,
+        "invalid_duration_s": 3.6,
+        "unknown_duration_s": 0,
+        "state_changes": 7,
+        "evaluated_prediction_changes": 7,
+        "driver_state_changes": 7,
+        "availability_status_changes": null,
+        "input_availability_changes": 4,
+        "events": {
+          "ground_truth_events": 2,
+          "predicted_events": 2,
+          "detected_events": 2,
+          "missed_events": 0,
+          "false_alert_events": 0,
+          "late_alert_events": 0,
+          "covered_events": 2,
+          "preexisting_alert_events": 0,
+          "event_precision": 1.0,
+          "event_recall": 1.0,
+          "event_f1": 1.0,
+          "coverage": 1.0,
+          "mean_latency_s": 11.6,
+          "latencies_s": [
+            1.3,
+            21.9
+          ],
+          "ground_truth": [
+            {
+              "start_s": 75.0,
+              "end_s": 80.2
+            },
+            {
+              "start_s": 140.0,
+              "end_s": 211.7
+            }
+          ],
+          "predicted": [
+            {
+              "start_s": 76.3,
+              "end_s": 80.1
+            },
+            {
+              "start_s": 161.9,
+              "end_s": 220.3
+            }
+          ],
+          "matches": [
+            {
+              "ground_truth_index": 0,
+              "prediction_index": 0,
+              "latency_s": 1.3
+            },
+            {
+              "ground_truth_index": 1,
+              "prediction_index": 1,
+              "latency_s": 21.9
+            }
+          ],
+          "late_matches": []
+        },
+        "drive": "drive1_synthetic",
+        "method": "week5_C",
+        "processing_benchmark": {
+          "clock": "time.perf_counter",
+          "repeats": 3,
+          "scope": "whole-drive decision processing; parsing, metrics, plots and file I/O excluded",
+          "run_ms": [
+            4.775899986270815,
+            4.703699960373342,
+            4.6722000115551054
+          ],
+          "mean_run_ms": 4.7172666527330875,
+          "p95_run_ms": 4.768679983681068,
+          "mean_amortized_ms_per_row": 0.0015724222175776958,
+          "p95_amortized_ms_per_row": 0.0015895599945603559,
+          "limitation": "Batch amortized CPU timings, not per-callback p95, alert delay or Jetson measurements"
+        }
+      },
+      {
+        "sample_count": 3000,
+        "duration_s": 300.0,
+        "accuracy": 0.598,
+        "macro_f1": 0.5172405568488246,
+        "per_class": {
+          "NORMAL": {
+            "support": 2014,
+            "tp": 1219,
+            "fp": 175,
+            "fn": 795,
+            "precision": 0.8744619799139168,
+            "recall": 0.6052631578947368,
+            "f1": 0.7153755868544601
+          },
+          "WARNING": {
+            "support": 217,
+            "tp": 38,
+            "fp": 908,
+            "fn": 179,
+            "precision": 0.040169133192389,
+            "recall": 0.17511520737327188,
+            "f1": 0.0653482373172829
+          },
+          "DROWSY": {
+            "support": 769,
+            "tp": 537,
+            "fp": 87,
+            "fn": 232,
+            "precision": 0.8605769230769231,
+            "recall": 0.6983094928478544,
+            "f1": 0.7709978463747308
+          }
+        },
+        "confusion": {
+          "rows": [
+            "NORMAL",
+            "WARNING",
+            "DROWSY"
+          ],
+          "columns": [
+            "NORMAL",
+            "WARNING",
+            "DROWSY",
+            "UNKNOWN"
+          ],
+          "counts": [
+            [
+              1219,
+              689,
+              70,
+              36
+            ],
+            [
+              162,
+              38,
+              17,
+              0
+            ],
+            [
+              13,
+              219,
+              537,
+              0
+            ]
+          ]
+        },
+        "drowsy_precision": 0.8605769230769231,
+        "drowsy_recall": 0.6983094928478544,
+        "drowsy_f1": 0.7709978463747308,
+        "false_drowsy_duration_s": 8.7,
+        "invalid_duration_s": 3.6,
+        "unknown_duration_s": 3.6,
+        "state_changes": 11,
+        "evaluated_prediction_changes": 11,
+        "driver_state_changes": 7,
+        "availability_status_changes": 4,
+        "input_availability_changes": 4,
+        "events": {
+          "ground_truth_events": 2,
+          "predicted_events": 2,
+          "detected_events": 2,
+          "missed_events": 0,
+          "false_alert_events": 0,
+          "late_alert_events": 0,
+          "covered_events": 2,
+          "preexisting_alert_events": 0,
+          "event_precision": 1.0,
+          "event_recall": 1.0,
+          "event_f1": 1.0,
+          "coverage": 1.0,
+          "mean_latency_s": 11.6,
+          "latencies_s": [
+            1.3,
+            21.9
+          ],
+          "ground_truth": [
+            {
+              "start_s": 75.0,
+              "end_s": 80.2
+            },
+            {
+              "start_s": 140.0,
+              "end_s": 211.7
+            }
+          ],
+          "predicted": [
+            {
+              "start_s": 76.3,
+              "end_s": 80.2
+            },
+            {
+              "start_s": 161.9,
+              "end_s": 220.4
+            }
+          ],
+          "matches": [
+            {
+              "ground_truth_index": 0,
+              "prediction_index": 0,
+              "latency_s": 1.3
+            },
+            {
+              "ground_truth_index": 1,
+              "prediction_index": 1,
+              "latency_s": 21.9
+            }
+          ],
+          "late_matches": []
+        },
+        "drive": "drive1_synthetic",
+        "method": "stable_c",
+        "processing_benchmark": {
+          "clock": "time.perf_counter",
+          "repeats": 3,
+          "scope": "whole-drive decision processing; parsing, metrics, plots and file I/O excluded",
+          "run_ms": [
+            17.429200001060963,
+            17.243599984794855,
+            17.14380003977567
+          ],
+          "mean_run_ms": 17.27220000854383,
+          "p95_run_ms": 17.410639999434352,
+          "mean_amortized_ms_per_row": 0.005757400002847943,
+          "p95_amortized_ms_per_row": 0.005803546666478117,
+          "limitation": "Batch amortized CPU timings, not per-callback p95, alert delay or Jetson measurements"
+        }
+      },
+      {
+        "sample_count": 3000,
+        "duration_s": 300.0,
+        "accuracy": 0.5933333333333334,
+        "macro_f1": 0.531273700029298,
+        "per_class": {
+          "NORMAL": {
+            "support": 2014,
+            "tp": 1230,
+            "fp": 167,
+            "fn": 784,
+            "precision": 0.8804581245526127,
+            "recall": 0.6107249255213505,
+            "f1": 0.7211961301671065
+          },
+          "WARNING": {
+            "support": 217,
+            "tp": 63,
+            "fp": 1017,
+            "fn": 154,
+            "precision": 0.058333333333333334,
+            "recall": 0.2903225806451613,
+            "f1": 0.09714726291441789
+          },
+          "DROWSY": {
+            "support": 769,
+            "tp": 487,
+            "fp": 0,
+            "fn": 282,
+            "precision": 1.0,
+            "recall": 0.6332899869960988,
+            "f1": 0.7754777070063694
+          }
+        },
+        "confusion": {
+          "rows": [
+            "NORMAL",
+            "WARNING",
+            "DROWSY"
+          ],
+          "columns": [
+            "NORMAL",
+            "WARNING",
+            "DROWSY",
+            "UNKNOWN"
+          ],
+          "counts": [
+            [
+              1230,
+              748,
+              0,
+              36
+            ],
+            [
+              154,
+              63,
+              0,
+              0
+            ],
+            [
+              13,
+              269,
+              487,
+              0
+            ]
+          ]
+        },
+        "drowsy_precision": 1.0,
+        "drowsy_recall": 0.6332899869960988,
+        "drowsy_f1": 0.7754777070063694,
+        "false_drowsy_duration_s": 0,
+        "invalid_duration_s": 3.6,
+        "unknown_duration_s": 3.6,
+        "state_changes": 11,
+        "evaluated_prediction_changes": 11,
+        "driver_state_changes": 7,
+        "availability_status_changes": 4,
+        "input_availability_changes": 4,
+        "events": {
+          "ground_truth_events": 2,
+          "predicted_events": 2,
+          "detected_events": 2,
+          "missed_events": 0,
+          "false_alert_events": 0,
+          "late_alert_events": 0,
+          "covered_events": 2,
+          "preexisting_alert_events": 0,
+          "event_precision": 1.0,
+          "event_recall": 1.0,
+          "event_f1": 1.0,
+          "coverage": 1.0,
+          "mean_latency_s": 11.6,
+          "latencies_s": [
+            1.3,
+            21.9
+          ],
+          "ground_truth": [
+            {
+              "start_s": 75.0,
+              "end_s": 80.2
+            },
+            {
+              "start_s": 140.0,
+              "end_s": 211.7
+            }
+          ],
+          "predicted": [
+            {
+              "start_s": 76.3,
+              "end_s": 78.7
+            },
+            {
+              "start_s": 161.9,
+              "end_s": 208.2
+            }
+          ],
+          "matches": [
+            {
+              "ground_truth_index": 0,
+              "prediction_index": 0,
+              "latency_s": 1.3
+            },
+            {
+              "ground_truth_index": 1,
+              "prediction_index": 1,
+              "latency_s": 21.9
+            }
+          ],
+          "late_matches": []
+        },
+        "drive": "drive1_synthetic",
+        "method": "c_fast_recovery",
+        "processing_benchmark": {
+          "clock": "time.perf_counter",
+          "repeats": 3,
+          "scope": "whole-drive decision processing; parsing, metrics, plots and file I/O excluded",
+          "run_ms": [
+            17.33040000544861,
+            17.570899974089116,
+            17.292500007897615
+          ],
+          "mean_run_ms": 17.397933329145115,
+          "p95_run_ms": 17.546849977225065,
+          "mean_amortized_ms_per_row": 0.005799311109715038,
+          "p95_amortized_ms_per_row": 0.005848949992408355,
+          "limitation": "Batch amortized CPU timings, not per-callback p95, alert delay or Jetson measurements"
+        }
+      },
+      {
+        "sample_count": 2400,
+        "duration_s": 240.0,
+        "accuracy": 0.7833333333333333,
+        "macro_f1": 0.5163076845969753,
+        "per_class": {
+          "NORMAL": {
+            "support": 1617,
+            "tp": 1178,
+            "fp": 81,
+            "fn": 439,
+            "precision": 0.9356632247815727,
+            "recall": 0.7285095856524428,
+            "f1": 0.819193324061196
+          },
+          "WARNING": {
+            "support": 783,
+            "tp": 702,
+            "fp": 439,
+            "fn": 81,
+            "precision": 0.6152497808939527,
+            "recall": 0.896551724137931,
+            "f1": 0.7297297297297298
+          },
+          "DROWSY": {
+            "support": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0
+          }
+        },
+        "confusion": {
+          "rows": [
+            "NORMAL",
+            "WARNING",
+            "DROWSY"
+          ],
+          "columns": [
+            "NORMAL",
+            "WARNING",
+            "DROWSY",
+            "UNKNOWN"
+          ],
+          "counts": [
+            [
+              1178,
+              439,
+              0,
+              0
+            ],
+            [
+              81,
+              702,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0
+            ]
+          ]
+        },
+        "drowsy_precision": 0.0,
+        "drowsy_recall": 0.0,
+        "drowsy_f1": 0.0,
+        "false_drowsy_duration_s": 0,
+        "invalid_duration_s": 9.2,
+        "unknown_duration_s": 0,
+        "state_changes": 8,
+        "evaluated_prediction_changes": 8,
+        "driver_state_changes": 8,
+        "availability_status_changes": null,
+        "input_availability_changes": 12,
+        "events": {
+          "ground_truth_events": 0,
+          "predicted_events": 0,
+          "detected_events": 0,
+          "missed_events": 0,
+          "false_alert_events": 0,
+          "late_alert_events": 0,
+          "covered_events": 0,
+          "preexisting_alert_events": 0,
+          "event_precision": null,
+          "event_recall": null,
+          "event_f1": null,
+          "coverage": null,
+          "mean_latency_s": null,
+          "latencies_s": [],
+          "ground_truth": [],
+          "predicted": [],
+          "matches": [],
+          "late_matches": []
+        },
+        "drive": "drive2_synthetic",
+        "method": "week5_A",
+        "processing_benchmark": {
+          "clock": "time.perf_counter",
+          "repeats": 3,
+          "scope": "whole-drive decision processing; parsing, metrics, plots and file I/O excluded",
+          "run_ms": [
+            0.2682000049389899,
+            0.2826999989338219,
+            0.2791000297293067
+          ],
+          "mean_run_ms": 0.2766666778673728,
+          "p95_run_ms": 0.2823400020133704,
+          "mean_amortized_ms_per_row": 0.00011527778244473867,
+          "p95_amortized_ms_per_row": 0.000117641667505571,
+          "limitation": "Batch amortized CPU timings, not per-callback p95, alert delay or Jetson measurements"
+        }
+      },
+      {
+        "sample_count": 2400,
+        "duration_s": 240.0,
+        "accuracy": 0.7229166666666667,
+        "macro_f1": 0.4595611972331176,
+        "per_class": {
+          "NORMAL": {
+            "support": 1617,
+            "tp": 1262,
+            "fp": 310,
+            "fn": 355,
+            "precision": 0.8027989821882952,
+            "recall": 0.7804576376004947,
+            "f1": 0.7914706804640953
+          },
+          "WARNING": {
+            "support": 783,
+            "tp": 473,
+            "fp": 355,
+            "fn": 310,
+            "precision": 0.571256038647343,
+            "recall": 0.6040868454661558,
+            "f1": 0.5872129112352575
+          },
+          "DROWSY": {
+            "support": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0
+          }
+        },
+        "confusion": {
+          "rows": [
+            "NORMAL",
+            "WARNING",
+            "DROWSY"
+          ],
+          "columns": [
+            "NORMAL",
+            "WARNING",
+            "DROWSY",
+            "UNKNOWN"
+          ],
+          "counts": [
+            [
+              1262,
+              355,
+              0,
+              0
+            ],
+            [
+              310,
+              473,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0
+            ]
+          ]
+        },
+        "drowsy_precision": 0.0,
+        "drowsy_recall": 0.0,
+        "drowsy_f1": 0.0,
+        "false_drowsy_duration_s": 0,
+        "invalid_duration_s": 9.2,
+        "unknown_duration_s": 0,
+        "state_changes": 6,
+        "evaluated_prediction_changes": 6,
+        "driver_state_changes": 6,
+        "availability_status_changes": null,
+        "input_availability_changes": 12,
+        "events": {
+          "ground_truth_events": 0,
+          "predicted_events": 0,
+          "detected_events": 0,
+          "missed_events": 0,
+          "false_alert_events": 0,
+          "late_alert_events": 0,
+          "covered_events": 0,
+          "preexisting_alert_events": 0,
+          "event_precision": null,
+          "event_recall": null,
+          "event_f1": null,
+          "coverage": null,
+          "mean_latency_s": null,
+          "latencies_s": [],
+          "ground_truth": [],
+          "predicted": [],
+          "matches": [],
+          "late_matches": []
+        },
+        "drive": "drive2_synthetic",
+        "method": "week5_B",
+        "processing_benchmark": {
+          "clock": "time.perf_counter",
+          "repeats": 3,
+          "scope": "whole-drive decision processing; parsing, metrics, plots and file I/O excluded",
+          "run_ms": [
+            3.055199980735779,
+            3.0661000055260956,
+            3.2371999695897102
+          ],
+          "mean_run_ms": 3.1194999852838614,
+          "p95_run_ms": 3.2200899731833488,
+          "mean_amortized_ms_per_row": 0.0012997916605349423,
+          "p95_amortized_ms_per_row": 0.001341704155493062,
+          "limitation": "Batch amortized CPU timings, not per-callback p95, alert delay or Jetson measurements"
+        }
+      },
+      {
+        "sample_count": 2400,
+        "duration_s": 240.0,
+        "accuracy": 0.7229166666666667,
+        "macro_f1": 0.46794531900721753,
+        "per_class": {
+          "NORMAL": {
+            "support": 1617,
+            "tp": 1186,
+            "fp": 234,
+            "fn": 431,
+            "precision": 0.8352112676056338,
+            "recall": 0.7334570191713049,
+            "f1": 0.7810339150477444
+          },
+          "WARNING": {
+            "support": 783,
+            "tp": 549,
+            "fp": 431,
+            "fn": 234,
+            "precision": 0.560204081632653,
+            "recall": 0.7011494252873564,
+            "f1": 0.6228020419739082
+          },
+          "DROWSY": {
+            "support": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0
+          }
+        },
+        "confusion": {
+          "rows": [
+            "NORMAL",
+            "WARNING",
+            "DROWSY"
+          ],
+          "columns": [
+            "NORMAL",
+            "WARNING",
+            "DROWSY",
+            "UNKNOWN"
+          ],
+          "counts": [
+            [
+              1186,
+              431,
+              0,
+              0
+            ],
+            [
+              234,
+              549,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0
+            ]
+          ]
+        },
+        "drowsy_precision": 0.0,
+        "drowsy_recall": 0.0,
+        "drowsy_f1": 0.0,
+        "false_drowsy_duration_s": 0,
+        "invalid_duration_s": 9.2,
+        "unknown_duration_s": 0,
+        "state_changes": 4,
+        "evaluated_prediction_changes": 4,
+        "driver_state_changes": 4,
+        "availability_status_changes": null,
+        "input_availability_changes": 12,
+        "events": {
+          "ground_truth_events": 0,
+          "predicted_events": 0,
+          "detected_events": 0,
+          "missed_events": 0,
+          "false_alert_events": 0,
+          "late_alert_events": 0,
+          "covered_events": 0,
+          "preexisting_alert_events": 0,
+          "event_precision": null,
+          "event_recall": null,
+          "event_f1": null,
+          "coverage": null,
+          "mean_latency_s": null,
+          "latencies_s": [],
+          "ground_truth": [],
+          "predicted": [],
+          "matches": [],
+          "late_matches": []
+        },
+        "drive": "drive2_synthetic",
+        "method": "week5_C",
+        "processing_benchmark": {
+          "clock": "time.perf_counter",
+          "repeats": 3,
+          "scope": "whole-drive decision processing; parsing, metrics, plots and file I/O excluded",
+          "run_ms": [
+            3.6354000330902636,
+            3.67429998004809,
+            3.6347999703139067
+          ],
+          "mean_run_ms": 3.6481666611507535,
+          "p95_run_ms": 3.6704099853523076,
+          "mean_amortized_ms_per_row": 0.0015200694421461474,
+          "p95_amortized_ms_per_row": 0.0015293374938967947,
+          "limitation": "Batch amortized CPU timings, not per-callback p95, alert delay or Jetson measurements"
+        }
+      },
+      {
+        "sample_count": 2400,
+        "duration_s": 240.0,
+        "accuracy": 0.6954166666666667,
+        "macro_f1": 0.46074395144585306,
+        "per_class": {
+          "NORMAL": {
+            "support": 1617,
+            "tp": 1130,
+            "fp": 233,
+            "fn": 487,
+            "precision": 0.8290535583272194,
+            "recall": 0.6988249845392702,
+            "f1": 0.7583892617449665
+          },
+          "WARNING": {
+            "support": 783,
+            "tp": 539,
+            "fp": 406,
+            "fn": 244,
+            "precision": 0.5703703703703704,
+            "recall": 0.6883780332056194,
+            "f1": 0.6238425925925927
+          },
+          "DROWSY": {
+            "support": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0
+          }
+        },
+        "confusion": {
+          "rows": [
+            "NORMAL",
+            "WARNING",
+            "DROWSY"
+          ],
+          "columns": [
+            "NORMAL",
+            "WARNING",
+            "DROWSY",
+            "UNKNOWN"
+          ],
+          "counts": [
+            [
+              1130,
+              406,
+              0,
+              81
+            ],
+            [
+              233,
+              539,
+              0,
+              11
+            ],
+            [
+              0,
+              0,
+              0,
+              0
+            ]
+          ]
+        },
+        "drowsy_precision": 0.0,
+        "drowsy_recall": 0.0,
+        "drowsy_f1": 0.0,
+        "false_drowsy_duration_s": 0,
+        "invalid_duration_s": 9.2,
+        "unknown_duration_s": 9.2,
+        "state_changes": 16,
+        "evaluated_prediction_changes": 16,
+        "driver_state_changes": 4,
+        "availability_status_changes": 12,
+        "input_availability_changes": 12,
+        "events": {
+          "ground_truth_events": 0,
+          "predicted_events": 0,
+          "detected_events": 0,
+          "missed_events": 0,
+          "false_alert_events": 0,
+          "late_alert_events": 0,
+          "covered_events": 0,
+          "preexisting_alert_events": 0,
+          "event_precision": null,
+          "event_recall": null,
+          "event_f1": null,
+          "coverage": null,
+          "mean_latency_s": null,
+          "latencies_s": [],
+          "ground_truth": [],
+          "predicted": [],
+          "matches": [],
+          "late_matches": []
+        },
+        "drive": "drive2_synthetic",
+        "method": "stable_c",
+        "processing_benchmark": {
+          "clock": "time.perf_counter",
+          "repeats": 3,
+          "scope": "whole-drive decision processing; parsing, metrics, plots and file I/O excluded",
+          "run_ms": [
+            13.588399975560606,
+            16.511699999682605,
+            13.739800022449344
+          ],
+          "mean_run_ms": 14.613299999230852,
+          "p95_run_ms": 16.23451000195928,
+          "mean_amortized_ms_per_row": 0.006088874999679522,
+          "p95_amortized_ms_per_row": 0.006764379167483033,
+          "limitation": "Batch amortized CPU timings, not per-callback p95, alert delay or Jetson measurements"
+        }
+      },
+      {
+        "sample_count": 2400,
+        "duration_s": 240.0,
+        "accuracy": 0.6979166666666666,
+        "macro_f1": 0.46336786259658097,
+        "per_class": {
+          "NORMAL": {
+            "support": 1617,
+            "tp": 1124,
+            "fp": 221,
+            "fn": 493,
+            "precision": 0.8356877323420074,
+            "recall": 0.6951144094001237,
+            "f1": 0.7589466576637407
+          },
+          "WARNING": {
+            "support": 783,
+            "tp": 551,
+            "fp": 412,
+            "fn": 232,
+            "precision": 0.5721703011422637,
+            "recall": 0.7037037037037037,
+            "f1": 0.6311569301260023
+          },
+          "DROWSY": {
+            "support": 0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0
+          }
+        },
+        "confusion": {
+          "rows": [
+            "NORMAL",
+            "WARNING",
+            "DROWSY"
+          ],
+          "columns": [
+            "NORMAL",
+            "WARNING",
+            "DROWSY",
+            "UNKNOWN"
+          ],
+          "counts": [
+            [
+              1124,
+              412,
+              0,
+              81
+            ],
+            [
+              221,
+              551,
+              0,
+              11
+            ],
+            [
+              0,
+              0,
+              0,
+              0
+            ]
+          ]
+        },
+        "drowsy_precision": 0.0,
+        "drowsy_recall": 0.0,
+        "drowsy_f1": 0.0,
+        "false_drowsy_duration_s": 0,
+        "invalid_duration_s": 9.2,
+        "unknown_duration_s": 9.2,
+        "state_changes": 16,
+        "evaluated_prediction_changes": 16,
+        "driver_state_changes": 4,
+        "availability_status_changes": 12,
+        "input_availability_changes": 12,
+        "events": {
+          "ground_truth_events": 0,
+          "predicted_events": 0,
+          "detected_events": 0,
+          "missed_events": 0,
+          "false_alert_events": 0,
+          "late_alert_events": 0,
+          "covered_events": 0,
+          "preexisting_alert_events": 0,
+          "event_precision": null,
+          "event_recall": null,
+          "event_f1": null,
+          "coverage": null,
+          "mean_latency_s": null,
+          "latencies_s": [],
+          "ground_truth": [],
+          "predicted": [],
+          "matches": [],
+          "late_matches": []
+        },
+        "drive": "drive2_synthetic",
+        "method": "c_fast_recovery",
+        "processing_benchmark": {
+          "clock": "time.perf_counter",
+          "repeats": 3,
+          "scope": "whole-drive decision processing; parsing, metrics, plots and file I/O excluded",
+          "run_ms": [
+            13.656400027684867,
+            13.562999956775457,
+            13.709600025322288
+          ],
+          "mean_run_ms": 13.643000003260871,
+          "p95_run_ms": 13.704280025558546,
+          "mean_amortized_ms_per_row": 0.00568458333469203,
+          "p95_amortized_ms_per_row": 0.005710116677316061,
+          "limitation": "Batch amortized CPU timings, not per-callback p95, alert delay or Jetson measurements"
+        }
+      }
+    ],
+    "overall": [
+      {
+        "sample_count": 5400,
+        "accuracy": 0.7140740740740741,
+        "macro_f1": 0.6981681432262827,
+        "per_class": {
+          "NORMAL": {
+            "support": 3631,
+            "tp": 2469,
+            "fp": 92,
+            "fn": 1162,
+            "precision": 0.9640765326044514,
+            "recall": 0.6799779675020655,
+            "f1": 0.7974806201550387
+          },
+          "WARNING": {
+            "support": 1000,
+            "tp": 919,
+            "fp": 1441,
+            "fn": 81,
+            "precision": 0.38940677966101694,
+            "recall": 0.919,
+            "f1": 0.5470238095238095
+          },
+          "DROWSY": {
+            "support": 769,
+            "tp": 468,
+            "fp": 11,
+            "fn": 301,
+            "precision": 0.9770354906054279,
+            "recall": 0.6085825747724317,
+            "f1": 0.7499999999999999
+          }
+        },
+        "confusion": {
+          "rows": [
+            "NORMAL",
+            "WARNING",
+            "DROWSY"
+          ],
+          "columns": [
+            "NORMAL",
+            "WARNING",
+            "DROWSY",
+            "UNKNOWN"
+          ],
+          "counts": [
+            [
+              2469,
+              1151,
+              11,
+              0
+            ],
+            [
+              81,
+              919,
+              0,
+              0
+            ],
+            [
+              11,
+              290,
+              468,
+              0
+            ]
+          ]
+        },
+        "events": {
+          "ground_truth_events": 2,
+          "predicted_events": 4,
+          "detected_events": 2,
+          "missed_events": 0,
+          "false_alert_events": 2,
+          "late_alert_events": 0,
+          "covered_events": 2,
+          "preexisting_alert_events": 0,
+          "event_precision": 0.5,
+          "event_recall": 1.0,
+          "event_f1": 0.6666666666666666,
+          "coverage": 1.0,
+          "latencies_s": [
+            1.3,
+            15.4
+          ],
+          "mean_latency_s": 8.35
+        },
+        "duration_s": 540.0,
+        "false_drowsy_duration_s": 1.1,
+        "invalid_duration_s": 12.799999999999999,
+        "unknown_duration_s": 0,
+        "state_changes": 22,
+        "evaluated_prediction_changes": 22,
+        "input_availability_changes": 16,
+        "driver_state_changes": 22,
+        "availability_status_changes": null,
+        "drowsy_precision": 0.9770354906054279,
+        "drowsy_recall": 0.6085825747724317,
+        "drowsy_f1": 0.7499999999999999,
+        "processing_benchmark": {
+          "clock": "time.perf_counter",
+          "repeats": 3,
+          "scope": "whole-drive decision processing; parsing, metrics, plots and file I/O excluded",
+          "run_ms": [
+            0.5877000512555242,
+            0.6073000258766115,
+            0.5908000166527927
+          ],
+          "mean_run_ms": 0.5952666979283094,
+          "p95_run_ms": 0.6056500249542296,
+          "mean_amortized_ms_per_row": 0.00011023457369042767,
+          "p95_amortized_ms_per_row": 0.00011215741202856104,
+          "limitation": "Batch amortized CPU timings, not per-callback p95, alert delay or Jetson measurements"
+        },
+        "method": "week5_A",
+        "drive": "OVERALL"
+      },
+      {
+        "sample_count": 5400,
+        "accuracy": 0.7520370370370371,
+        "macro_f1": 0.7038178648295073,
+        "per_class": {
+          "NORMAL": {
+            "support": 3631,
+            "tp": 2955,
+            "fp": 479,
+            "fn": 676,
+            "precision": 0.8605125218404194,
+            "recall": 0.8138253924538694,
+            "f1": 0.8365180467091295
+          },
+          "WARNING": {
+            "support": 1000,
+            "tp": 542,
+            "fp": 806,
+            "fn": 458,
+            "precision": 0.4020771513353116,
+            "recall": 0.542,
+            "f1": 0.4616695059625213
+          },
+          "DROWSY": {
+            "support": 769,
+            "tp": 564,
+            "fp": 54,
+            "fn": 205,
+            "precision": 0.912621359223301,
+            "recall": 0.7334200260078023,
+            "f1": 0.8132660418168709
+          }
+        },
+        "confusion": {
+          "rows": [
+            "NORMAL",
+            "WARNING",
+            "DROWSY"
+          ],
+          "columns": [
+            "NORMAL",
+            "WARNING",
+            "DROWSY",
+            "UNKNOWN"
+          ],
+          "counts": [
+            [
+              2955,
+              639,
+              37,
+              0
+            ],
+            [
+              441,
+              542,
+              17,
+              0
+            ],
+            [
+              38,
+              167,
+              564,
+              0
+            ]
+          ]
+        },
+        "events": {
+          "ground_truth_events": 2,
+          "predicted_events": 1,
+          "detected_events": 1,
+          "missed_events": 1,
+          "false_alert_events": 0,
+          "late_alert_events": 0,
+          "covered_events": 1,
+          "preexisting_alert_events": 0,
+          "event_precision": 1.0,
+          "event_recall": 0.5,
+          "event_f1": 0.6666666666666666,
+          "coverage": 0.5,
+          "latencies_s": [
+            15.3
+          ],
+          "mean_latency_s": 15.3
+        },
+        "duration_s": 540.0,
+        "false_drowsy_duration_s": 5.4,
+        "invalid_duration_s": 12.799999999999999,
+        "unknown_duration_s": 0,
+        "state_changes": 18,
+        "evaluated_prediction_changes": 18,
+        "input_availability_changes": 16,
+        "driver_state_changes": 18,
+        "availability_status_changes": null,
+        "drowsy_precision": 0.912621359223301,
+        "drowsy_recall": 0.7334200260078023,
+        "drowsy_f1": 0.8132660418168709,
+        "processing_benchmark": {
+          "clock": "time.perf_counter",
+          "repeats": 3,
+          "scope": "whole-drive decision processing; parsing, metrics, plots and file I/O excluded",
+          "run_ms": [
+            6.9694999838247895,
+            6.994199997279793,
+            7.330499996896833
+          ],
+          "mean_run_ms": 7.0980666593338055,
+          "p95_run_ms": 7.296869996935129,
+          "mean_amortized_ms_per_row": 0.0013144567887655196,
+          "p95_amortized_ms_per_row": 0.0013512722216546535,
+          "limitation": "Batch amortized CPU timings, not per-callback p95, alert delay or Jetson measurements"
+        },
+        "method": "week5_B",
+        "drive": "OVERALL"
+      },
+      {
+        "sample_count": 5400,
+        "accuracy": 0.6583333333333333,
+        "macro_f1": 0.64064710479746,
+        "per_class": {
+          "NORMAL": {
+            "support": 3631,
+            "tp": 2432,
+            "fp": 409,
+            "fn": 1199,
+            "precision": 0.8560366068285815,
+            "recall": 0.6697879372073808,
+            "f1": 0.7515451174289246
+          },
+          "WARNING": {
+            "support": 1000,
+            "tp": 587,
+            "fp": 1350,
+            "fn": 413,
+            "precision": 0.30304594734124934,
+            "recall": 0.587,
+            "f1": 0.3997276132107593
+          },
+          "DROWSY": {
+            "support": 769,
+            "tp": 536,
+            "fp": 86,
+            "fn": 233,
+            "precision": 0.8617363344051447,
+            "recall": 0.6970091027308193,
+            "f1": 0.7706685837526961
+          }
+        },
+        "confusion": {
+          "rows": [
+            "NORMAL",
+            "WARNING",
+            "DROWSY"
+          ],
+          "columns": [
+            "NORMAL",
+            "WARNING",
+            "DROWSY",
+            "UNKNOWN"
+          ],
+          "counts": [
+            [
+              2432,
+              1130,
+              69,
+              0
+            ],
+            [
+              396,
+              587,
+              17,
+              0
+            ],
+            [
+              13,
+              220,
+              536,
+              0
+            ]
+          ]
+        },
+        "events": {
+          "ground_truth_events": 2,
+          "predicted_events": 2,
+          "detected_events": 2,
+          "missed_events": 0,
+          "false_alert_events": 0,
+          "late_alert_events": 0,
+          "covered_events": 2,
+          "preexisting_alert_events": 0,
+          "event_precision": 1.0,
+          "event_recall": 1.0,
+          "event_f1": 1.0,
+          "coverage": 1.0,
+          "latencies_s": [
+            1.3,
+            21.9
+          ],
+          "mean_latency_s": 11.6
+        },
+        "duration_s": 540.0,
+        "false_drowsy_duration_s": 8.6,
+        "invalid_duration_s": 12.799999999999999,
+        "unknown_duration_s": 0,
+        "state_changes": 11,
+        "evaluated_prediction_changes": 11,
+        "input_availability_changes": 16,
+        "driver_state_changes": 11,
+        "availability_status_changes": null,
+        "drowsy_precision": 0.8617363344051447,
+        "drowsy_recall": 0.6970091027308193,
+        "drowsy_f1": 0.7706685837526961,
+        "processing_benchmark": {
+          "clock": "time.perf_counter",
+          "repeats": 3,
+          "scope": "whole-drive decision processing; parsing, metrics, plots and file I/O excluded",
+          "run_ms": [
+            8.411300019361079,
+            8.377999940421432,
+            8.306999981869012
+          ],
+          "mean_run_ms": 8.365433313883841,
+          "p95_run_ms": 8.407970011467114,
+          "mean_amortized_ms_per_row": 0.0015491543173858965,
+          "p95_amortized_ms_per_row": 0.0015570314836050212,
+          "limitation": "Batch amortized CPU timings, not per-callback p95, alert delay or Jetson measurements"
+        },
+        "method": "week5_C",
+        "drive": "OVERALL"
+      },
+      {
+        "sample_count": 5400,
+        "accuracy": 0.6412962962962963,
+        "macro_f1": 0.6352030455083614,
+        "per_class": {
+          "NORMAL": {
+            "support": 3631,
+            "tp": 2349,
+            "fp": 408,
+            "fn": 1282,
+            "precision": 0.8520130576713819,
+            "recall": 0.6469292206003856,
+            "f1": 0.7354414527238572
+          },
+          "WARNING": {
+            "support": 1000,
+            "tp": 577,
+            "fp": 1314,
+            "fn": 423,
+            "precision": 0.3051295610787943,
+            "recall": 0.577,
+            "f1": 0.39916983742649603
+          },
+          "DROWSY": {
+            "support": 769,
+            "tp": 537,
+            "fp": 87,
+            "fn": 232,
+            "precision": 0.8605769230769231,
+            "recall": 0.6983094928478544,
+            "f1": 0.7709978463747308
+          }
+        },
+        "confusion": {
+          "rows": [
+            "NORMAL",
+            "WARNING",
+            "DROWSY"
+          ],
+          "columns": [
+            "NORMAL",
+            "WARNING",
+            "DROWSY",
+            "UNKNOWN"
+          ],
+          "counts": [
+            [
+              2349,
+              1095,
+              70,
+              117
+            ],
+            [
+              395,
+              577,
+              17,
+              11
+            ],
+            [
+              13,
+              219,
+              537,
+              0
+            ]
+          ]
+        },
+        "events": {
+          "ground_truth_events": 2,
+          "predicted_events": 2,
+          "detected_events": 2,
+          "missed_events": 0,
+          "false_alert_events": 0,
+          "late_alert_events": 0,
+          "covered_events": 2,
+          "preexisting_alert_events": 0,
+          "event_precision": 1.0,
+          "event_recall": 1.0,
+          "event_f1": 1.0,
+          "coverage": 1.0,
+          "latencies_s": [
+            1.3,
+            21.9
+          ],
+          "mean_latency_s": 11.6
+        },
+        "duration_s": 540.0,
+        "false_drowsy_duration_s": 8.7,
+        "invalid_duration_s": 12.799999999999999,
+        "unknown_duration_s": 12.799999999999999,
+        "state_changes": 27,
+        "evaluated_prediction_changes": 27,
+        "input_availability_changes": 16,
+        "driver_state_changes": 11,
+        "availability_status_changes": 16,
+        "drowsy_precision": 0.8605769230769231,
+        "drowsy_recall": 0.6983094928478544,
+        "drowsy_f1": 0.7709978463747308,
+        "processing_benchmark": {
+          "clock": "time.perf_counter",
+          "repeats": 3,
+          "scope": "whole-drive decision processing; parsing, metrics, plots and file I/O excluded",
+          "run_ms": [
+            31.017599976621568,
+            33.75529998447746,
+            30.883600062225014
+          ],
+          "mean_run_ms": 31.88550000777468,
+          "p95_run_ms": 33.48152998369187,
+          "mean_amortized_ms_per_row": 0.005904722223661978,
+          "p95_amortized_ms_per_row": 0.00620028333031331,
+          "limitation": "Batch amortized CPU timings, not per-callback p95, alert delay or Jetson measurements"
+        },
+        "method": "stable_c",
+        "drive": "OVERALL"
+      },
+      {
+        "sample_count": 5400,
+        "accuracy": 0.6398148148148148,
+        "macro_f1": 0.6392561340455734,
+        "per_class": {
+          "NORMAL": {
+            "support": 3631,
+            "tp": 2354,
+            "fp": 388,
+            "fn": 1277,
+            "precision": 0.8584974471188913,
+            "recall": 0.6483062517212889,
+            "f1": 0.7387415659814844
+          },
+          "WARNING": {
+            "support": 1000,
+            "tp": 614,
+            "fp": 1429,
+            "fn": 386,
+            "precision": 0.30053842388644153,
+            "recall": 0.614,
+            "f1": 0.40354912914886626
+          },
+          "DROWSY": {
+            "support": 769,
+            "tp": 487,
+            "fp": 0,
+            "fn": 282,
+            "precision": 1.0,
+            "recall": 0.6332899869960988,
+            "f1": 0.7754777070063694
+          }
+        },
+        "confusion": {
+          "rows": [
+            "NORMAL",
+            "WARNING",
+            "DROWSY"
+          ],
+          "columns": [
+            "NORMAL",
+            "WARNING",
+            "DROWSY",
+            "UNKNOWN"
+          ],
+          "counts": [
+            [
+              2354,
+              1160,
+              0,
+              117
+            ],
+            [
+              375,
+              614,
+              0,
+              11
+            ],
+            [
+              13,
+              269,
+              487,
+              0
+            ]
+          ]
+        },
+        "events": {
+          "ground_truth_events": 2,
+          "predicted_events": 2,
+          "detected_events": 2,
+          "missed_events": 0,
+          "false_alert_events": 0,
+          "late_alert_events": 0,
+          "covered_events": 2,
+          "preexisting_alert_events": 0,
+          "event_precision": 1.0,
+          "event_recall": 1.0,
+          "event_f1": 1.0,
+          "coverage": 1.0,
+          "latencies_s": [
+            1.3,
+            21.9
+          ],
+          "mean_latency_s": 11.6
+        },
+        "duration_s": 540.0,
+        "false_drowsy_duration_s": 0,
+        "invalid_duration_s": 12.799999999999999,
+        "unknown_duration_s": 12.799999999999999,
+        "state_changes": 27,
+        "evaluated_prediction_changes": 27,
+        "input_availability_changes": 16,
+        "driver_state_changes": 11,
+        "availability_status_changes": 16,
+        "drowsy_precision": 1.0,
+        "drowsy_recall": 0.6332899869960988,
+        "drowsy_f1": 0.7754777070063694,
+        "processing_benchmark": {
+          "clock": "time.perf_counter",
+          "repeats": 3,
+          "scope": "whole-drive decision processing; parsing, metrics, plots and file I/O excluded",
+          "run_ms": [
+            30.986800033133477,
+            31.133899930864573,
+            31.002100033219904
+          ],
+          "mean_run_ms": 31.040933332405984,
+          "p95_run_ms": 31.120719941100106,
+          "mean_amortized_ms_per_row": 0.00574832098748259,
+          "p95_amortized_ms_per_row": 0.005763096285388908,
+          "limitation": "Batch amortized CPU timings, not per-callback p95, alert delay or Jetson measurements"
+        },
+        "method": "c_fast_recovery",
+        "drive": "OVERALL"
+      }
+    ]
+  },
+  "videos": [
+    {
+      "evidence_kind": "real_video_integration_without_independent_drowsiness_labels",
+      "source": "driver_sample_01.mp4",
+      "source_sha256": "27bee5db4540e1ec4610492e1cce28357c64c58aa80a7de11b0aca34d564f170",
+      "source_fps": 25.0,
+      "processed_frames": 720,
+      "sg4_vectors": 288,
+      "face_present_frames": 720,
+      "eye_valid_frames": 720,
+      "sg3_confirmed_yawn_segments": 1,
+      "sg5_states": {
+        "NORMAL": 264,
+        "WARNING": 24
+      },
+      "sg5_statuses": {
+        "OK": 288
+      },
+      "legacy_valid_packets": 288,
+      "transitions": [
+        {
+          "time_s": 0.0,
+          "driver_state": "NORMAL",
+          "status": "OK",
+          "reason": "evidence supports current state"
+        },
+        {
+          "time_s": 26.4,
+          "driver_state": "WARNING",
+          "status": "OK",
+          "reason": "sustained higher-risk evidence confirmed"
+        }
+      ],
+      "mean_pipeline_processing_ms": 12.780356944858795,
+      "p95_pipeline_processing_ms": 13.56699998723343,
+      "mean_sg5_processing_ms": 0.022035073723398253,
+      "wall_seconds_including_io": 20.786428400024306,
+      "offline_throughput_fps_including_io": 34.63798523459461,
+      "timing_scope": "PC processing excludes video acquisition and annotation/encoding; wall throughput includes IO, not a Jetson or camera FPS claim",
+      "platform": "Windows-10-10.0.26300-SP0",
+      "python": "3.11.0",
+      "versions": {
+        "numpy": "1.26.4",
+        "opencv": "4.11.0",
+        "mediapipe": "0.10.21"
+      },
+      "config": {
+        "config_id": "midterm_c_v2",
+        "method": "C",
+        "weights": [
+          0.45,
+          0.2,
+          0.2,
+          0.15
+        ],
+        "warn_score": 0.2,
+        "drowsy_score": 0.5,
+        "enter_warn": 0.2,
+        "exit_warn": 0.14,
+        "enter_drowsy": 0.65,
+        "exit_drowsy": 0.53,
+        "smoothing_s": 2.0,
+        "confirm_s": 1.0,
+        "release_s": 3.0,
+        "microsleep_s": 1.5,
+        "max_gap_s": 0.5,
+        "min_quality": 0.55,
+        "a_drowsy_perclos": 0.22,
+        "a_drowsy_closure_s": 1.5,
+        "a_warn_perclos": 0.1,
+        "a_warn_yawns": 2,
+        "a_warn_long_blinks": 3
+      },
+      "model_sha256": "64184e229b263107bc2b804c6625db1341ff2bb731874b0bcc2fe6544e0bc9ff",
+      "sg2_config": {
+        "method": "EAR",
+        "ear_threshold": 0.15,
+        "open_frames": 2,
+        "max_open_delay_sec": 0.08,
+        "name": "EAR_0.15_open2"
+      },
+      "sg3_adapter_owner_acceptance": "PENDING",
+      "sg4_availability_adapter_owner_acceptance": "PENDING",
+      "sg6_v2_owner_acceptance": "PENDING",
+      "accuracy": null,
+      "accuracy_note": "No independent ground truth; states and counts are predictions, not accuracy."
+    },
+    {
+      "evidence_kind": "real_video_integration_without_independent_drowsiness_labels",
+      "source": "driver_sample_02.mp4",
+      "source_sha256": "b9c87955af6e4c6ce7a93a2be39edb3dd06da637c78ed7d1975be668a7f1e13f",
+      "source_fps": 25.0,
+      "processed_frames": 577,
+      "sg4_vectors": 231,
+      "face_present_frames": 576,
+      "eye_valid_frames": 576,
+      "sg3_confirmed_yawn_segments": 3,
+      "sg5_states": {
+        "NORMAL": 127,
+        "WARNING": 104
+      },
+      "sg5_statuses": {
+        "OK": 231
+      },
+      "legacy_valid_packets": 231,
+      "transitions": [
+        {
+          "time_s": 0.0,
+          "driver_state": "NORMAL",
+          "status": "OK",
+          "reason": "evidence supports current state"
+        },
+        {
+          "time_s": 12.72,
+          "driver_state": "WARNING",
+          "status": "OK",
+          "reason": "sustained higher-risk evidence confirmed"
+        }
+      ],
+      "mean_pipeline_processing_ms": 12.752846619993951,
+      "p95_pipeline_processing_ms": 13.574899989180267,
+      "mean_sg5_processing_ms": 0.023172297202518365,
+      "wall_seconds_including_io": 16.87792579998495,
+      "offline_throughput_fps_including_io": 34.18666528327281,
+      "timing_scope": "PC processing excludes video acquisition and annotation/encoding; wall throughput includes IO, not a Jetson or camera FPS claim",
+      "platform": "Windows-10-10.0.26300-SP0",
+      "python": "3.11.0",
+      "versions": {
+        "numpy": "1.26.4",
+        "opencv": "4.11.0",
+        "mediapipe": "0.10.21"
+      },
+      "config": {
+        "config_id": "midterm_c_v2",
+        "method": "C",
+        "weights": [
+          0.45,
+          0.2,
+          0.2,
+          0.15
+        ],
+        "warn_score": 0.2,
+        "drowsy_score": 0.5,
+        "enter_warn": 0.2,
+        "exit_warn": 0.14,
+        "enter_drowsy": 0.65,
+        "exit_drowsy": 0.53,
+        "smoothing_s": 2.0,
+        "confirm_s": 1.0,
+        "release_s": 3.0,
+        "microsleep_s": 1.5,
+        "max_gap_s": 0.5,
+        "min_quality": 0.55,
+        "a_drowsy_perclos": 0.22,
+        "a_drowsy_closure_s": 1.5,
+        "a_warn_perclos": 0.1,
+        "a_warn_yawns": 2,
+        "a_warn_long_blinks": 3
+      },
+      "model_sha256": "64184e229b263107bc2b804c6625db1341ff2bb731874b0bcc2fe6544e0bc9ff",
+      "sg2_config": {
+        "method": "EAR",
+        "ear_threshold": 0.15,
+        "open_frames": 2,
+        "max_open_delay_sec": 0.08,
+        "name": "EAR_0.15_open2"
+      },
+      "sg3_adapter_owner_acceptance": "PENDING",
+      "sg4_availability_adapter_owner_acceptance": "PENDING",
+      "sg6_v2_owner_acceptance": "PENDING",
+      "accuracy": null,
+      "accuracy_note": "No independent ground truth; states and counts are predictions, not accuracy."
+    },
+    {
+      "evidence_kind": "real_video_integration_without_independent_drowsiness_labels",
+      "source": "driver_sample_03.mp4",
+      "source_sha256": "27430f0c63002df0494d632f5bcbef940ee25d5ae5eff1a0f31f733fca975767",
+      "source_fps": 25.0,
+      "processed_frames": 560,
+      "sg4_vectors": 224,
+      "face_present_frames": 560,
+      "eye_valid_frames": 560,
+      "sg3_confirmed_yawn_segments": 3,
+      "sg5_states": {
+        "NORMAL": 22,
+        "WARNING": 202
+      },
+      "sg5_statuses": {
+        "OK": 224
+      },
+      "legacy_valid_packets": 224,
+      "transitions": [
+        {
+          "time_s": 0.0,
+          "driver_state": "NORMAL",
+          "status": "OK",
+          "reason": "evidence supports current state"
+        },
+        {
+          "time_s": 2.2,
+          "driver_state": "WARNING",
+          "status": "OK",
+          "reason": "sustained higher-risk evidence confirmed"
+        }
+      ],
+      "mean_pipeline_processing_ms": 12.79120446363647,
+      "p95_pipeline_processing_ms": 13.641799974720925,
+      "mean_sg5_processing_ms": 0.022789734170406258,
+      "wall_seconds_including_io": 16.414669699966908,
+      "offline_throughput_fps_including_io": 34.11582506598528,
+      "timing_scope": "PC processing excludes video acquisition and annotation/encoding; wall throughput includes IO, not a Jetson or camera FPS claim",
+      "platform": "Windows-10-10.0.26300-SP0",
+      "python": "3.11.0",
+      "versions": {
+        "numpy": "1.26.4",
+        "opencv": "4.11.0",
+        "mediapipe": "0.10.21"
+      },
+      "config": {
+        "config_id": "midterm_c_v2",
+        "method": "C",
+        "weights": [
+          0.45,
+          0.2,
+          0.2,
+          0.15
+        ],
+        "warn_score": 0.2,
+        "drowsy_score": 0.5,
+        "enter_warn": 0.2,
+        "exit_warn": 0.14,
+        "enter_drowsy": 0.65,
+        "exit_drowsy": 0.53,
+        "smoothing_s": 2.0,
+        "confirm_s": 1.0,
+        "release_s": 3.0,
+        "microsleep_s": 1.5,
+        "max_gap_s": 0.5,
+        "min_quality": 0.55,
+        "a_drowsy_perclos": 0.22,
+        "a_drowsy_closure_s": 1.5,
+        "a_warn_perclos": 0.1,
+        "a_warn_yawns": 2,
+        "a_warn_long_blinks": 3
+      },
+      "model_sha256": "64184e229b263107bc2b804c6625db1341ff2bb731874b0bcc2fe6544e0bc9ff",
+      "sg2_config": {
+        "method": "EAR",
+        "ear_threshold": 0.15,
+        "open_frames": 2,
+        "max_open_delay_sec": 0.08,
+        "name": "EAR_0.15_open2"
+      },
+      "sg3_adapter_owner_acceptance": "PENDING",
+      "sg4_availability_adapter_owner_acceptance": "PENDING",
+      "sg6_v2_owner_acceptance": "PENDING",
+      "accuracy": null,
+      "accuracy_note": "No independent ground truth; states and counts are predictions, not accuracy."
+    },
+    {
+      "evidence_kind": "real_video_integration_without_independent_drowsiness_labels",
+      "source": "driver_sample_04.mp4",
+      "source_sha256": "b4bfcb3ccde1046530d5a9e071af401067d62784b8aed7a7ba5be8b9160fba83",
+      "source_fps": 25.0,
+      "processed_frames": 475,
+      "sg4_vectors": 190,
+      "face_present_frames": 475,
+      "eye_valid_frames": 475,
+      "sg3_confirmed_yawn_segments": 0,
+      "sg5_states": {
+        "NORMAL": 24,
+        "WARNING": 166
+      },
+      "sg5_statuses": {
+        "OK": 190
+      },
+      "legacy_valid_packets": 190,
+      "transitions": [
+        {
+          "time_s": 0.0,
+          "driver_state": "NORMAL",
+          "status": "OK",
+          "reason": "evidence supports current state"
+        },
+        {
+          "time_s": 2.4,
+          "driver_state": "WARNING",
+          "status": "OK",
+          "reason": "sustained higher-risk evidence confirmed"
+        }
+      ],
+      "mean_pipeline_processing_ms": 12.901296632511443,
+      "p95_pipeline_processing_ms": 14.18350002495572,
+      "mean_sg5_processing_ms": 0.02226157720494819,
+      "wall_seconds_including_io": 13.792850499972701,
+      "offline_throughput_fps_including_io": 34.43813155235316,
+      "timing_scope": "PC processing excludes video acquisition and annotation/encoding; wall throughput includes IO, not a Jetson or camera FPS claim",
+      "platform": "Windows-10-10.0.26300-SP0",
+      "python": "3.11.0",
+      "versions": {
+        "numpy": "1.26.4",
+        "opencv": "4.11.0",
+        "mediapipe": "0.10.21"
+      },
+      "config": {
+        "config_id": "midterm_c_v2",
+        "method": "C",
+        "weights": [
+          0.45,
+          0.2,
+          0.2,
+          0.15
+        ],
+        "warn_score": 0.2,
+        "drowsy_score": 0.5,
+        "enter_warn": 0.2,
+        "exit_warn": 0.14,
+        "enter_drowsy": 0.65,
+        "exit_drowsy": 0.53,
+        "smoothing_s": 2.0,
+        "confirm_s": 1.0,
+        "release_s": 3.0,
+        "microsleep_s": 1.5,
+        "max_gap_s": 0.5,
+        "min_quality": 0.55,
+        "a_drowsy_perclos": 0.22,
+        "a_drowsy_closure_s": 1.5,
+        "a_warn_perclos": 0.1,
+        "a_warn_yawns": 2,
+        "a_warn_long_blinks": 3
+      },
+      "model_sha256": "64184e229b263107bc2b804c6625db1341ff2bb731874b0bcc2fe6544e0bc9ff",
+      "sg2_config": {
+        "method": "EAR",
+        "ear_threshold": 0.15,
+        "open_frames": 2,
+        "max_open_delay_sec": 0.08,
+        "name": "EAR_0.15_open2"
+      },
+      "sg3_adapter_owner_acceptance": "PENDING",
+      "sg4_availability_adapter_owner_acceptance": "PENDING",
+      "sg6_v2_owner_acceptance": "PENDING",
+      "accuracy": null,
+      "accuracy_note": "No independent ground truth; states and counts are predictions, not accuracy."
+    },
+    {
+      "evidence_kind": "real_video_integration_without_independent_drowsiness_labels",
+      "source": "driver_sample_05.mp4",
+      "source_sha256": "e09780462a1ccbfab2c7bc5d66d4f291645e9128d87754b5ee51efa4f3664114",
+      "source_fps": 25.0,
+      "processed_frames": 600,
+      "sg4_vectors": 240,
+      "face_present_frames": 600,
+      "eye_valid_frames": 600,
+      "sg3_confirmed_yawn_segments": 4,
+      "sg5_states": {
+        "NORMAL": 24,
+        "WARNING": 216
+      },
+      "sg5_statuses": {
+        "OK": 240
+      },
+      "legacy_valid_packets": 240,
+      "transitions": [
+        {
+          "time_s": 0.0,
+          "driver_state": "NORMAL",
+          "status": "OK",
+          "reason": "evidence supports current state"
+        },
+        {
+          "time_s": 2.4,
+          "driver_state": "WARNING",
+          "status": "OK",
+          "reason": "sustained higher-risk evidence confirmed"
+        }
+      ],
+      "mean_pipeline_processing_ms": 12.957646834741658,
+      "p95_pipeline_processing_ms": 14.119500003289431,
+      "mean_sg5_processing_ms": 0.02261042027384974,
+      "wall_seconds_including_io": 17.374583299970254,
+      "offline_throughput_fps_including_io": 34.533202301377045,
+      "timing_scope": "PC processing excludes video acquisition and annotation/encoding; wall throughput includes IO, not a Jetson or camera FPS claim",
+      "platform": "Windows-10-10.0.26300-SP0",
+      "python": "3.11.0",
+      "versions": {
+        "numpy": "1.26.4",
+        "opencv": "4.11.0",
+        "mediapipe": "0.10.21"
+      },
+      "config": {
+        "config_id": "midterm_c_v2",
+        "method": "C",
+        "weights": [
+          0.45,
+          0.2,
+          0.2,
+          0.15
+        ],
+        "warn_score": 0.2,
+        "drowsy_score": 0.5,
+        "enter_warn": 0.2,
+        "exit_warn": 0.14,
+        "enter_drowsy": 0.65,
+        "exit_drowsy": 0.53,
+        "smoothing_s": 2.0,
+        "confirm_s": 1.0,
+        "release_s": 3.0,
+        "microsleep_s": 1.5,
+        "max_gap_s": 0.5,
+        "min_quality": 0.55,
+        "a_drowsy_perclos": 0.22,
+        "a_drowsy_closure_s": 1.5,
+        "a_warn_perclos": 0.1,
+        "a_warn_yawns": 2,
+        "a_warn_long_blinks": 3
+      },
+      "model_sha256": "64184e229b263107bc2b804c6625db1341ff2bb731874b0bcc2fe6544e0bc9ff",
+      "sg2_config": {
+        "method": "EAR",
+        "ear_threshold": 0.15,
+        "open_frames": 2,
+        "max_open_delay_sec": 0.08,
+        "name": "EAR_0.15_open2"
+      },
+      "sg3_adapter_owner_acceptance": "PENDING",
+      "sg4_availability_adapter_owner_acceptance": "PENDING",
+      "sg6_v2_owner_acceptance": "PENDING",
+      "accuracy": null,
+      "accuracy_note": "No independent ground truth; states and counts are predictions, not accuracy."
+    }
+  ],
+  "verification": {
+    "schema_version": "sg5.verification.v1",
+    "assessment_date": "2026-10-28",
+    "recorded_karachi": "2026-10-28T03:15:08.401332+05:00",
+    "platform": "Windows-10-10.0.26300-SP0",
+    "python": "3.11.0",
+    "branch": "sg5-midterm-integration",
+    "tested_code_commit": "5f75731959826bc124794926304cb684a42ac534",
+    "all_recorded_checks_pass": true,
+    "total_passing_tests": 255,
+    "checks": [
+      {
+        "command": [
+          "C:\\Users\\Lenovo\\Desktop\\7th Semester\\Computer Vision\\Project\\SG5 tasks\\Midterm\\.venv\\Scripts\\python.exe",
+          "-B",
+          "-m",
+          "unittest",
+          "discover",
+          "-s",
+          "module_5/midterm/tests",
+          "-q"
+        ],
+        "exit_code": 0,
+        "passed": true,
+        "test_count": 96,
+        "elapsed_s": 5.7869069000007585,
+        "stdout": "",
+        "stderr": "----------------------------------------------------------------------\nRan 96 tests in 5.415s\n\nOK\n"
+      },
+      {
+        "command": [
+          "C:\\Users\\Lenovo\\Desktop\\7th Semester\\Computer Vision\\Project\\SG5 tasks\\Midterm\\.venv\\Scripts\\python.exe",
+          "-m",
+          "pytest",
+          "module_1/tests",
+          "module_4/tests",
+          "-q",
+          "--disable-warnings"
+        ],
+        "exit_code": 0,
+        "passed": true,
+        "test_count": 114,
+        "elapsed_s": 3.7975366999744438,
+        "stdout": "........................................................................ [ 63%]\n..........................................                               [100%]\n114 passed, 14 warnings in 3.23s\n",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "C:\\Users\\Lenovo\\Desktop\\7th Semester\\Computer Vision\\Project\\SG5 tasks\\Midterm\\.venv\\Scripts\\python.exe",
+          "-m",
+          "pip",
+          "check"
+        ],
+        "exit_code": 0,
+        "passed": true,
+        "test_count": null,
+        "elapsed_s": 0.8440683999797329,
+        "stdout": "No broken requirements found.\n",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "C:\\Program Files\\Python311\\python.exe",
+          "-B",
+          "-m",
+          "unittest",
+          "discover",
+          "-s",
+          "module_2/tests",
+          "-q"
+        ],
+        "exit_code": 0,
+        "passed": true,
+        "test_count": 45,
+        "elapsed_s": 3.4181377000059,
+        "stdout": "",
+        "stderr": "C:\\Users\\Lenovo\\AppData\\Roaming\\Python\\Python311\\site-packages\\torch\\cuda\\__init__.py:58: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.\n  import pynvml  # type: ignore[import]\n----------------------------------------------------------------------\nRan 45 tests in 0.747s\n\nOK\n"
+      }
+    ],
+    "video_runs": [
+      {
+        "source": "driver_sample_01.mp4",
+        "frames": 720,
+        "vectors": 288,
+        "sg6_packets_valid": true,
+        "annotated_video_frames": 720,
+        "first_and_last_frame_decode": true,
+        "accuracy": null
+      },
+      {
+        "source": "driver_sample_02.mp4",
+        "frames": 577,
+        "vectors": 231,
+        "sg6_packets_valid": true,
+        "annotated_video_frames": 577,
+        "first_and_last_frame_decode": true,
+        "accuracy": null
+      },
+      {
+        "source": "driver_sample_03.mp4",
+        "frames": 560,
+        "vectors": 224,
+        "sg6_packets_valid": true,
+        "annotated_video_frames": 560,
+        "first_and_last_frame_decode": true,
+        "accuracy": null
+      },
+      {
+        "source": "driver_sample_04.mp4",
+        "frames": 475,
+        "vectors": 190,
+        "sg6_packets_valid": true,
+        "annotated_video_frames": 475,
+        "first_and_last_frame_decode": true,
+        "accuracy": null
+      },
+      {
+        "source": "driver_sample_05.mp4",
+        "frames": 600,
+        "vectors": 240,
+        "sg6_packets_valid": true,
+        "annotated_video_frames": 600,
+        "first_and_last_frame_decode": true,
+        "accuracy": null
+      }
+    ],
+    "total_real_video_frames": 2932,
+    "total_real_video_vectors": 1173,
+    "synthetic_rows": 5400,
+    "evaluation_sha256": "2d87d8d647d7ce04e96003f08c3b3bdd26a8d0ea6e734a73d4d6b42808c6232d",
+    "pull_request": "https://github.com/Sananismm/CV_Drowsinees_Detection/pull/21",
+    "hardware_verified": false,
+    "limitations": [
+      "No independent real-video drowsiness annotations",
+      "Optional SG2 tests may use a separate existing Torch environment; that is not a single universal environment claim",
+      "SG3/SG4 adapter and SG6 v2 acceptance remains open",
+      "PC tests do not verify Jetson, GPIO or live camera readiness"
+    ]
+  },
+  "sources": {
+    "schema_version": "sg5.integration_sources.v1",
+    "assessment_date": "2026-10-28",
+    "timezone": "Asia/Karachi",
+    "repository": "https://github.com/Sananismm/CV_Drowsinees_Detection",
+    "integration_branch": "sg5-midterm-integration",
+    "base_main_commit": "8c95dcd603fbb4673e566dfd7c796c16fd409204",
+    "snapshot_import_commit": "6eabe80d78f2e16c1272cd70a203024cc57830ee",
+    "main_merge_status": "NOT_CLAIMED: the integration branch is separate from main; review and merge are distinct actions",
+    "sg5_members": [
+      "Rafed Aftab",
+      "Filza Umar"
+    ],
+    "hash_definition": "SHA-256 over original git blob bytes, not working-tree text subject to CRLF conversion",
+    "attribution": "Existing subgroup source is reused with its original attribution. The snapshot import does not claim SG1-SG4 or SG6 algorithm authorship for SG5, or fabricate either student's individual contribution.",
+    "sources": [
+      {
+        "subgroup": "SG1",
+        "branch": "sg1",
+        "commit": "5fcb93627efb74afc850816403cd677887324ed1",
+        "role": "Face landmarks, SG1 V1 record validation and pinned model downloader",
+        "import_scope": "module_1 is identical to this source tree at the snapshot import commit",
+        "files": [
+          {
+            "path": "module_1/scripts/sg1_detector.py",
+            "sha256": "74176a54995e1b8d2b3adaf625c6e25f261b20cbc63f9785fde8fb392af1ffa9"
+          },
+          {
+            "path": "module_1/scripts/sg1_contract.py",
+            "sha256": "ef5329ac8c5b88935fc8fa79599750a2517dd6c1f12754654a92e70b29555d4c"
+          },
+          {
+            "path": "module_1/scripts/download_model.py",
+            "sha256": "4772ba59288b54e6d27c9fabdcf4b99b1821bd95e43d9d853a59185061311c77"
+          }
+        ]
+      },
+      {
+        "subgroup": "SG2",
+        "branch": "sg2-midterm-integration",
+        "commit": "ca73a39f72b29a2c80d954ba937c7d432fa653f1",
+        "role": "Selected EAR eye-state processor and native sg2.sg4.v2 cue adapter",
+        "import_scope": "Algorithm and selected-configuration blobs match; module_2/README.md retains main's later wording rather than this branch's exact text",
+        "files": [
+          {
+            "path": "module_2/processor.py",
+            "sha256": "7e7a7468b9f25d5a088f60aa8a3899cf813eb4d5eac37f232b46f28808b4e5d5"
+          },
+          {
+            "path": "module_2/adapters.py",
+            "sha256": "445c0bafddb8fc945a67e72691ed67b9c2e82d91b0417efe4e8b0ae048d74fd9"
+          },
+          {
+            "path": "module_2/eye_analysis.py",
+            "sha256": "9694dfbf8bdc73fbc93db6a747887b65ac42a82034ce67675c1b8681f8ad5e56"
+          },
+          {
+            "path": "module_2/final_method.json",
+            "sha256": "03ed010946912d0ff0cbaaa3bcb2dc4c390706138e914b19917e5e4d5ec32bf7"
+          }
+        ]
+      },
+      {
+        "subgroup": "SG3",
+        "branch": "sg3",
+        "commit": "e3661b7575ebd06eea67a072f901ecd1fcf08a0c",
+        "role": "Mouth geometry and yawn thresholds used as the reference for a new causal SG5-side adapter",
+        "import_scope": "Week 8 Progress.py matches source exactly; main's Week 5 PDF is retained and the source branch's Workflow.jpeg was not imported",
+        "files": [
+          {
+            "path": "module_3/Week 8 Progress.py",
+            "sha256": "bc363968e4d430091f806ae951af6866b5d2f5a444b3f619ddf5c0479fde0bcd"
+          }
+        ],
+        "new_adapter": "module_5/midterm/sg3_adapter.py",
+        "adapter_acceptance": "PENDING_SG3_OWNER_REVIEW_AND_REAL_VIDEO_CALIBRATION"
+      },
+      {
+        "subgroup": "SG4",
+        "branch": "saman",
+        "commit": "1019abe55a5f2b24c318c01b7d9660e3597767f4",
+        "role": "Actual timestamp-based TemporalEngine, V1.1 writer, frozen schema and golden temporal outputs",
+        "import_scope": "module_4 is identical to this source tree at the snapshot import commit; shared schemas and selected interface evidence were also imported",
+        "files": [
+          {
+            "path": "module_4/src/sg4/engine.py",
+            "sha256": "52e6aa4609793888e1211ec961f21d33b6c0020b2a26350e6690fd6172d125ce"
+          },
+          {
+            "path": "module_4/src/sg4/sync.py",
+            "sha256": "4ce0b338561768fb2ca5bab868f743e267979db5601d39b4848544f71c476ae4"
+          },
+          {
+            "path": "module_4/src/sg4/events.py",
+            "sha256": "dc2361573a7008376cc2a2a5ab8ab1deef5be091c6293e20d4492e42e3b18090"
+          },
+          {
+            "path": "module_4/src/sg4/sg5_output.py",
+            "sha256": "0b02874e8da2e4f4ce5f5125ec22e45ff62b5845395af374a6a8685365bda4f5"
+          },
+          {
+            "path": "module_4/config/sg4_v1.yaml",
+            "sha256": "0430b7c20c06c3dcc098505ace4c326bf46c0efa409391bb1ea1019874854c9e"
+          },
+          {
+            "path": "interfaces/sg4_output_v1_1.schema.json",
+            "sha256": "e533bf7330834d091fdcbf6022a9e3a0a371208d19265e64652e7ca85b963039"
+          },
+          {
+            "path": "interfaces/mocks/sg5_expected/drowsy.jsonl",
+            "sha256": "f0de8289d3d69326beff50a4360120c7a476d44dfa3b656b91eb5f2d10cf50dc"
+          },
+          {
+            "path": "documentation/meetings/2026-10-27_sg4_sg5_alignment.md",
+            "sha256": "1cbfd49c3a4bcb8371674cf697f482d2d2b75710a4570f80c07d27b83109e282"
+          }
+        ],
+        "consumer_field_compatibility": "IMPLEMENTED_AND_TESTED_AGAINST_ALL_FIVE_SG4_GOLDENS",
+        "availability_adapter": "module_5/midterm/sg4_bridge.py",
+        "availability_adapter_acceptance": "PENDING_SG4_OWNER_REVIEW"
+      },
+      {
+        "subgroup": "SG5",
+        "branch": "sg5",
+        "commit": "9e0de1750fe3acbcd59204212176eae0036a5744",
+        "role": "Unchanged Week 5 decision functions and two synthetic development drives",
+        "import_scope": "Legacy decision files are frozen references, separate from the new midterm package",
+        "files": [
+          {
+            "path": "module_5/SG5_drowsiness_decision/sg5_final.py",
+            "sha256": "9a5ca590267bf80e6261639897b119440c03a464dd395fd7b6a83a7731603e30"
+          },
+          {
+            "path": "module_5/SG5_drowsiness_decision/sg5_three_methods.py",
+            "sha256": "6ad5f783a57607bfbd7ccf26e3bf7fb5e1765f7f2f7619146773c971a7869898"
+          }
+        ]
+      },
+      {
+        "subgroup": "SG6",
+        "branch": "sg6-week5-integration",
+        "commit": "b4bf9ec42c8b5aa119eae5f78c7c499665822911",
+        "role": "Existing three-field consumer validator, snapshot smoke tests and reported detector-only Jetson benchmark",
+        "import_scope": "embedded_6 is identical to this source tree at the snapshot import commit; the new sg5_handoff directory is a separate addition",
+        "files": [
+          {
+            "path": "embedded_6/Integration/validate_interfaces.py",
+            "sha256": "232022576404c80cf91998ac5e423eebf64f8177297b750a38f580dba66e22b1"
+          },
+          {
+            "path": "embedded_6/Integration/test_sg5.py",
+            "sha256": "0ab075c1b1ce37e01a5b18c9ad5db6fcf198ec00659ff72d86c7e3c3b3254f51"
+          },
+          {
+            "path": "embedded_6/BENCHMARK_RESULTS.md",
+            "sha256": "25cc08d6e0ff8d3e2a42f7649d88bb15c25957712c976f182725d30579b41817"
+          },
+          {
+            "path": "embedded_6/models/face_detection_yunet_2023mar.onnx",
+            "sha256": "8f2383e4dd3cfbb4553ea8718107fc0423210dc964f9f4280604804ed2552fa4"
+          }
+        ],
+        "new_handoff": "embedded_6/sg5_handoff/consume.py",
+        "v2_acceptance": "PENDING_SG6_OWNER_REVIEW",
+        "sg5_jetson_and_gpio_execution": "NOT_VERIFIED"
+      }
+    ],
+    "additional_inspected_branches": [
+      {
+        "branch": "sg4",
+        "commit": "059705b87bed8067a006d3c4095aebb274b06c98",
+        "decision": "Older fixed-FPS notebook is not the current midterm integration target"
+      },
+      {
+        "branch": "sg2",
+        "commit": "0bc84fcebaeccd297ab84b179af663e16fd82e2d",
+        "decision": "Prefer the current sg2-midterm-integration selected EAR configuration"
+      }
+    ],
+    "hardware_evidence": {
+      "reported_source": "embedded_6/BENCHMARK_RESULTS.md",
+      "reported_device": "NVIDIA Jetson Orin Nano",
+      "reported_scope": "150 private recorded 640x480 frames; Haar and YuNet face detection only; excludes acquisition and SG2-SG5",
+      "reproduced_by_this_sg5_preparation": false,
+      "new_sg5_target_boot_camera_gpio_fps_memory": "NOT_VERIFIED"
+    },
+    "runtime_external_models": [
+      {
+        "path": "module_1/models/face_landmarker.task",
+        "sha256": "64184e229b263107bc2b804c6625db1341ff2bb731874b0bcc2fe6544e0bc9ff",
+        "verification": "Downloaded runtime file exists and its bytes were SHA-256 checked on the preparation PC",
+        "reproduction": "Use module_1/scripts/download_model.py; this runtime artifact is not claimed as a newly trained SG5 model"
+      }
+    ],
+    "issue_links": [
+      "https://github.com/Sananismm/CV_Drowsinees_Detection/issues/8",
+      "https://github.com/Sananismm/CV_Drowsinees_Detection/issues/9"
+    ]
+  },
+  "signal_photos": [
+    {
+      "asset": "signal_open.jpg",
+      "video": "driver_sample_02.mp4",
+      "frame_id": 61,
+      "time_s": 2.44,
+      "eye_state": "OPEN",
+      "ear": 0.300057048060297,
+      "mar": 0.4726161453752709,
+      "yawn_active": false,
+      "note": "Actual source frame and recorded algorithm prediction; not a ground-truth label"
+    },
+    {
+      "asset": "signal_closed.jpg",
+      "video": "driver_sample_02.mp4",
+      "frame_id": 412,
+      "time_s": 16.48,
+      "eye_state": "CLOSED",
+      "ear": 0.04445793229483107,
+      "mar": 0.2148136821106888,
+      "yawn_active": false,
+      "note": "Actual source frame and recorded algorithm prediction; not a ground-truth label"
+    },
+    {
+      "asset": "signal_mouth_low.jpg",
+      "video": "driver_sample_02.mp4",
+      "frame_id": 177,
+      "time_s": 7.08,
+      "eye_state": "OPEN",
+      "ear": 0.2528973866851668,
+      "mar": 0.002190231122657571,
+      "yawn_active": false,
+      "note": "Actual source frame and recorded algorithm prediction; not a ground-truth label"
+    },
+    {
+      "asset": "signal_mouth_high.jpg",
+      "video": "driver_sample_02.mp4",
+      "frame_id": 447,
+      "time_s": 17.88,
+      "eye_state": "OPEN",
+      "ear": 0.17810808528623157,
+      "mar": 1.129340474069001,
+      "yawn_active": true,
+      "note": "Actual source frame and recorded algorithm prediction; not a ground-truth label"
+    }
+  ],
+  "demos": {
+    "drowsy": {
+      "summary": {
+        "evidence_kind": "real_SG4_implementation_on_synthetic_frame_cues",
+        "input_file": "interfaces/mocks/drowsy.jsonl",
+        "input_sha256": "9ccc14cc7a84e1390afd5d80093aa510564d6489573220ac580cd4022d79f58c",
+        "sg4_vectors": 900,
+        "states": {
+          "NORMAL": 636,
+          "WARNING": 201,
+          "DROWSY": 63
+        },
+        "statuses": {
+          "OK": 900
+        },
+        "transitions": [
+          {
+            "time_s": 0.0,
+            "driver_state": "NORMAL",
+            "status": "OK",
+            "reason": "evidence supports current state"
+          },
+          {
+            "time_s": 63.6,
+            "driver_state": "WARNING",
+            "status": "OK",
+            "reason": "sustained higher-risk evidence confirmed"
+          },
+          {
+            "time_s": 75.5,
+            "driver_state": "DROWSY",
+            "status": "OK",
+            "reason": "prolonged eye-closure override"
+          },
+          {
+            "time_s": 78.8,
+            "driver_state": "WARNING",
+            "status": "OK",
+            "reason": "sustained lower-risk evidence confirmed"
+          },
+          {
+            "time_s": 87.0,
+            "driver_state": "DROWSY",
+            "status": "OK",
+            "reason": "prolonged eye-closure override"
+          }
+        ],
+        "processing_wall_seconds": 0.4753183000138961,
+        "config": {
+          "config_id": "midterm_c_v2",
+          "method": "C",
+          "weights": [
+            0.45,
+            0.2,
+            0.2,
+            0.15
+          ],
+          "warn_score": 0.2,
+          "drowsy_score": 0.5,
+          "enter_warn": 0.2,
+          "exit_warn": 0.14,
+          "enter_drowsy": 0.65,
+          "exit_drowsy": 0.53,
+          "smoothing_s": 2.0,
+          "confirm_s": 1.0,
+          "release_s": 3.0,
+          "microsleep_s": 1.5,
+          "max_gap_s": 0.5,
+          "min_quality": 0.55,
+          "a_drowsy_perclos": 0.22,
+          "a_drowsy_closure_s": 1.5,
+          "a_warn_perclos": 0.1,
+          "a_warn_yawns": 2,
+          "a_warn_long_blinks": 3
+        },
+        "note": "SG4 is real code; frame cues are synthetic. No real-driver accuracy or Jetson execution is claimed."
+      },
+      "requests": [
+        {
+          "time_s": 0.0,
+          "session_id": "mock-drowsy",
+          "driver_state": "NORMAL",
+          "status": "OK",
+          "buzzer_requested": false,
+          "visual_warning": false,
+          "sensor_fault": false,
+          "alert_event": false
+        },
+        {
+          "time_s": 63.6,
+          "session_id": "mock-drowsy",
+          "driver_state": "WARNING",
+          "status": "OK",
+          "buzzer_requested": false,
+          "visual_warning": true,
+          "sensor_fault": false,
+          "alert_event": true
+        },
+        {
+          "time_s": 75.5,
+          "session_id": "mock-drowsy",
+          "driver_state": "DROWSY",
+          "status": "OK",
+          "buzzer_requested": true,
+          "visual_warning": true,
+          "sensor_fault": false,
+          "alert_event": true
+        },
+        {
+          "time_s": 78.8,
+          "session_id": "mock-drowsy",
+          "driver_state": "WARNING",
+          "status": "OK",
+          "buzzer_requested": false,
+          "visual_warning": true,
+          "sensor_fault": false,
+          "alert_event": false
+        },
+        {
+          "time_s": 87.0,
+          "session_id": "mock-drowsy",
+          "driver_state": "DROWSY",
+          "status": "OK",
+          "buzzer_requested": true,
+          "visual_warning": true,
+          "sensor_fault": false,
+          "alert_event": true
+        }
+      ],
+      "example_decisions": [
+        {
+          "schema_version": "sg5.sg6.v2",
+          "time_s": 0.0,
+          "session_id": "mock-drowsy",
+          "driver_state": "NORMAL",
+          "alert": false,
+          "alert_level": 0,
+          "score": 0.0,
+          "smoothed_score": 0.0,
+          "quality": 1.0,
+          "status": "OK",
+          "reason": "evidence supports current state",
+          "transition": false,
+          "alert_event": false,
+          "config_id": "midterm_c_v2"
+        },
+        {
+          "schema_version": "sg5.sg6.v2",
+          "time_s": 63.6,
+          "session_id": "mock-drowsy",
+          "driver_state": "WARNING",
+          "alert": true,
+          "alert_level": 1,
+          "score": 0.26798,
+          "smoothed_score": 0.23677555181128582,
+          "quality": 1.0,
+          "status": "OK",
+          "reason": "sustained higher-risk evidence confirmed",
+          "transition": true,
+          "alert_event": true,
+          "config_id": "midterm_c_v2"
+        },
+        {
+          "schema_version": "sg5.sg6.v2",
+          "time_s": 75.5,
+          "session_id": "mock-drowsy",
+          "driver_state": "DROWSY",
+          "alert": true,
+          "alert_level": 2,
+          "score": 0.55838,
+          "smoothed_score": 0.39804774974700563,
+          "quality": 1.0,
+          "status": "OK",
+          "reason": "prolonged eye-closure override",
+          "transition": true,
+          "alert_event": true,
+          "config_id": "midterm_c_v2"
+        }
+      ],
+      "command": [
+        "-m",
+        "module_5.midterm.demo",
+        "--scenario",
+        "drowsy",
+        "--output",
+        "<temporary output directory>"
+      ],
+      "capture_kind": "actual CLI execution, text rendered for legibility"
+    },
+    "face_lost": {
+      "summary": {
+        "evidence_kind": "real_SG4_implementation_on_synthetic_frame_cues",
+        "input_file": "interfaces/mocks/face_lost.jsonl",
+        "input_sha256": "c8a06584dd7adc3e739fe62aa47e0fb8a1c960eff2fbeb329d8ba270a96402b1",
+        "sg4_vectors": 900,
+        "states": {
+          "NORMAL": 900
+        },
+        "statuses": {
+          "OK": 785,
+          "INSUFFICIENT_EVIDENCE": 115
+        },
+        "transitions": [
+          {
+            "time_s": 0.0,
+            "driver_state": "NORMAL",
+            "status": "OK",
+            "reason": "evidence supports current state"
+          },
+          {
+            "time_s": 15.0,
+            "driver_state": "NORMAL",
+            "status": "INSUFFICIENT_EVIDENCE",
+            "reason": "unusable face, eye or observation quality; previous state is untrusted"
+          },
+          {
+            "time_s": 19.0,
+            "driver_state": "NORMAL",
+            "status": "OK",
+            "reason": "evidence supports current state"
+          },
+          {
+            "time_s": 35.0,
+            "driver_state": "NORMAL",
+            "status": "INSUFFICIENT_EVIDENCE",
+            "reason": "unusable face, eye or observation quality; previous state is untrusted"
+          },
+          {
+            "time_s": 37.5,
+            "driver_state": "NORMAL",
+            "status": "OK",
+            "reason": "evidence supports current state"
+          },
+          {
+            "time_s": 50.0,
+            "driver_state": "NORMAL",
+            "status": "INSUFFICIENT_EVIDENCE",
+            "reason": "unusable face, eye or observation quality; previous state is untrusted"
+          },
+          {
+            "time_s": 53.0,
+            "driver_state": "NORMAL",
+            "status": "OK",
+            "reason": "evidence supports current state"
+          },
+          {
+            "time_s": 65.3,
+            "driver_state": "NORMAL",
+            "status": "INSUFFICIENT_EVIDENCE",
+            "reason": "unusable face, eye or observation quality; previous state is untrusted"
+          },
+          {
+            "time_s": 67.3,
+            "driver_state": "NORMAL",
+            "status": "OK",
+            "reason": "evidence supports current state"
+          }
+        ],
+        "processing_wall_seconds": 0.47980999998981133,
+        "config": {
+          "config_id": "midterm_c_v2",
+          "method": "C",
+          "weights": [
+            0.45,
+            0.2,
+            0.2,
+            0.15
+          ],
+          "warn_score": 0.2,
+          "drowsy_score": 0.5,
+          "enter_warn": 0.2,
+          "exit_warn": 0.14,
+          "enter_drowsy": 0.65,
+          "exit_drowsy": 0.53,
+          "smoothing_s": 2.0,
+          "confirm_s": 1.0,
+          "release_s": 3.0,
+          "microsleep_s": 1.5,
+          "max_gap_s": 0.5,
+          "min_quality": 0.55,
+          "a_drowsy_perclos": 0.22,
+          "a_drowsy_closure_s": 1.5,
+          "a_warn_perclos": 0.1,
+          "a_warn_yawns": 2,
+          "a_warn_long_blinks": 3
+        },
+        "note": "SG4 is real code; frame cues are synthetic. No real-driver accuracy or Jetson execution is claimed."
+      },
+      "requests": [
+        {
+          "time_s": 0.0,
+          "session_id": "mock-face_lost",
+          "driver_state": "NORMAL",
+          "status": "OK",
+          "buzzer_requested": false,
+          "visual_warning": false,
+          "sensor_fault": false,
+          "alert_event": false
+        },
+        {
+          "time_s": 15.0,
+          "session_id": "mock-face_lost",
+          "driver_state": "NORMAL",
+          "status": "INSUFFICIENT_EVIDENCE",
+          "buzzer_requested": false,
+          "visual_warning": false,
+          "sensor_fault": true,
+          "alert_event": false
+        },
+        {
+          "time_s": 19.0,
+          "session_id": "mock-face_lost",
+          "driver_state": "NORMAL",
+          "status": "OK",
+          "buzzer_requested": false,
+          "visual_warning": false,
+          "sensor_fault": false,
+          "alert_event": false
+        },
+        {
+          "time_s": 35.0,
+          "session_id": "mock-face_lost",
+          "driver_state": "NORMAL",
+          "status": "INSUFFICIENT_EVIDENCE",
+          "buzzer_requested": false,
+          "visual_warning": false,
+          "sensor_fault": true,
+          "alert_event": false
+        },
+        {
+          "time_s": 37.5,
+          "session_id": "mock-face_lost",
+          "driver_state": "NORMAL",
+          "status": "OK",
+          "buzzer_requested": false,
+          "visual_warning": false,
+          "sensor_fault": false,
+          "alert_event": false
+        },
+        {
+          "time_s": 50.0,
+          "session_id": "mock-face_lost",
+          "driver_state": "NORMAL",
+          "status": "INSUFFICIENT_EVIDENCE",
+          "buzzer_requested": false,
+          "visual_warning": false,
+          "sensor_fault": true,
+          "alert_event": false
+        },
+        {
+          "time_s": 53.0,
+          "session_id": "mock-face_lost",
+          "driver_state": "NORMAL",
+          "status": "OK",
+          "buzzer_requested": false,
+          "visual_warning": false,
+          "sensor_fault": false,
+          "alert_event": false
+        },
+        {
+          "time_s": 65.3,
+          "session_id": "mock-face_lost",
+          "driver_state": "NORMAL",
+          "status": "INSUFFICIENT_EVIDENCE",
+          "buzzer_requested": false,
+          "visual_warning": false,
+          "sensor_fault": true,
+          "alert_event": false
+        },
+        {
+          "time_s": 67.3,
+          "session_id": "mock-face_lost",
+          "driver_state": "NORMAL",
+          "status": "OK",
+          "buzzer_requested": false,
+          "visual_warning": false,
+          "sensor_fault": false,
+          "alert_event": false
+        }
+      ],
+      "example_decisions": [
+        {
+          "schema_version": "sg5.sg6.v2",
+          "time_s": 0.0,
+          "session_id": "mock-face_lost",
+          "driver_state": "NORMAL",
+          "alert": false,
+          "alert_level": 0,
+          "score": 0.0,
+          "smoothed_score": 0.0,
+          "quality": 1.0,
+          "status": "OK",
+          "reason": "evidence supports current state",
+          "transition": false,
+          "alert_event": false,
+          "config_id": "midterm_c_v2"
+        },
+        {
+          "schema_version": "sg5.sg6.v2",
+          "time_s": 15.0,
+          "session_id": "mock-face_lost",
+          "driver_state": "NORMAL",
+          "alert": false,
+          "alert_level": 0,
+          "score": 0.0,
+          "smoothed_score": 6.499390598285608e-06,
+          "quality": 0.0,
+          "status": "INSUFFICIENT_EVIDENCE",
+          "reason": "unusable face, eye or observation quality; previous state is untrusted",
+          "transition": false,
+          "alert_event": false,
+          "config_id": "midterm_c_v2"
+        }
+      ],
+      "command": [
+        "-m",
+        "module_5.midterm.demo",
+        "--scenario",
+        "face_lost",
+        "--output",
+        "<temporary output directory>"
+      ],
+      "capture_kind": "actual CLI execution, text rendered for legibility"
+    }
+  },
+  "photo_provenance": "Actual SG1 shared videos and recorded SG1/SG2/SG3 measurements; ROI crops for legibility; no generated faces or ground-truth claim"
+}

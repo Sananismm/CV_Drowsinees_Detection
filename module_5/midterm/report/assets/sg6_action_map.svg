@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE svg
+  PUBLIC '-//W3C//DTD SVG 1.0//EN'
+  'http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd'>
+<svg width="503.27559055118115" height="166" preserveAspectRatio="xMinYMin meet" viewBox="0 0 503 166" xmlns="http://www.w3.org/2000/svg" version="1.0" fill-rule="evenodd" xmlns:xlink="http://www.w3.org/1999/xlink">
+	<title>...</title>
+	<desc>...</desc>
+	<clipPath id="clip">
+		<rect x="0" y="0" width="503.27559055118115" height="166"/>
+	</clipPath>
+	<g id="group" transform="scale(1,-1) translate(0,-166)" style="clip-path: url(#clip)">
+		<g transform="">
+			<rect x="0" y="124" width="188" height="31" rx="4" ry="4" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(91%,94%,96%); fill-rule: evenodd;"/>
+			<text x="64.131" y="136" style="font-family: Helvetica-Bold; font-size: 8.5px;fill: rgb(9%,16%,27%); stroke:none;" transform="translate(0,272) scale(1,-1)">OK + NORMAL</text>
+			<rect x="234" y="124" width="269.27559055118115" height="31" rx="4" ry="4" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(91%,94%,96%); fill-rule: evenodd;"/>
+			<text x="331.79029527559055" y="136" style="font-family: Helvetica; font-size: 8.5px;fill: rgb(9%,16%,27%); stroke:none;" transform="translate(0,272) scale(1,-1)">No warning request</text>
+			<path d="M 188,139 L 234,139 Z" style="stroke: rgb(14%,36%,51%); stroke-linecap: butt; stroke-width: 1.2;"/>
+			<polygon points="234 139, 229 142, 229 136" style="stroke: rgb(14%,36%,51%); stroke-linecap: butt; stroke-width: 1; fill: rgb(14%,36%,51%); fill-rule: evenodd;"/>
+			<rect x="0" y="84" width="188" height="31" rx="4" ry="4" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(100%,95%,84%); fill-rule: evenodd;"/>
+			<text x="62.006" y="96" style="font-family: Helvetica-Bold; font-size: 8.5px;fill: rgb(9%,16%,27%); stroke:none;" transform="translate(0,192) scale(1,-1)">OK + WARNING</text>
+			<rect x="234" y="84" width="269.27559055118115" height="31" rx="4" ry="4" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(100%,95%,84%); fill-rule: evenodd;"/>
+			<text x="341.0042952755906" y="96" style="font-family: Helvetica; font-size: 8.5px;fill: rgb(9%,16%,27%); stroke:none;" transform="translate(0,192) scale(1,-1)">Visual warning</text>
+			<path d="M 188,99 L 234,99 Z" style="stroke: rgb(14%,36%,51%); stroke-linecap: butt; stroke-width: 1.2;"/>
+			<polygon points="234 99, 229 102, 229 96" style="stroke: rgb(14%,36%,51%); stroke-linecap: butt; stroke-width: 1; fill: rgb(14%,36%,51%); fill-rule: evenodd;"/>
+			<rect x="0" y="44" width="188" height="31" rx="4" ry="4" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(96%,88%,87%); fill-rule: evenodd;"/>
+			<text x="63.655" y="56" style="font-family: Helvetica-Bold; font-size: 8.5px;fill: rgb(9%,16%,27%); stroke:none;" transform="translate(0,112) scale(1,-1)">OK + DROWSY</text>
+			<rect x="234" y="44" width="269.27559055118115" height="31" rx="4" ry="4" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(96%,88%,87%); fill-rule: evenodd;"/>
+			<text x="324.1105452755906" y="56" style="font-family: Helvetica; font-size: 8.5px;fill: rgb(9%,16%,27%); stroke:none;" transform="translate(0,112) scale(1,-1)">Visual + buzzer request</text>
+			<path d="M 188,59 L 234,59 Z" style="stroke: rgb(14%,36%,51%); stroke-linecap: butt; stroke-width: 1.2;"/>
+			<polygon points="234 59, 229 62, 229 56" style="stroke: rgb(14%,36%,51%); stroke-linecap: butt; stroke-width: 1; fill: rgb(14%,36%,51%); fill-rule: evenodd;"/>
+			<rect x="0" y="4" width="188" height="31" rx="4" ry="4" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(98%,94%,87%); fill-rule: evenodd;"/>
+			<text x="47.24575" y="16" style="font-family: Helvetica-Bold; font-size: 8.5px;fill: rgb(9%,16%,27%); stroke:none;" transform="translate(0,32) scale(1,-1)">INSUFFICIENT / STALE</text>
+			<rect x="234" y="4" width="269.27559055118115" height="31" rx="4" ry="4" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(98%,94%,87%); fill-rule: evenodd;"/>
+			<text x="294.69629527559056" y="16" style="font-family: Helvetica; font-size: 8.5px;fill: rgb(9%,16%,27%); stroke:none;" transform="translate(0,32) scale(1,-1)">Sensor fault; retained state is untrusted</text>
+			<path d="M 188,19 L 234,19 Z" style="stroke: rgb(14%,36%,51%); stroke-linecap: butt; stroke-width: 1.2;"/>
+			<polygon points="234 19, 229 22, 229 16" style="stroke: rgb(14%,36%,51%); stroke-linecap: butt; stroke-width: 1; fill: rgb(14%,36%,51%); fill-rule: evenodd;"/>
+		</g>
+	</g>
+</svg>

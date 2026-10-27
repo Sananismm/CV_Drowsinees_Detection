@@ -64,7 +64,7 @@
 			<text x="158.9125" y="91" style="font-family: Helvetica; font-size: 7.5px;fill: rgb(32%,38%,45%); stroke:none;" transform="translate(0,182) scale(1,-1)">v1.1</text>
 			<path d="M 321,82 L 359,82 Z" style="stroke: rgb(14%,36%,51%); stroke-linecap: butt; stroke-width: 1.2;"/>
 			<polygon points="359 82, 354 85, 354 79" style="stroke: rgb(14%,36%,51%); stroke-linecap: butt; stroke-width: 1; fill: rgb(14%,36%,51%); fill-rule: evenodd;"/>
-			<text x="320.61625" y="91" style="font-family: Helvetica; font-size: 7.5px;fill: rgb(32%,38%,45%); stroke:none;" transform="translate(0,182) scale(1,-1)">v2 proposal</text>
+			<text x="336.04" y="91" style="font-family: Helvetica; font-size: 7.5px;fill: rgb(32%,38%,45%); stroke:none;" transform="translate(0,182) scale(1,-1)">v2</text>
 			<text x="97.15119999999999" y="18" style="font-family: Helvetica; font-size: 8.3px;fill: rgb(52%,36%,12%); stroke:none;" transform="translate(0,36) scale(1,-1)">PC integration verified; physical Jetson, camera and GPIO acceptance remain open</text>
 		</g>
 	</g>

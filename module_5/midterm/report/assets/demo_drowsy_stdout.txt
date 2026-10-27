@@ -1,0 +1,7 @@
+  0.000s  NORMAL   OK                     evidence supports current state
+ 63.600s  WARNING  OK                     sustained higher-risk evidence confirmed
+ 75.500s  DROWSY   OK                     prolonged eye-closure override
+ 78.800s  WARNING  OK                     sustained lower-risk evidence confirmed
+ 87.000s  DROWSY   OK                     prolonged eye-closure override
+
+Wrote 900 SG6 decisions to C:\Users\Lenovo\Desktop\7th Semester\Computer Vision\Project\SG5 tasks\Midterm\tmp\report_capture\drowsy\sg6_stream.jsonl
