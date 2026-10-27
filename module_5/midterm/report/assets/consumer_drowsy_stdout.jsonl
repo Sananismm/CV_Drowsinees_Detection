@@ -1,0 +1,5 @@
+{"time_s":0.0,"session_id":"mock-drowsy","driver_state":"NORMAL","status":"OK","buzzer_requested":false,"visual_warning":false,"sensor_fault":false,"alert_event":false}
+{"time_s":63.6,"session_id":"mock-drowsy","driver_state":"WARNING","status":"OK","buzzer_requested":false,"visual_warning":true,"sensor_fault":false,"alert_event":true}
+{"time_s":75.5,"session_id":"mock-drowsy","driver_state":"DROWSY","status":"OK","buzzer_requested":true,"visual_warning":true,"sensor_fault":false,"alert_event":true}
+{"time_s":78.8,"session_id":"mock-drowsy","driver_state":"WARNING","status":"OK","buzzer_requested":false,"visual_warning":true,"sensor_fault":false,"alert_event":false}
+{"time_s":87.0,"session_id":"mock-drowsy","driver_state":"DROWSY","status":"OK","buzzer_requested":true,"visual_warning":true,"sensor_fault":false,"alert_event":true}

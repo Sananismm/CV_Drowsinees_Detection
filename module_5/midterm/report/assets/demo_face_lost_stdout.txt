@@ -1,0 +1,11 @@
+  0.000s  NORMAL   OK                     evidence supports current state
+ 15.000s  NORMAL   INSUFFICIENT_EVIDENCE  unusable face, eye or observation quality; previous state is untrusted
+ 19.000s  NORMAL   OK                     evidence supports current state
+ 35.000s  NORMAL   INSUFFICIENT_EVIDENCE  unusable face, eye or observation quality; previous state is untrusted
+ 37.500s  NORMAL   OK                     evidence supports current state
+ 50.000s  NORMAL   INSUFFICIENT_EVIDENCE  unusable face, eye or observation quality; previous state is untrusted
+ 53.000s  NORMAL   OK                     evidence supports current state
+ 65.300s  NORMAL   INSUFFICIENT_EVIDENCE  unusable face, eye or observation quality; previous state is untrusted
+ 67.300s  NORMAL   OK                     evidence supports current state
+
+Wrote 900 SG6 decisions to C:\Users\Lenovo\Desktop\7th Semester\Computer Vision\Project\SG5 tasks\Midterm\tmp\report_capture\face_lost\sg6_stream.jsonl

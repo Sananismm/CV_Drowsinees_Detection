@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE svg
+  PUBLIC '-//W3C//DTD SVG 1.0//EN'
+  'http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd'>
+<svg width="503.27559055118115" height="139" preserveAspectRatio="xMinYMin meet" viewBox="0 0 503 139" xmlns="http://www.w3.org/2000/svg" version="1.0" fill-rule="evenodd" xmlns:xlink="http://www.w3.org/1999/xlink">
+	<title>...</title>
+	<desc>...</desc>
+	<clipPath id="clip">
+		<rect x="0" y="0" width="503.27559055118115" height="139"/>
+	</clipPath>
+	<g id="group" transform="scale(1,-1) translate(0,-139)" style="clip-path: url(#clip)">
+		<g transform="">
+			<rect x="0" y="96" width="215" height="39" rx="4" ry="4" style="stroke: rgb(79%,83%,87%); stroke-linecap: butt; stroke-width: 0.6; fill: rgb(94%,96%,97%); fill-rule: evenodd;"/>
+			<text x="51.171850000000006" y="120" style="font-family: Helvetica-Bold; font-size: 8.7px;fill: rgb(14%,36%,51%); stroke:none;" transform="translate(0,240) scale(1,-1)">2 synthetic temporal drives</text>
+			<text x="72.60925" y="106" style="font-family: Helvetica; font-size: 8.1px;fill: rgb(9%,16%,27%); stroke:none;" transform="translate(0,212) scale(1,-1)">5,400 labelled rows</text>
+			<rect x="253" y="96" width="250.27559055118115" height="39" rx="4" ry="4" style="stroke: rgb(79%,83%,87%); stroke-linecap: butt; stroke-width: 0.6; fill: rgb(94%,96%,97%); fill-rule: evenodd;"/>
+			<text x="321.09189527559056" y="120" style="font-family: Helvetica-Bold; font-size: 8.7px;fill: rgb(14%,36%,51%); stroke:none;" transform="translate(0,240) scale(1,-1)">Compare decision methods</text>
+			<text x="328.3916452755906" y="106" style="font-family: Helvetica; font-size: 8.1px;fill: rgb(9%,16%,27%); stroke:none;" transform="translate(0,212) scale(1,-1)">Accuracy, F1, events, delay</text>
+			<path d="M 215,116 L 253,116 Z" style="stroke: rgb(14%,36%,51%); stroke-linecap: butt; stroke-width: 1.2;"/>
+			<polygon points="253 116, 248 119, 248 113" style="stroke: rgb(14%,36%,51%); stroke-linecap: butt; stroke-width: 1; fill: rgb(14%,36%,51%); fill-rule: evenodd;"/>
+			<rect x="0" y="49" width="215" height="39" rx="4" ry="4" style="stroke: rgb(79%,83%,87%); stroke-linecap: butt; stroke-width: 0.6; fill: rgb(94%,96%,97%); fill-rule: evenodd;"/>
+			<text x="62.046850000000006" y="73" style="font-family: Helvetica-Bold; font-size: 8.7px;fill: rgb(14%,36%,51%); stroke:none;" transform="translate(0,146) scale(1,-1)">SG4 mock frame cues</text>
+			<text x="48.07435" y="59" style="font-family: Helvetica; font-size: 8.1px;fill: rgb(9%,16%,27%); stroke:none;" transform="translate(0,118) scale(1,-1)">Actual TemporalEngine executes</text>
+			<rect x="253" y="49" width="250.27559055118115" height="39" rx="4" ry="4" style="stroke: rgb(79%,83%,87%); stroke-linecap: butt; stroke-width: 0.6; fill: rgb(94%,96%,97%); fill-rule: evenodd;"/>
+			<text x="316.4939452755906" y="73" style="font-family: Helvetica-Bold; font-size: 8.7px;fill: rgb(14%,36%,51%); stroke:none;" transform="translate(0,146) scale(1,-1)">Repeatable alert / fault demos</text>
+			<text x="309.7008952755906" y="59" style="font-family: Helvetica; font-size: 8.1px;fill: rgb(9%,16%,27%); stroke:none;" transform="translate(0,118) scale(1,-1)">State changes and hardware requests</text>
+			<path d="M 215,69 L 253,69 Z" style="stroke: rgb(14%,36%,51%); stroke-linecap: butt; stroke-width: 1.2;"/>
+			<polygon points="253 69, 248 72, 248 66" style="stroke: rgb(14%,36%,51%); stroke-linecap: butt; stroke-width: 1; fill: rgb(14%,36%,51%); fill-rule: evenodd;"/>
+			<rect x="0" y="2" width="215" height="39" rx="4" ry="4" style="stroke: rgb(79%,83%,87%); stroke-linecap: butt; stroke-width: 0.6; fill: rgb(94%,96%,97%); fill-rule: evenodd;"/>
+			<text x="57.6925" y="26" style="font-family: Helvetica-Bold; font-size: 8.7px;fill: rgb(14%,36%,51%); stroke:none;" transform="translate(0,52) scale(1,-1)">5 actual SG1 video clips</text>
+			<text x="71.71015" y="12" style="font-family: Helvetica; font-size: 8.1px;fill: rgb(9%,16%,27%); stroke:none;" transform="translate(0,24) scale(1,-1)">2,932 image frames</text>
+			<rect x="253" y="2" width="250.27559055118115" height="39" rx="4" ry="4" style="stroke: rgb(79%,83%,87%); stroke-linecap: butt; stroke-width: 0.6; fill: rgb(94%,96%,97%); fill-rule: evenodd;"/>
+			<text x="315.04974527559057" y="26" style="font-family: Helvetica-Bold; font-size: 8.7px;fill: rgb(14%,36%,51%); stroke:none;" transform="translate(0,52) scale(1,-1)">Connected software execution</text>
+			<text x="320.51034527559057" y="12" style="font-family: Helvetica; font-size: 8.1px;fill: rgb(9%,16%,27%); stroke:none;" transform="translate(0,24) scale(1,-1)">No independent accuracy labels</text>
+			<path d="M 215,22 L 253,22 Z" style="stroke: rgb(14%,36%,51%); stroke-linecap: butt; stroke-width: 1.2;"/>
+			<polygon points="253 22, 248 25, 248 19" style="stroke: rgb(14%,36%,51%); stroke-linecap: butt; stroke-width: 1; fill: rgb(14%,36%,51%); fill-rule: evenodd;"/>
+		</g>
+	</g>
+</svg>
