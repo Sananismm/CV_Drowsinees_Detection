@@ -19,23 +19,7 @@ Do not use the Microsoft Store alias as the project runtime.
 
 Use `requirements.txt` only when exact locked versions are unavailable.
 
-## 3. Check the environment
-
-```powershell
-.\.venv\Scripts\python.exe -c "import cv2, mediapipe, numpy; print(cv2.__version__, mediapipe.__version__, numpy.__version__)"
-.\.venv\Scripts\python.exe -m pip check
-.\.venv\Scripts\python.exe scripts\verify_setup.py --smoke-model
-```
-
-Expected verified versions:
-
-```text
-OpenCV 4.11.0
-MediaPipe 0.10.35
-NumPy 1.26.4
-```
-
-## 4. Download the model
+## 3. Download and verify the model
 
 ```powershell
 .\.venv\Scripts\python.exe scripts\download_model.py
@@ -51,6 +35,22 @@ Expected SHA-256:
 
 ```text
 64184E229B263107BC2B804C6625DB1341FF2BB731874B0BCC2FE6544E0BC9FF
+```
+
+## 4. Check the environment
+
+```powershell
+.\.venv\Scripts\python.exe -c "import cv2, mediapipe, numpy; print(cv2.__version__, mediapipe.__version__, numpy.__version__)"
+.\.venv\Scripts\python.exe -m pip check
+.\.venv\Scripts\python.exe scripts\verify_setup.py --smoke-model
+```
+
+Expected verified versions:
+
+```text
+OpenCV 4.11.0
+MediaPipe 0.10.35
+NumPy 1.26.4
 ```
 
 ## 5. Prepare an approved video
