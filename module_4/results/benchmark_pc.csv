@@ -1,0 +1,2 @@
+host,frames,mean_ms,p95_ms,max_ms,out_mean_ms,out_p95_ms,peak_alloc_mb,max_rss_mb
+"Darwin arm64, Python 3.9.6, NumPy 2.0.2",12000,0.0263,0.0603,0.1715,0.0526,0.0633,0.43,41.4

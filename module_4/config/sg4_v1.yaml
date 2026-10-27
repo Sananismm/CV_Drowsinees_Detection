@@ -1,0 +1,53 @@
+# SG-4 Temporal Behaviour Analysis - all thresholds and windows (v1).
+# This file is the single source of truth. Code never hard-codes these values.
+# Times are in milliseconds unless the key ends in _s. Probabilities are 0-1.
+
+# --- Output -----------------------------------------------------------------
+output_rate_hz: 10                # SG-5 receives one vector every 100 ms of capture time
+
+# --- Sync & validation ------------------------------------------------------
+face_conf_min: 0.5                # face_valid = present AND confidence >= this
+eye_conf_min: 0.5                 # eye cue invalid below this
+mouth_conf_min: 0.5
+head_conf_min: 0.5
+gap_ms: 200                       # inter-frame gap above this is logged as a gap
+max_frame_dt_ms: 200              # time credited to one frame is capped here (gaps are not observed time)
+
+# --- Ring buffer ------------------------------------------------------------
+buffer_capacity: 4096             # records; covers a 60 s window up to ~68 FPS
+
+# --- Eye closure (P80 + hysteresis) -----------------------------------------
+p80_threshold: 0.8                # closure_prob >= 0.8 counts as "closed" for PERCLOS
+close_on: 0.8                     # hysteresis: closure starts at closure_prob >= close_on
+close_off: 0.5                    # hysteresis: closure ends at closure_prob <= close_off
+min_blink_ms: 70                  # closures shorter than this are noise, not blinks
+slow_blink_ms: 400                # slow blink: > 400 ms and < long_blink_ms
+long_blink_ms: 500                # long blink / microsleep: >= 500 ms
+
+# --- Yawn (SG-3 yawn_prob + hysteresis + debounce) --------------------------
+yawn_on: 0.6
+yawn_off: 0.4
+min_yawn_ms: 1500                 # shorter mouth openings (talking) are not yawns
+yawn_merge_gap_ms: 1000           # repeats < 1 s apart are one event
+
+# --- Nod / head drop (pitch: negative = head down) --------------------------
+nod_on_deg: -15.0                 # head-down segment starts at pitch <= -15 deg
+nod_off_deg: -10.0                # ...and ends at pitch > -10 deg
+min_nod_ms: 300
+nod_merge_gap_ms: 1000
+nod_face_loss_ms: 300             # face lost within 300 ms of pitch <= nod_off_deg = head drop
+
+# --- Windows (seconds) ------------------------------------------------------
+perclos_window_s: 60              # SG-4 decision (SG-5 did not state one)
+long_blink_window_s: 30           # SG-5 contract
+yawn_window_s: 60                 # SG-5 contract
+nod_window_s: 60
+blink_window_s: 60                # blink rate, mean blink, slow blinks, longest closure
+validity_window_s: 60             # validity_score, head_down_s, face_absent_s
+min_valid_for_rate_s: 5           # blink rate reported as 0 until this much valid time exists
+
+# --- Baseline & trend -------------------------------------------------------
+calibration_s: 60                 # first 60 s of a drive = per-driver baseline
+baseline_perclos_floor: 0.02      # avoids divide-by-zero for a driver with ~0 baseline PERCLOS
+trend_window_s: 30                # slope of perclos over the last 30 s of outputs
+trend_worsening_per_min: 0.05     # perclos rising >= 0.05 per minute = worsening

@@ -1,0 +1,219 @@
+{
+ "scenario": "noisy",
+ "seed": 5,
+ "fps": 30.0,
+ "duration_ms": 90000,
+ "closures": [
+  {
+   "start_ms": 2473,
+   "end_ms": 2754,
+   "class": "blink"
+  },
+  {
+   "start_ms": 5510,
+   "end_ms": 5687,
+   "class": "blink"
+  },
+  {
+   "start_ms": 7439,
+   "end_ms": 7635,
+   "class": "blink"
+  },
+  {
+   "start_ms": 10220,
+   "end_ms": 10349,
+   "class": "blink"
+  },
+  {
+   "start_ms": 12137,
+   "end_ms": 12456,
+   "class": "blink"
+  },
+  {
+   "start_ms": 15502,
+   "end_ms": 15668,
+   "class": "blink"
+  },
+  {
+   "start_ms": 18346,
+   "end_ms": 18660,
+   "class": "blink"
+  },
+  {
+   "start_ms": 22301,
+   "end_ms": 22589,
+   "class": "blink"
+  },
+  {
+   "start_ms": 25042,
+   "end_ms": 25260,
+   "class": "blink"
+  },
+  {
+   "start_ms": 28466,
+   "end_ms": 28598,
+   "class": "blink"
+  },
+  {
+   "start_ms": 31600,
+   "end_ms": 31774,
+   "class": "blink"
+  },
+  {
+   "start_ms": 35511,
+   "end_ms": 35643,
+   "class": "blink"
+  },
+  {
+   "start_ms": 38941,
+   "end_ms": 39235,
+   "class": "blink"
+  },
+  {
+   "start_ms": 41287,
+   "end_ms": 41742,
+   "class": "slow_blink"
+  },
+  {
+   "start_ms": 45180,
+   "end_ms": 45434,
+   "class": "blink"
+  },
+  {
+   "start_ms": 48678,
+   "end_ms": 48928,
+   "class": "blink"
+  },
+  {
+   "start_ms": 50000,
+   "end_ms": 50800,
+   "class": "long_blink"
+  },
+  {
+   "start_ms": 51686,
+   "end_ms": 52036,
+   "class": "blink"
+  },
+  {
+   "start_ms": 53974,
+   "end_ms": 54298,
+   "class": "blink"
+  },
+  {
+   "start_ms": 57709,
+   "end_ms": 58031,
+   "class": "blink"
+  },
+  {
+   "start_ms": 59866,
+   "end_ms": 60276,
+   "class": "slow_blink"
+  },
+  {
+   "start_ms": 62000,
+   "end_ms": 63200,
+   "class": "long_blink"
+  },
+  {
+   "start_ms": 65108,
+   "end_ms": 65431,
+   "class": "blink"
+  },
+  {
+   "start_ms": 68500,
+   "end_ms": 69150,
+   "class": "long_blink"
+  },
+  {
+   "start_ms": 71843,
+   "end_ms": 72147,
+   "class": "blink"
+  },
+  {
+   "start_ms": 74000,
+   "end_ms": 75800,
+   "class": "long_blink"
+  },
+  {
+   "start_ms": 78367,
+   "end_ms": 78835,
+   "class": "slow_blink"
+  },
+  {
+   "start_ms": 80000,
+   "end_ms": 80900,
+   "class": "long_blink"
+  },
+  {
+   "start_ms": 84260,
+   "end_ms": 84565,
+   "class": "blink"
+  },
+  {
+   "start_ms": 85500,
+   "end_ms": 87500,
+   "class": "long_blink"
+  },
+  {
+   "start_ms": 87840,
+   "end_ms": 88245,
+   "class": "slow_blink"
+  }
+ ],
+ "yawns": [
+  {
+   "start_ms": 30000,
+   "end_ms": 34000
+  },
+  {
+   "start_ms": 55000,
+   "end_ms": 59500
+  }
+ ],
+ "nods": [
+  {
+   "start_ms": 77000,
+   "end_ms": 77900,
+   "kind": "nod"
+  }
+ ],
+ "invalid": [],
+ "artifacts": [
+  {
+   "start_ms": 12000,
+   "end_ms": 12500,
+   "kind": "talking"
+  },
+  {
+   "start_ms": 12900,
+   "end_ms": 13300,
+   "kind": "talking"
+  },
+  {
+   "start_ms": 44000,
+   "end_ms": 44600,
+   "kind": "talking"
+  },
+  {
+   "start_ms": 8000,
+   "end_ms": 8001,
+   "kind": "spike"
+  },
+  {
+   "start_ms": 21000,
+   "end_ms": 21001,
+   "kind": "spike"
+  },
+  {
+   "start_ms": 36000,
+   "end_ms": 36001,
+   "kind": "spike"
+  },
+  {
+   "start_ms": 47000,
+   "end_ms": 47001,
+   "kind": "spike"
+  }
+ ],
+ "dropped_records_note": "noisy: ~3% random drops, bursts at 20.0-20.3 s and 66.0-66.3 s"
+}
