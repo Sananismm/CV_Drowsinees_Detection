@@ -78,6 +78,9 @@ def run_video(args):
     mouth = YawnAdapter()
     temporal = SG4Bridge()
     detector = SG1FaceLandmarkDetector(model, DetectorConfig("sg5_midterm", 256, .5, .5, .5))
+    if args.show:
+        cv2.namedWindow("SG1 to SG6 midterm", cv2.WINDOW_NORMAL)
+        cv2.resizeWindow("SG1 to SG6 midterm", 1280, 720)
     started = time.perf_counter()
     capture_origin = time.monotonic()
     counts, statuses = Counter(), Counter()

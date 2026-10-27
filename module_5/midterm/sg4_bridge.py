@@ -1,7 +1,10 @@
 """Run the team's real SG4 v1.1 engine without inventing confidence values.
 
-Native ``sg4.input.v1`` records follow SG4's unchanged confidence gates and
-produce byte-for-byte-equivalent values to its committed golden streams.
+Native ``sg4.input.v1`` records in unannotated reference replay follow SG4's
+unchanged confidence gates and produce equivalent values to its committed
+golden streams. The annotated SG5 consumer path additionally censors the first
+native observation after a capture gap so unobserved time cannot become a
+continuous closure. No upstream source or frozen wire schema is modified.
 
 Live SG1/SG2/SG3 transport has a separate, explicit availability path: SG2
 provides a hard OPEN/CLOSED state, not a calibrated closure probability, and
@@ -41,10 +44,21 @@ class AvailabilityCue(CueRecord):
 class AvailabilitySynchronizer(Synchronizer):
     """Retain SG4 timing while honoring genuine hard-state availability flags."""
 
+    def __init__(self, cfg, *, guard_native_gaps=False):
+        super().__init__(cfg)
+        self.guard_native_gaps = guard_native_gaps
+
     def process(self, cue):
         previous_t = self.last_t
         validated = super().process(cue)
-        if validated is None or not isinstance(cue, AvailabilityCue):
+        if validated is None:
+            return None
+        after_gap = previous_t is not None and cue.t_ms - previous_t > self.cfg.gap_ms
+        if not isinstance(cue, AvailabilityCue):
+            if self.guard_native_gaps and after_gap:
+                return replace(validated, eye_valid=False, closure_prob=0.0,
+                               mouth_valid=False, yawn_prob=0.0,
+                               head_valid=False, pitch_deg=0.0, ear=None)
             return validated
         face_valid = bool(cue.face_present) and (
             cue.face_conf is None or cue.face_conf >= self.cfg.face_conf_min
@@ -55,8 +69,8 @@ class AvailabilitySynchronizer(Synchronizer):
         # SG4 caps integrated dt but its event trackers use absolute time.
         # Censor the first post-gap hard-state observation so an unobserved
         # interval cannot become a continuous eye closure or yawn segment.
-        # Native SG4 records retain upstream behavior and golden parity.
-        if previous_t is not None and cue.t_ms - previous_t > self.cfg.gap_ms:
+        # Unannotated native replay separately retains exact golden parity.
+        if after_gap:
             eye_valid = mouth_valid = head_valid = False
         return replace(
             validated,
@@ -176,12 +190,16 @@ class SG4Bridge:
     With annotations enabled, ``eye_valid`` describes the current synchronized
     frame, not the window's historical validity fraction. ``quality_kind``
     identifies availability rather than calibrated model confidence. These
-    are SG5-side annotations, not additions to SG4's frozen wire schema.
+    are SG5-side annotations, not additions to SG4's frozen wire schema. The
+    annotated path guards native as well as hard-state post-gap observations;
+    unannotated native replay is the preserved SG4 reference behavior.
     """
 
     def __init__(self, cfg=None, *, annotate_eye_valid=True):
         self.engine = TemporalEngine(cfg)
-        self.engine.sync = AvailabilitySynchronizer(self.engine.cfg)
+        self.engine.sync = AvailabilitySynchronizer(
+            self.engine.cfg, guard_native_gaps=annotate_eye_valid,
+        )
         self.annotate_eye_valid = annotate_eye_valid
         self._source_kind = "sg4_confidence_gated"
 
@@ -215,8 +233,9 @@ class SG4Bridge:
 def iter_temporal(records: Iterable, *, annotate_eye_valid=False, cfg=None):
     """Yield real SG4 vectors; default output exactly preserves v1.1 fields.
 
-    Enable annotations for the direct in-process SG5 pipeline. For an empty
-    stream emit SG4's actual no-data snapshot, not a fabricated awake row.
+    Enable annotations and the native post-gap guard for the direct SG5
+    consumer pipeline. For an empty stream emit SG4's actual no-data snapshot,
+    not a fabricated awake row.
     """
     bridge = SG4Bridge(cfg, annotate_eye_valid=annotate_eye_valid)
     emitted = False

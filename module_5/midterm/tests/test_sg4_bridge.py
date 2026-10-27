@@ -34,7 +34,48 @@ def transport(index=0, state="OPEN", mouth=False, *, valid=True, face=True):
     return sg1, sg2, sg3
 
 
+def native_closed(t_ms):
+    return {
+        "schema": "sg4.input.v1", "frame_id": t_ms // 100,
+        "timestamp_ms": t_ms,
+        "face": {"present": True, "confidence": 0.95},
+        "eye": {"closure_prob": 0.95, "state": "closed", "ear": 0.1, "confidence": 0.95},
+        "mouth": None, "head": None,
+    }
+
+
 class GoldenStreamTests(unittest.TestCase):
+    def test_annotated_native_gap_resets_closure_and_cannot_trigger_immediate_drowsy(self):
+        from module_5.midterm.engine import DecisionEngine
+
+        records = [native_closed(t) for t in (0, 100, 3100, 3200)]
+        for record in records:
+            record["mouth"] = {"yawn_prob": 0.95, "mar": 0.8, "confidence": 0.95}
+            record["head"] = {"pitch_deg": -20.0, "confidence": 0.95}
+        vectors = list(iter_temporal(records, annotate_eye_valid=True))
+        after_gap = vectors[2]
+        self.assertEqual(after_gap["face_valid"], 1)
+        self.assertFalse(after_gap["eye_valid"])
+        self.assertEqual(after_gap["eye_closure_s"], 0)
+        self.assertEqual(after_gap["long_blinks"], 0)
+        self.assertEqual(after_gap["yawn_count"], 0)
+        self.assertEqual(after_gap["nod_count"], 0)
+        engine = DecisionEngine()
+        decisions = [engine.step(row) for row in vectors]
+        self.assertEqual(decisions[2]["status"], "INSUFFICIENT_EVIDENCE")
+        self.assertNotEqual(decisions[2]["driver_state"], "DROWSY")
+        self.assertFalse(decisions[2]["alert"])
+        self.assertTrue(vectors[3]["eye_valid"])
+        self.assertEqual(vectors[3]["eye_closure_s"], 0)
+        self.assertNotEqual(decisions[3]["driver_state"], "DROWSY")
+
+    def test_unannotated_native_gap_preserves_upstream_reference_behavior(self):
+        records = [native_closed(t) for t in (0, 100, 3100)]
+        vectors = list(iter_temporal(records))
+        self.assertNotIn("eye_valid", vectors[2])
+        self.assertEqual(vectors[2]["eye_closure_s"], 3.1)
+        self.assertEqual(vectors[2]["long_blinks"], 1)
+
     def test_all_five_native_mock_streams_match_actual_sg4_goldens(self):
         for name in ("alert", "drowsy", "face_lost", "noisy", "yawns_nods"):
             with self.subTest(scenario=name):
