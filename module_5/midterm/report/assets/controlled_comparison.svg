@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE svg
+  PUBLIC '-//W3C//DTD SVG 1.0//EN'
+  'http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd'>
+<svg width="503.27559055118115" height="182" preserveAspectRatio="xMinYMin meet" viewBox="0 0 503 182" xmlns="http://www.w3.org/2000/svg" version="1.0" fill-rule="evenodd" xmlns:xlink="http://www.w3.org/1999/xlink">
+	<title>...</title>
+	<desc>...</desc>
+	<clipPath id="clip">
+		<rect x="0" y="0" width="503.27559055118115" height="182"/>
+	</clipPath>
+	<g id="group" transform="scale(1,-1) translate(0,-182)" style="clip-path: url(#clip)">
+		<g transform="">
+			<text x="75.32145" y="169" style="font-family: Helvetica-Bold; font-size: 9.1px;fill: rgb(9%,16%,27%); stroke:none;" transform="translate(0,338) scale(1,-1)">Sample macro F1</text>
+			<path d="M 8,30 L 228,30 Z" style="stroke: rgb(79%,83%,87%); stroke-linecap: butt; stroke-width: 1;"/>
+			<path d="M 8,30 L 228,30 Z" style="stroke: rgb(79%,83%,87%); stroke-linecap: butt; stroke-width: 0.4;"/>
+			<path d="M 8,85 L 228,85 Z" style="stroke: rgb(79%,83%,87%); stroke-linecap: butt; stroke-width: 0.4;"/>
+			<path d="M 8,140 L 228,140 Z" style="stroke: rgb(79%,83%,87%); stroke-linecap: butt; stroke-width: 0.4;"/>
+			<rect x="16" y="30" width="27" height="76.7984957548911" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(78%,46%,17%); fill-rule: evenodd;"/>
+			<text x="21.716" y="112.7984957548911" style="font-family: Helvetica; font-size: 8px;fill: rgb(9%,16%,27%); stroke:none;" transform="translate(0,225) scale(1,-1)">0.70</text>
+			<text x="26.9654" y="15" style="font-family: Helvetica; font-size: 7.6px;fill: rgb(32%,38%,45%); stroke:none;" transform="translate(0,30) scale(1,-1)">A</text>
+			<rect x="59" y="30" width="27" height="77.4199651312458" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(49%,44%,66%); fill-rule: evenodd;"/>
+			<text x="64.716" y="113.4199651312458" style="font-family: Helvetica; font-size: 8px;fill: rgb(9%,16%,27%); stroke:none;" transform="translate(0,226) scale(1,-1)">0.70</text>
+			<text x="69.9654" y="15" style="font-family: Helvetica; font-size: 7.6px;fill: rgb(32%,38%,45%); stroke:none;" transform="translate(0,30) scale(1,-1)">B</text>
+			<rect x="102" y="30" width="27" height="70.4711815277206" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(22%,53%,47%); fill-rule: evenodd;"/>
+			<text x="107.716" y="106.4711815277206" style="font-family: Helvetica; font-size: 8px;fill: rgb(9%,16%,27%); stroke:none;" transform="translate(0,212) scale(1,-1)">0.64</text>
+			<text x="106.6308" y="15" style="font-family: Helvetica; font-size: 7.6px;fill: rgb(32%,38%,45%); stroke:none;" transform="translate(0,30) scale(1,-1)">C old</text>
+			<rect x="145" y="30" width="27" height="69.87233500591975" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(19%,43%,60%); fill-rule: evenodd;"/>
+			<text x="150.716" y="105.87233500591975" style="font-family: Helvetica; font-size: 8px;fill: rgb(9%,16%,27%); stroke:none;" transform="translate(0,211) scale(1,-1)">0.64</text>
+			<text x="144.1398" y="15" style="font-family: Helvetica; font-size: 7.6px;fill: rgb(32%,38%,45%); stroke:none;" transform="translate(0,30) scale(1,-1)">C robust</text>
+			<rect x="188" y="30" width="27" height="70.31817474501307" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(63%,39%,56%); fill-rule: evenodd;"/>
+			<text x="193.716" y="106.31817474501307" style="font-family: Helvetica; font-size: 8px;fill: rgb(9%,16%,27%); stroke:none;" transform="translate(0,212) scale(1,-1)">0.64</text>
+			<text x="191.5744" y="15" style="font-family: Helvetica; font-size: 7.6px;fill: rgb(32%,38%,45%); stroke:none;" transform="translate(0,30) scale(1,-1)">C fast</text>
+			<text x="295.12675" y="169" style="font-family: Helvetica-Bold; font-size: 9.1px;fill: rgb(9%,16%,27%); stroke:none;" transform="translate(0,338) scale(1,-1)">False DROWSY duration in seconds</text>
+			<path d="M 268,30 L 488,30 Z" style="stroke: rgb(79%,83%,87%); stroke-linecap: butt; stroke-width: 1;"/>
+			<path d="M 268,30 L 488,30 Z" style="stroke: rgb(79%,83%,87%); stroke-linecap: butt; stroke-width: 0.4;"/>
+			<path d="M 268,85 L 488,85 Z" style="stroke: rgb(79%,83%,87%); stroke-linecap: butt; stroke-width: 0.4;"/>
+			<path d="M 268,140 L 488,140 Z" style="stroke: rgb(79%,83%,87%); stroke-linecap: butt; stroke-width: 0.4;"/>
+			<rect x="276" y="30" width="27" height="12.100000000000001" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(78%,46%,17%); fill-rule: evenodd;"/>
+			<text x="281.716" y="48.1" style="font-family: Helvetica; font-size: 8px;fill: rgb(9%,16%,27%); stroke:none;" transform="translate(0,96) scale(1,-1)">1.10</text>
+			<text x="286.9654" y="15" style="font-family: Helvetica; font-size: 7.6px;fill: rgb(32%,38%,45%); stroke:none;" transform="translate(0,30) scale(1,-1)">A</text>
+			<rect x="319" y="30" width="27" height="59.400000000000006" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(49%,44%,66%); fill-rule: evenodd;"/>
+			<text x="324.716" y="95.4" style="font-family: Helvetica; font-size: 8px;fill: rgb(9%,16%,27%); stroke:none;" transform="translate(0,190) scale(1,-1)">5.40</text>
+			<text x="329.9654" y="15" style="font-family: Helvetica; font-size: 7.6px;fill: rgb(32%,38%,45%); stroke:none;" transform="translate(0,30) scale(1,-1)">B</text>
+			<rect x="362" y="30" width="27" height="94.6" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(22%,53%,47%); fill-rule: evenodd;"/>
+			<text x="367.716" y="130.6" style="font-family: Helvetica; font-size: 8px;fill: rgb(9%,16%,27%); stroke:none;" transform="translate(0,261) scale(1,-1)">8.60</text>
+			<text x="366.6308" y="15" style="font-family: Helvetica; font-size: 7.6px;fill: rgb(32%,38%,45%); stroke:none;" transform="translate(0,30) scale(1,-1)">C old</text>
+			<rect x="405" y="30" width="27" height="95.69999999999999" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(19%,43%,60%); fill-rule: evenodd;"/>
+			<text x="410.716" y="131.7" style="font-family: Helvetica; font-size: 8px;fill: rgb(9%,16%,27%); stroke:none;" transform="translate(0,263) scale(1,-1)">8.70</text>
+			<text x="404.1398" y="15" style="font-family: Helvetica; font-size: 7.6px;fill: rgb(32%,38%,45%); stroke:none;" transform="translate(0,30) scale(1,-1)">C robust</text>
+			<rect x="448" y="30" width="27" height="0.3999999999999986" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(63%,39%,56%); fill-rule: evenodd;"/>
+			<text x="453.716" y="36.0" style="font-family: Helvetica; font-size: 8px;fill: rgb(9%,16%,27%); stroke:none;" transform="translate(0,72) scale(1,-1)">0.00</text>
+			<text x="451.5744" y="15" style="font-family: Helvetica; font-size: 7.6px;fill: rgb(32%,38%,45%); stroke:none;" transform="translate(0,30) scale(1,-1)">C fast</text>
+		</g>
+	</g>
+</svg>

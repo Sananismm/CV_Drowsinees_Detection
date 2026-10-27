@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "sg5.sg6.v2",
+  "title": "SG5 status aware SG6 decision proposal",
+  "description": "Implemented and tested SG5 proposal; SG6 owner acceptance is tracked separately. Quality is observation availability, not drowsiness probability.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "time_s", "session_id", "driver_state", "alert", "alert_level", "score", "smoothed_score", "quality", "status", "reason", "transition", "alert_event", "config_id"],
+  "properties": {
+    "schema_version": {"const": "sg5.sg6.v2"},
+    "time_s": {"type": "number", "minimum": 0},
+    "session_id": {"type": "string", "minLength": 1},
+    "driver_state": {"enum": ["NORMAL", "WARNING", "DROWSY"]},
+    "alert": {"type": "boolean"},
+    "alert_level": {"type": "integer", "minimum": 0, "maximum": 2},
+    "score": {"type": "number", "minimum": 0, "maximum": 1},
+    "smoothed_score": {"type": "number", "minimum": 0, "maximum": 1},
+    "quality": {"type": "number", "minimum": 0, "maximum": 1},
+    "status": {"enum": ["OK", "INSUFFICIENT_EVIDENCE", "STALE"]},
+    "reason": {"type": "string", "minLength": 1},
+    "transition": {"type": "boolean"},
+    "alert_event": {"type": "boolean"},
+    "config_id": {"type": "string", "minLength": 1}
+  }
+}

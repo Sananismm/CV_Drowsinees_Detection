@@ -1,0 +1,75 @@
+{
+  "evidence_kind": "real_SG4_implementation_on_synthetic_frame_cues",
+  "input_file": "interfaces/mocks/drowsy.jsonl",
+  "input_sha256": "9ccc14cc7a84e1390afd5d80093aa510564d6489573220ac580cd4022d79f58c",
+  "sg4_vectors": 900,
+  "states": {
+    "NORMAL": 636,
+    "WARNING": 201,
+    "DROWSY": 63
+  },
+  "statuses": {
+    "OK": 900
+  },
+  "transitions": [
+    {
+      "time_s": 0.0,
+      "driver_state": "NORMAL",
+      "status": "OK",
+      "reason": "evidence supports current state"
+    },
+    {
+      "time_s": 63.6,
+      "driver_state": "WARNING",
+      "status": "OK",
+      "reason": "sustained higher-risk evidence confirmed"
+    },
+    {
+      "time_s": 75.5,
+      "driver_state": "DROWSY",
+      "status": "OK",
+      "reason": "prolonged eye-closure override"
+    },
+    {
+      "time_s": 78.8,
+      "driver_state": "WARNING",
+      "status": "OK",
+      "reason": "sustained lower-risk evidence confirmed"
+    },
+    {
+      "time_s": 87.0,
+      "driver_state": "DROWSY",
+      "status": "OK",
+      "reason": "prolonged eye-closure override"
+    }
+  ],
+  "processing_wall_seconds": 0.45530349999899045,
+  "config": {
+    "config_id": "midterm_c_v2",
+    "method": "C",
+    "weights": [
+      0.45,
+      0.2,
+      0.2,
+      0.15
+    ],
+    "warn_score": 0.2,
+    "drowsy_score": 0.5,
+    "enter_warn": 0.2,
+    "exit_warn": 0.14,
+    "enter_drowsy": 0.65,
+    "exit_drowsy": 0.53,
+    "smoothing_s": 2.0,
+    "confirm_s": 1.0,
+    "release_s": 3.0,
+    "microsleep_s": 1.5,
+    "max_gap_s": 0.5,
+    "min_quality": 0.55,
+    "a_drowsy_perclos": 0.22,
+    "a_drowsy_closure_s": 1.5,
+    "a_warn_perclos": 0.1,
+    "a_warn_yawns": 2,
+    "a_warn_long_blinks": 3
+  },
+  "note": "SG4 is real code; frame cues are synthetic. No real-driver accuracy or Jetson execution is claimed."
+}

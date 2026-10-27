@@ -1,0 +1,118 @@
+{
+  "schema_version": "sg5.platform_evidence.v1",
+  "created_utc": "2026-10-27T22:10:12.285037+00:00",
+  "host": {
+    "system": "Windows",
+    "machine": "AMD64",
+    "platform": "Windows-10-10.0.26300-SP0",
+    "python": "3.11.0",
+    "python_executable": "C:\\Users\\Lenovo\\Desktop\\7th Semester\\Computer Vision\\Project\\SG5 tasks\\Midterm\\.venv\\Scripts\\python.exe",
+    "python_at_least_3_10": true,
+    "git_version": "git version 2.50.1.windows.1",
+    "ram_bytes": 34053414912,
+    "ram_gib": 31.715,
+    "device_tree_model": null,
+    "nv_tegra_release": null,
+    "jetson_family_detected": false,
+    "reported_orin_nano_model": false,
+    "exact_target_8gb_sku_verified": null,
+    "target_note": "ARM alone does not identify a Jetson. Reported model and available RAM are separate observations; an 8 GB Orin Nano is not assumed."
+  },
+  "runtime": {
+    "sg5_core": {
+      "import_ok": true,
+      "smoke_ok": true,
+      "observed_state": "DROWSY",
+      "hardware_operations": false
+    },
+    "optional_imports": {
+      "numpy": {
+        "import_ok": true,
+        "version": "1.26.4"
+      },
+      "yaml": {
+        "import_ok": true,
+        "version": "6.0.2"
+      },
+      "jsonschema": {
+        "import_ok": true,
+        "version": "4.23.0"
+      },
+      "cv2": {
+        "import_ok": true,
+        "version": "4.11.0"
+      }
+    },
+    "distribution_metadata": {
+      "numpy": {
+        "metadata_found": true,
+        "version": "1.26.4"
+      },
+      "PyYAML": {
+        "metadata_found": true,
+        "version": "6.0.2"
+      },
+      "jsonschema": {
+        "metadata_found": true,
+        "version": "4.23.0"
+      },
+      "opencv-python": {
+        "metadata_found": false,
+        "version": null
+      },
+      "opencv-contrib-python": {
+        "metadata_found": true,
+        "version": "4.11.0.86"
+      },
+      "mediapipe": {
+        "metadata_found": true,
+        "version": "0.10.21"
+      },
+      "torch": {
+        "metadata_found": false,
+        "version": null
+      },
+      "nvidia-cuda-runtime-cu12": {
+        "metadata_found": false,
+        "version": null
+      }
+    },
+    "torch_imported_by_this_tool": false,
+    "cuda_runtime_checked": false,
+    "cuda_available": null,
+    "full_vision_gpu_stack_verified": null,
+    "cuda_note": "Torch/CUDA metadata is not GPU, CUDA execution or full-pipeline dependency proof. No Torch import or CUDA initialization is performed.",
+    "scope": "SG5 core smoke plus lightweight SG4/OpenCV imports; not a full MediaPipe camera pipeline or a Torch model test"
+  },
+  "capture": {
+    "requested": false,
+    "source_kind": null,
+    "success": null,
+    "reason": "No source selected; no camera was opened."
+  },
+  "readiness": {
+    "jetson_boot": {
+      "verified": false,
+      "status": "FAIL",
+      "reason": "This runtime is not identified as a Jetson; PC/Linux ARM alone is not boot evidence for the target."
+    },
+    "software_stack": {
+      "verified": null,
+      "status": "UNVERIFIED",
+      "reason": "Runtime observations were collected off-target and do not prove the Jetson software stack."
+    },
+    "physical_camera": {
+      "verified": null,
+      "status": "UNVERIFIED",
+      "reason": "No physical camera evidence was collected on the Jetson target."
+    },
+    "all_three_verified": false
+  },
+  "limitations": [
+    "No GPIO, buzzer, package installation or training was performed.",
+    "PC execution is not Jetson evidence.",
+    "No camera is opened unless --camera is explicitly supplied.",
+    "A video fallback cannot verify a physical camera.",
+    "CUDA execution and the full SG1-SG6 hardware pipeline are not tested."
+  ]
+}

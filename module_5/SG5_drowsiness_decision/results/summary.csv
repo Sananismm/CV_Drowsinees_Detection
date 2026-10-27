@@ -1,0 +1,7 @@
+drive,method,accuracy,drowsy_events,detected,missed,false_alerts,avg_delay_s,state_changes
+drive1_synthetic,A: Threshold,0.659,2,2,0,0,8.4,14
+drive1_synthetic,B: Weighted score,0.775,2,1,1,0,15.3,12
+drive1_synthetic,C: State machine,0.607,2,2,0,0,11.6,7
+drive2_synthetic,A: Threshold,0.783,0,0,0,0,-,8
+drive2_synthetic,B: Weighted score,0.723,0,0,0,0,-,6
+drive2_synthetic,C: State machine,0.723,0,0,0,0,-,4

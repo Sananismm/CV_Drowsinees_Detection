@@ -1,0 +1,113 @@
+{
+  "sg1": {
+    "schema_version": "sg1.v1",
+    "frame_id": 0,
+    "timestamp_ms": 0,
+    "image_width": 1920,
+    "image_height": 1080,
+    "landmark_topology": "mediapipe_face_landmarker_478",
+    "config_name": "sg5_midterm",
+    "status": "OK",
+    "face_bbox_xyxy": [
+      699,
+      183,
+      1022,
+      516
+    ],
+    "landmark_count": 478,
+    "detection_confidence": null,
+    "inference_ms": 13.311400020029396
+  },
+  "sg2": {
+    "schema_version": "sg2.sg4.v2",
+    "timestamp": 0.0,
+    "frame_id": 0,
+    "eye_valid": true,
+    "eye_state": "CLOSED",
+    "eye_closure_prob": null,
+    "face_confidence": null,
+    "is_blink": false,
+    "closure_event": null,
+    "closure_duration_sec": 0.0,
+    "method": "EAR_0.15_open2",
+    "ear": 0.1371078662210547,
+    "left_ear": 0.10743526306616161,
+    "right_ear": 0.16678046937594776,
+    "ear_eye_state": "CLOSED",
+    "cnn": {
+      "eye_state": "UNKNOWN",
+      "valid": false,
+      "eyes": [],
+      "reason": "disabled_in_ear_only",
+      "called": false
+    },
+    "invalid_reason": null,
+    "quality": {
+      "geometry_valid": true,
+      "cnn_available": false,
+      "cnn_agreement": false,
+      "cnn_used": false,
+      "cnn_called": false,
+      "cnn_state": "UNKNOWN",
+      "cnn_margin": null,
+      "cnn_signed_score": null,
+      "ear_signed_score": 0.08594755852630198,
+      "ear_imbalance": 0.43283589735183936
+    }
+  },
+  "sg3": {
+    "time_s": 0.0,
+    "frame_id": 0,
+    "valid": true,
+    "mar": 0.15519728128542248,
+    "yawn_active": false,
+    "yawn_confirmed": false,
+    "event": false,
+    "confidence": null,
+    "invalid_reason": null,
+    "source": {
+      "branch": "sg3",
+      "commit": "e3661b7575ebd06eea67a072f901ecd1fcf08a0c",
+      "path": "module_3/Week 8 Progress.py"
+    }
+  },
+  "sg4": {
+    "schema": "sg4.output.v1.1",
+    "time_s": 0.0,
+    "perclos": 0.0,
+    "face_valid": 1,
+    "long_blinks": 0,
+    "yawn_count": 0,
+    "eye_closure_s": 0.0,
+    "nod_count": 0,
+    "validity_score": 1.0,
+    "calibrating": true,
+    "blink_rate_bpm": 0.0,
+    "mean_blink_ms": 0,
+    "slow_blinks": 0,
+    "longest_closure_s": 0.0,
+    "head_down_s": 0.0,
+    "face_absent_s": 0.0,
+    "perclos_vs_baseline": null,
+    "trend": null,
+    "eye_valid": true,
+    "quality_kind": "observed_availability",
+    "availability_source": "sg1_sg2_sg3_hard_state"
+  },
+  "sg6": {
+    "schema_version": "sg5.sg6.v2",
+    "time_s": 0.0,
+    "session_id": "midterm-video",
+    "driver_state": "NORMAL",
+    "alert": false,
+    "alert_level": 0,
+    "score": 0.0,
+    "smoothed_score": 0.0,
+    "quality": 1.0,
+    "status": "OK",
+    "reason": "evidence supports current state",
+    "transition": false,
+    "alert_event": false,
+    "config_id": "midterm_c_v2"
+  }
+}

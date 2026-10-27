@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE svg
+  PUBLIC '-//W3C//DTD SVG 1.0//EN'
+  'http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd'>
+<svg width="503.27559055118115" height="265" preserveAspectRatio="xMinYMin meet" viewBox="0 0 503 265" xmlns="http://www.w3.org/2000/svg" version="1.0" fill-rule="evenodd" xmlns:xlink="http://www.w3.org/1999/xlink">
+	<title>...</title>
+	<desc>...</desc>
+	<clipPath id="clip">
+		<rect x="0" y="0" width="503.27559055118115" height="265"/>
+	</clipPath>
+	<g id="group" transform="scale(1,-1) translate(0,-265)" style="clip-path: url(#clip)">
+		<g transform="">
+			<rect x="162" y="225" width="178" height="35" rx="5" ry="5" style="stroke: rgb(79%,83%,87%); stroke-linecap: butt; stroke-width: 0.8; fill: rgb(94%,96%,97%); fill-rule: evenodd;"/>
+			<text x="188.5376" y="243" style="font-family: Helvetica-Bold; font-size: 9.1px;fill: rgb(14%,36%,51%); stroke:none;" transform="translate(0,486) scale(1,-1)">SG4 vector and source clock</text>
+			<polygon points="251 215, 332 178, 251 141, 170 178" style="stroke: rgb(79%,83%,87%); stroke-linecap: butt; stroke-width: 0.8; fill: rgb(94%,96%,97%); fill-rule: evenodd;"/>
+			<text x="199.0395" y="181" style="font-family: Helvetica-Bold; font-size: 8.5px;fill: rgb(14%,36%,51%); stroke:none;" transform="translate(0,362) scale(1,-1)">Current evidence usable?</text>
+			<text x="210.0284" y="168" style="font-family: Helvetica; font-size: 7.6px;fill: rgb(9%,16%,27%); stroke:none;" transform="translate(0,336) scale(1,-1)">Face, eyes, quality, time</text>
+			<path d="M 251,225 L 251,215 Z" style="stroke: rgb(14%,36%,51%); stroke-linecap: butt; stroke-width: 1.2;"/>
+			<polygon points="251 215, 248 220, 254 220" style="stroke: rgb(14%,36%,51%); stroke-linecap: butt; stroke-width: 1; fill: rgb(14%,36%,51%); fill-rule: evenodd;"/>
+			<rect x="164" y="91" width="174" height="37" rx="5" ry="5" style="stroke: rgb(79%,83%,87%); stroke-linecap: butt; stroke-width: 0.8; fill: rgb(94%,96%,97%); fill-rule: evenodd;"/>
+			<text x="185.26614999999998" y="111" style="font-family: Helvetica-Bold; font-size: 9.1px;fill: rgb(14%,36%,51%); stroke:none;" transform="translate(0,222) scale(1,-1)">Normalize, weight and smooth</text>
+			<path d="M 251,141 L 251,128 Z" style="stroke: rgb(14%,36%,51%); stroke-linecap: butt; stroke-width: 1.2;"/>
+			<polygon points="251 128, 248 133, 254 133" style="stroke: rgb(14%,36%,51%); stroke-linecap: butt; stroke-width: 1; fill: rgb(14%,36%,51%); fill-rule: evenodd;"/>
+			<text x="256.53875" y="134" style="font-family: Helvetica; font-size: 7.5px;fill: rgb(32%,38%,45%); stroke:none;" transform="translate(0,268) scale(1,-1)">Yes</text>
+			<rect x="378" y="106" width="122" height="49" rx="5" ry="5" style="stroke: rgb(79%,83%,87%); stroke-linecap: butt; stroke-width: 0.8; fill: rgb(98%,96%,91%); fill-rule: evenodd;"/>
+			<text x="390.4606" y="138" style="font-family: Helvetica-Bold; font-size: 9.1px;fill: rgb(52%,36%,12%); stroke:none;" transform="translate(0,276) scale(1,-1)">Untrusted observation</text>
+			<text x="406.4857" y="124" style="font-family: Helvetica; font-size: 7.8px;fill: rgb(9%,16%,27%); stroke:none;" transform="translate(0,248) scale(1,-1)">Insufficient or stale</text>
+			<text x="388.0582" y="113" style="font-family: Helvetica; font-size: 7.8px;fill: rgb(9%,16%,27%); stroke:none;" transform="translate(0,226) scale(1,-1)">Fault request; no trusted alert</text>
+			<path d="M 332,178 L 439,178 Z" style="stroke: rgb(52%,36%,12%); stroke-linecap: butt; stroke-width: 1.2;"/>
+			<path d="M 439,178 L 439,155 Z" style="stroke: rgb(52%,36%,12%); stroke-linecap: butt; stroke-width: 1.2;"/>
+			<polygon points="439 155, 436 160, 442 160" style="stroke: rgb(52%,36%,12%); stroke-linecap: butt; stroke-width: 1; fill: rgb(52%,36%,12%); fill-rule: evenodd;"/>
+			<text x="381.2075" y="184" style="font-family: Helvetica; font-size: 7.5px;fill: rgb(32%,38%,45%); stroke:none;" transform="translate(0,368) scale(1,-1)">No</text>
+			<path d="M 340,243 L 480,243 Z" style="stroke: rgb(52%,36%,12%); stroke-linecap: butt; stroke-width: 1.2;"/>
+			<path d="M 480,243 L 480,155 Z" style="stroke: rgb(52%,36%,12%); stroke-linecap: butt; stroke-width: 1.2;"/>
+			<polygon points="480 155, 477 160, 483 160" style="stroke: rgb(52%,36%,12%); stroke-linecap: butt; stroke-width: 1; fill: rgb(52%,36%,12%); fill-rule: evenodd;"/>
+			<text x="382.54375" y="249" style="font-family: Helvetica; font-size: 7.5px;fill: rgb(32%,38%,45%); stroke:none;" transform="translate(0,498) scale(1,-1)">Capture silence &gt; 0.5 s</text>
+			<rect x="3" y="11" width="139" height="48" rx="5" ry="5" style="stroke: rgb(79%,83%,87%); stroke-linecap: butt; stroke-width: 0.8; fill: rgb(94%,96%,97%); fill-rule: evenodd;"/>
+			<text x="52.5346" y="42" style="font-family: Helvetica-Bold; font-size: 9.1px;fill: rgb(14%,36%,51%); stroke:none;" transform="translate(0,84) scale(1,-1)">NORMAL</text>
+			<text x="32.837" y="28" style="font-family: Helvetica; font-size: 7.8px;fill: rgb(9%,16%,27%); stroke:none;" transform="translate(0,56) scale(1,-1)">No drowsiness request</text>
+			<rect x="182" y="11" width="139" height="48" rx="5" ry="5" style="stroke: rgb(79%,83%,87%); stroke-linecap: butt; stroke-width: 0.8; fill: rgb(94%,96%,97%); fill-rule: evenodd;"/>
+			<text x="229.2596" y="42" style="font-family: Helvetica-Bold; font-size: 9.1px;fill: rgb(14%,36%,51%); stroke:none;" transform="translate(0,84) scale(1,-1)">WARNING</text>
+			<text x="212.0515" y="28" style="font-family: Helvetica; font-size: 7.8px;fill: rgb(9%,16%,27%); stroke:none;" transform="translate(0,56) scale(1,-1)">Visual warning request</text>
+			<rect x="361" y="11" width="139" height="48" rx="5" ry="5" style="stroke: rgb(79%,83%,87%); stroke-linecap: butt; stroke-width: 0.8; fill: rgb(94%,96%,97%); fill-rule: evenodd;"/>
+			<text x="410.025" y="42" style="font-family: Helvetica-Bold; font-size: 9.1px;fill: rgb(13%,45%,47%); stroke:none;" transform="translate(0,84) scale(1,-1)">DROWSY</text>
+			<text x="389.6397" y="28" style="font-family: Helvetica; font-size: 7.8px;fill: rgb(9%,16%,27%); stroke:none;" transform="translate(0,56) scale(1,-1)">Visual + buzzer request</text>
+			<path d="M 251,91 L 251,74 Z" style="stroke: rgb(14%,36%,51%); stroke-linecap: butt; stroke-width: 1.2;"/>
+			<path d="M 251,74 L 72,74 Z" style="stroke: rgb(14%,36%,51%); stroke-linecap: butt; stroke-width: 1.2;"/>
+			<path d="M 72,74 L 72,59 Z" style="stroke: rgb(14%,36%,51%); stroke-linecap: butt; stroke-width: 1.2;"/>
+			<polygon points="72 59, 69 64, 75 64" style="stroke: rgb(14%,36%,51%); stroke-linecap: butt; stroke-width: 1; fill: rgb(14%,36%,51%); fill-rule: evenodd;"/>
+			<path d="M 251,74 L 251,59 Z" style="stroke: rgb(14%,36%,51%); stroke-linecap: butt; stroke-width: 1.2;"/>
+			<polygon points="251 59, 248 64, 254 64" style="stroke: rgb(14%,36%,51%); stroke-linecap: butt; stroke-width: 1; fill: rgb(14%,36%,51%); fill-rule: evenodd;"/>
+			<path d="M 251,74 L 430,74 Z" style="stroke: rgb(14%,36%,51%); stroke-linecap: butt; stroke-width: 1.2;"/>
+			<path d="M 430,74 L 430,59 Z" style="stroke: rgb(14%,36%,51%); stroke-linecap: butt; stroke-width: 1.2;"/>
+			<polygon points="430 59, 427 64, 433 64" style="stroke: rgb(14%,36%,51%); stroke-linecap: butt; stroke-width: 1; fill: rgb(14%,36%,51%); fill-rule: evenodd;"/>
+			<text x="172.04805" y="78" style="font-family: Helvetica; font-size: 7.7px;fill: rgb(32%,38%,45%); stroke:none;" transform="translate(0,156) scale(1,-1)">Hysteresis plus entry and release confirmation</text>
+			<text x="101.38399999999999" y="-3" style="font-family: Helvetica; font-size: 8px;fill: rgb(13%,45%,47%); stroke:none;" transform="translate(0,-6) scale(1,-1)">Valid prolonged closure &gt;= 1.5 s bypasses score confirmation and selects DROWSY</text>
+		</g>
+	</g>
+</svg>

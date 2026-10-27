@@ -1,0 +1,12 @@
+{
+  "schema": "sg4.input.v1",
+  "frame_id": 480,
+  "timestamp_ms": 16000,
+  "face": {
+    "present": false,
+    "confidence": 0.104
+  },
+  "eye": null,
+  "mouth": null,
+  "head": null
+}

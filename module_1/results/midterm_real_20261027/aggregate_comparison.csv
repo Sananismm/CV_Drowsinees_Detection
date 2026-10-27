@@ -1,0 +1,4 @@
+config_name,clips,processed_frames,returned_face_frames,face_coverage_availability,frames_with_landmarks,no_face_frames,mean_inference_ms,p95_inference_ms,approx_inference_fps,combined_end_to_end_fps
+baseline,5,2932,2931,0.999659,2931,1,7.963,8.512,125.574,77.251
+lower_threshold,5,2932,2931,0.999659,2931,1,7.956,8.483,125.686,78.274
+lower_resolution,5,2932,2931,0.999659,2931,1,6.189,6.681,161.567,90.791

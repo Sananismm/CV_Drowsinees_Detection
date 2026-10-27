@@ -1,0 +1,86 @@
+{
+  "evidence_kind": "real_video_integration_without_independent_drowsiness_labels",
+  "source": "driver_sample_03.mp4",
+  "source_sha256": "27430f0c63002df0494d632f5bcbef940ee25d5ae5eff1a0f31f733fca975767",
+  "source_fps": 25.0,
+  "processed_frames": 560,
+  "sg4_vectors": 224,
+  "face_present_frames": 560,
+  "eye_valid_frames": 560,
+  "sg3_confirmed_yawn_segments": 3,
+  "sg5_states": {
+    "NORMAL": 22,
+    "WARNING": 202
+  },
+  "sg5_statuses": {
+    "OK": 224
+  },
+  "legacy_valid_packets": 224,
+  "transitions": [
+    {
+      "time_s": 0.0,
+      "driver_state": "NORMAL",
+      "status": "OK",
+      "reason": "evidence supports current state"
+    },
+    {
+      "time_s": 2.2,
+      "driver_state": "WARNING",
+      "status": "OK",
+      "reason": "sustained higher-risk evidence confirmed"
+    }
+  ],
+  "mean_pipeline_processing_ms": 12.79120446363647,
+  "p95_pipeline_processing_ms": 13.641799974720925,
+  "mean_sg5_processing_ms": 0.022789734170406258,
+  "wall_seconds_including_io": 16.414669699966908,
+  "offline_throughput_fps_including_io": 34.11582506598528,
+  "timing_scope": "PC processing excludes video acquisition and annotation/encoding; wall throughput includes IO, not a Jetson or camera FPS claim",
+  "platform": "Windows-10-10.0.26300-SP0",
+  "python": "3.11.0",
+  "versions": {
+    "numpy": "1.26.4",
+    "opencv": "4.11.0",
+    "mediapipe": "0.10.21"
+  },
+  "config": {
+    "config_id": "midterm_c_v2",
+    "method": "C",
+    "weights": [
+      0.45,
+      0.2,
+      0.2,
+      0.15
+    ],
+    "warn_score": 0.2,
+    "drowsy_score": 0.5,
+    "enter_warn": 0.2,
+    "exit_warn": 0.14,
+    "enter_drowsy": 0.65,
+    "exit_drowsy": 0.53,
+    "smoothing_s": 2.0,
+    "confirm_s": 1.0,
+    "release_s": 3.0,
+    "microsleep_s": 1.5,
+    "max_gap_s": 0.5,
+    "min_quality": 0.55,
+    "a_drowsy_perclos": 0.22,
+    "a_drowsy_closure_s": 1.5,
+    "a_warn_perclos": 0.1,
+    "a_warn_yawns": 2,
+    "a_warn_long_blinks": 3
+  },
+  "model_sha256": "64184e229b263107bc2b804c6625db1341ff2bb731874b0bcc2fe6544e0bc9ff",
+  "sg2_config": {
+    "method": "EAR",
+    "ear_threshold": 0.15,
+    "open_frames": 2,
+    "max_open_delay_sec": 0.08,
+    "name": "EAR_0.15_open2"
+  },
+  "sg3_adapter_owner_acceptance": "PENDING",
+  "sg4_availability_adapter_owner_acceptance": "PENDING",
+  "sg6_v2_owner_acceptance": "PENDING",
+  "accuracy": null,
+  "accuracy_note": "No independent ground truth; states and counts are predictions, not accuracy."
+}

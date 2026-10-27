@@ -1,0 +1,17 @@
+.venv/
+.venv-report/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.coverage
+*.mp4
+*.avi
+module_1/models/
+module_5/midterm/results/*/sg1_landmarks.jsonl
+module_5/midterm/results/*/sg1_frames.jsonl
+module_5/midterm/results/*/sg2_frames.jsonl
+module_5/midterm/results/*/sg3_frames.jsonl
+module_5/midterm/results/*/sg4_stream.jsonl
+module_5/midterm/results/*/sg6_stream.jsonl
+module_5/midterm/results/*/frame_timings.csv
+tmp/

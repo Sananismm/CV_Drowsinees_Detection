@@ -1,0 +1,20 @@
+{
+  "schema": "sg4.output.v1.1",
+  "time_s": 10.0,
+  "perclos": 0.0701,
+  "face_valid": 1,
+  "long_blinks": 0,
+  "yawn_count": 0,
+  "eye_closure_s": 0.0,
+  "nod_count": 0,
+  "validity_score": 1.0,
+  "calibrating": true,
+  "blink_rate_bpm": 18.0,
+  "mean_blink_ms": 233,
+  "slow_blinks": 0,
+  "longest_closure_s": 0.266,
+  "head_down_s": 0.0,
+  "face_absent_s": 0.0,
+  "perclos_vs_baseline": null,
+  "trend": null
+}

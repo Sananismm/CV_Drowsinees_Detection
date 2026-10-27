@@ -1,0 +1,14 @@
+{
+  "frame_id": 2,
+  "timestamp_ms": 80,
+  "image_width": 640,
+  "image_height": 360,
+  "status": "NO_FACE",
+  "face_bbox_xyxy": null,
+  "landmarks_xy_normalized": [],
+  "landmark_count": 0,
+  "landmark_topology": "mediapipe_face_landmarker_478",
+  "detection_confidence": null,
+  "config_name": "fixture",
+  "inference_ms": 1.0
+}

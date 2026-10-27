@@ -1,0 +1,126 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:cs477:sg1:v1",
+  "title": "SG-1 Face and Landmark Output V1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "frame_id",
+    "timestamp_ms",
+    "image_width",
+    "image_height",
+    "status",
+    "face_bbox_xyxy",
+    "landmarks_xy_normalized",
+    "landmark_count",
+    "landmark_topology",
+    "detection_confidence",
+    "config_name",
+    "inference_ms"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "sg1.v1"
+    },
+    "frame_id": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "timestamp_ms": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "image_width": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "image_height": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "status": {
+      "enum": ["OK", "NO_FACE"]
+    },
+    "face_bbox_xyxy": {
+      "oneOf": [
+        {
+          "type": "array",
+          "prefixItems": [
+            {"type": "integer", "minimum": 0},
+            {"type": "integer", "minimum": 0},
+            {"type": "integer", "minimum": 0},
+            {"type": "integer", "minimum": 0}
+          ],
+          "minItems": 4,
+          "maxItems": 4
+        },
+        {"type": "null"}
+      ]
+    },
+    "landmarks_xy_normalized": {
+      "type": "array",
+      "items": {
+        "type": "array",
+        "prefixItems": [
+          {"type": "number"},
+          {"type": "number"}
+        ],
+        "minItems": 2,
+        "maxItems": 2
+      }
+    },
+    "landmark_count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "landmark_topology": {
+      "const": "mediapipe_face_landmarker_478"
+    },
+    "detection_confidence": {
+      "oneOf": [
+        {"type": "number", "minimum": 0, "maximum": 1},
+        {"type": "null"}
+      ]
+    },
+    "config_name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "inference_ms": {
+      "type": "number",
+      "minimum": 0
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {"status": {"const": "OK"}},
+        "required": ["status"]
+      },
+      "then": {
+        "properties": {
+          "face_bbox_xyxy": {"type": "array"},
+          "landmarks_xy_normalized": {
+            "minItems": 478,
+            "maxItems": 478
+          },
+          "landmark_count": {"const": 478}
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {"status": {"const": "NO_FACE"}},
+        "required": ["status"]
+      },
+      "then": {
+        "properties": {
+          "face_bbox_xyxy": {"type": "null"},
+          "landmarks_xy_normalized": {"maxItems": 0},
+          "landmark_count": {"const": 0}
+        }
+      }
+    }
+  ]
+}

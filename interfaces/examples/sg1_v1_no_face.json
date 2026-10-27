@@ -1,0 +1,15 @@
+{
+  "schema_version": "sg1.v1",
+  "frame_id": 1,
+  "timestamp_ms": 40,
+  "image_width": 320,
+  "image_height": 240,
+  "landmark_topology": "mediapipe_face_landmarker_478",
+  "config_name": "fixture_baseline",
+  "status": "NO_FACE",
+  "face_bbox_xyxy": null,
+  "landmarks_xy_normalized": [],
+  "landmark_count": 0,
+  "detection_confidence": null,
+  "inference_ms": 0.0
+}

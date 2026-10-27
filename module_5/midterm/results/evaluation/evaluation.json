@@ -1,0 +1,2017 @@
+{
+  "schema_version": "sg5.evaluation.v2",
+  "created_utc": "2026-10-27T22:12:49.044819+00:00",
+  "dataset": {
+    "kind": "synthetic development data",
+    "files": [
+      {
+        "name": "drive1_synthetic.csv",
+        "sha256": "4cb0ba96260fe8362cbb76029f0bd74951d86b4a803c2355e49a0ad2656c3f19",
+        "rows": 3000,
+        "duration_s": 300.0
+      },
+      {
+        "name": "drive2_synthetic.csv",
+        "sha256": "e1062e84ed3897abf479e8690a98ec560636fc309ebd3b9a5082b8f64b6f81f0",
+        "rows": 2400,
+        "duration_s": 240.0
+      }
+    ],
+    "total_rows": 5400,
+    "ground_truth": "Simulator reference labels; not independent real-driver annotations"
+  },
+  "protocol": {
+    "sample_classes": [
+      "NORMAL",
+      "WARNING",
+      "DROWSY"
+    ],
+    "prediction_classes": [
+      "NORMAL",
+      "WARNING",
+      "DROWSY",
+      "UNKNOWN"
+    ],
+    "macro_f1": "Unweighted mean of three target-class F1 values; undefined class P/R becomes zero",
+    "unknown": "Unusable engine status is scored UNKNOWN, remains an error in all denominators",
+    "strict_detection": "One-to-one new predicted DROWSY onset inside a labelled half-open interval",
+    "coverage": "Any DROWSY interval overlap; preexisting alerts reported separately, no negative latency",
+    "false_events": "All predicted DROWSY onsets not strictly matched; late alerts remain false",
+    "late_alerts": "Unmatched onset within five seconds after an unmatched labelled episode; diagnostic only",
+    "duration": "Left-constant source intervals; final interval is median positive source dt",
+    "state_changes": "state_changes/evaluated_prediction_changes include UNKNOWN abstention transitions; driver_state_changes counts native state changes; availability_status_changes is null for legacy methods without status outputs",
+    "legacy_comparison": "Original decision functions are unchanged; strict one-to-one onset scoring intentionally differs from the old overlap plus five-second grace, so event-count changes are metric changes, not algorithm changes",
+    "latency": "Nonnegative onset delay, pooled over strictly matched episodes only; null if none",
+    "fairness": "Identical six-field input rows; labels are allowlist-excluded from every engine call",
+    "selection": "Development comparison, not an independent held-out or real-video accuracy estimate"
+  },
+  "implementations": {
+    "baseline_source": "module_5\\SG5_drowsiness_decision\\sg5_three_methods.py",
+    "baseline_sha256": "bc5d990cb7da1f9e24ff9be697999a46da6119aefd985f93edfd2cfb8cdaf6e1",
+    "engine_sha256": "926164536bcaa06ae97c8e980b0e5306ee8184dee19f7c134d4a5988983db98c",
+    "candidate_configurations": {
+      "stable_c": {
+        "config_id": "midterm_c_v2",
+        "method": "C",
+        "weights": [
+          0.45,
+          0.2,
+          0.2,
+          0.15
+        ],
+        "warn_score": 0.2,
+        "drowsy_score": 0.5,
+        "enter_warn": 0.2,
+        "exit_warn": 0.14,
+        "enter_drowsy": 0.65,
+        "exit_drowsy": 0.53,
+        "smoothing_s": 2.0,
+        "confirm_s": 1.0,
+        "release_s": 3.0,
+        "microsleep_s": 1.5,
+        "max_gap_s": 0.5,
+        "min_quality": 0.55,
+        "a_drowsy_perclos": 0.22,
+        "a_drowsy_closure_s": 1.5,
+        "a_warn_perclos": 0.1,
+        "a_warn_yawns": 2,
+        "a_warn_long_blinks": 3
+      },
+      "c_fast_recovery": {
+        "config_id": "c_fast_recovery",
+        "method": "C",
+        "weights": [
+          0.45,
+          0.2,
+          0.2,
+          0.15
+        ],
+        "warn_score": 0.2,
+        "drowsy_score": 0.5,
+        "enter_warn": 0.18,
+        "exit_warn": 0.12,
+        "enter_drowsy": 0.65,
+        "exit_drowsy": 0.53,
+        "smoothing_s": 2.0,
+        "confirm_s": 1.0,
+        "release_s": 1.5,
+        "microsleep_s": 1.5,
+        "max_gap_s": 0.5,
+        "min_quality": 0.55,
+        "a_drowsy_perclos": 0.22,
+        "a_drowsy_closure_s": 1.5,
+        "a_warn_perclos": 0.1,
+        "a_warn_yawns": 2,
+        "a_warn_long_blinks": 3
+      }
+    }
+  },
+  "environment": {
+    "python": "3.11.0",
+    "numpy": "1.26.4",
+    "system": "Windows",
+    "architecture": "AMD64",
+    "timing_scope": "Local CPU decision processing only; Jetson FPS/memory not measured"
+  },
+  "baseline_parity": {
+    "status": "PASS",
+    "drive_method_comparisons": 6,
+    "row_predictions_checked": 16200
+  },
+  "results": [
+    {
+      "sample_count": 3000,
+      "duration_s": 300.0,
+      "accuracy": 0.6586666666666666,
+      "macro_f1": 0.6102924623081808,
+      "per_class": {
+        "NORMAL": {
+          "support": 2014,
+          "tp": 1291,
+          "fp": 11,
+          "fn": 723,
+          "precision": 0.9915514592933948,
+          "recall": 0.641012909632572,
+          "f1": 0.778648974668275
+        },
+        "WARNING": {
+          "support": 217,
+          "tp": 217,
+          "fp": 1002,
+          "fn": 0,
+          "precision": 0.17801476620180476,
+          "recall": 1.0,
+          "f1": 0.3022284122562674
+        },
+        "DROWSY": {
+          "support": 769,
+          "tp": 468,
+          "fp": 11,
+          "fn": 301,
+          "precision": 0.9770354906054279,
+          "recall": 0.6085825747724317,
+          "f1": 0.7499999999999999
+        }
+      },
+      "confusion": {
+        "rows": [
+          "NORMAL",
+          "WARNING",
+          "DROWSY"
+        ],
+        "columns": [
+          "NORMAL",
+          "WARNING",
+          "DROWSY",
+          "UNKNOWN"
+        ],
+        "counts": [
+          [
+            1291,
+            712,
+            11,
+            0
+          ],
+          [
+            0,
+            217,
+            0,
+            0
+          ],
+          [
+            11,
+            290,
+            468,
+            0
+          ]
+        ]
+      },
+      "drowsy_precision": 0.9770354906054279,
+      "drowsy_recall": 0.6085825747724317,
+      "drowsy_f1": 0.7499999999999999,
+      "false_drowsy_duration_s": 1.1,
+      "invalid_duration_s": 3.6,
+      "unknown_duration_s": 0,
+      "state_changes": 14,
+      "evaluated_prediction_changes": 14,
+      "driver_state_changes": 14,
+      "availability_status_changes": null,
+      "input_availability_changes": 4,
+      "events": {
+        "ground_truth_events": 2,
+        "predicted_events": 4,
+        "detected_events": 2,
+        "missed_events": 0,
+        "false_alert_events": 2,
+        "late_alert_events": 0,
+        "covered_events": 2,
+        "preexisting_alert_events": 0,
+        "event_precision": 0.5,
+        "event_recall": 1.0,
+        "event_f1": 0.6666666666666666,
+        "coverage": 1.0,
+        "mean_latency_s": 8.35,
+        "latencies_s": [
+          1.3,
+          15.4
+        ],
+        "ground_truth": [
+          {
+            "start_s": 75.0,
+            "end_s": 80.2
+          },
+          {
+            "start_s": 140.0,
+            "end_s": 211.7
+          }
+        ],
+        "predicted": [
+          {
+            "start_s": 76.3,
+            "end_s": 77.2
+          },
+          {
+            "start_s": 155.4,
+            "end_s": 199.7
+          },
+          {
+            "start_s": 201.0,
+            "end_s": 202.6
+          },
+          {
+            "start_s": 214.0,
+            "end_s": 215.1
+          }
+        ],
+        "matches": [
+          {
+            "ground_truth_index": 0,
+            "prediction_index": 0,
+            "latency_s": 1.3
+          },
+          {
+            "ground_truth_index": 1,
+            "prediction_index": 1,
+            "latency_s": 15.4
+          }
+        ],
+        "late_matches": []
+      },
+      "drive": "drive1_synthetic",
+      "method": "week5_A",
+      "processing_benchmark": {
+        "clock": "time.perf_counter",
+        "repeats": 3,
+        "scope": "whole-drive decision processing; parsing, metrics, plots and file I/O excluded",
+        "run_ms": [
+          0.3195000463165343,
+          0.32460002694278955,
+          0.311699986923486
+        ],
+        "mean_run_ms": 0.31860002006093663,
+        "p95_run_ms": 0.324090028880164,
+        "mean_amortized_ms_per_row": 0.00010620000668697887,
+        "p95_amortized_ms_per_row": 0.00010803000962672134,
+        "limitation": "Batch amortized CPU timings, not per-callback p95, alert delay or Jetson measurements"
+      }
+    },
+    {
+      "sample_count": 3000,
+      "duration_s": 300.0,
+      "accuracy": 0.7753333333333333,
+      "macro_f1": 0.6246975477998149,
+      "per_class": {
+        "NORMAL": {
+          "support": 2014,
+          "tp": 1693,
+          "fp": 169,
+          "fn": 321,
+          "precision": 0.9092373791621912,
+          "recall": 0.8406156901688183,
+          "f1": 0.8735810113519091
+        },
+        "WARNING": {
+          "support": 217,
+          "tp": 69,
+          "fp": 451,
+          "fn": 148,
+          "precision": 0.1326923076923077,
+          "recall": 0.31797235023041476,
+          "f1": 0.18724559023066484
+        },
+        "DROWSY": {
+          "support": 769,
+          "tp": 564,
+          "fp": 54,
+          "fn": 205,
+          "precision": 0.912621359223301,
+          "recall": 0.7334200260078023,
+          "f1": 0.8132660418168709
+        }
+      },
+      "confusion": {
+        "rows": [
+          "NORMAL",
+          "WARNING",
+          "DROWSY"
+        ],
+        "columns": [
+          "NORMAL",
+          "WARNING",
+          "DROWSY",
+          "UNKNOWN"
+        ],
+        "counts": [
+          [
+            1693,
+            284,
+            37,
+            0
+          ],
+          [
+            131,
+            69,
+            17,
+            0
+          ],
+          [
+            38,
+            167,
+            564,
+            0
+          ]
+        ]
+      },
+      "drowsy_precision": 0.912621359223301,
+      "drowsy_recall": 0.7334200260078023,
+      "drowsy_f1": 0.8132660418168709,
+      "false_drowsy_duration_s": 5.4,
+      "invalid_duration_s": 3.6,
+      "unknown_duration_s": 0,
+      "state_changes": 12,
+      "evaluated_prediction_changes": 12,
+      "driver_state_changes": 12,
+      "availability_status_changes": null,
+      "input_availability_changes": 4,
+      "events": {
+        "ground_truth_events": 2,
+        "predicted_events": 1,
+        "detected_events": 1,
+        "missed_events": 1,
+        "false_alert_events": 0,
+        "late_alert_events": 0,
+        "covered_events": 1,
+        "preexisting_alert_events": 0,
+        "event_precision": 1.0,
+        "event_recall": 0.5,
+        "event_f1": 0.6666666666666666,
+        "coverage": 0.5,
+        "mean_latency_s": 15.3,
+        "latencies_s": [
+          15.3
+        ],
+        "ground_truth": [
+          {
+            "start_s": 75.0,
+            "end_s": 80.2
+          },
+          {
+            "start_s": 140.0,
+            "end_s": 211.7
+          }
+        ],
+        "predicted": [
+          {
+            "start_s": 155.3,
+            "end_s": 217.1
+          }
+        ],
+        "matches": [
+          {
+            "ground_truth_index": 1,
+            "prediction_index": 0,
+            "latency_s": 15.3
+          }
+        ],
+        "late_matches": []
+      },
+      "drive": "drive1_synthetic",
+      "method": "week5_B",
+      "processing_benchmark": {
+        "clock": "time.perf_counter",
+        "repeats": 3,
+        "scope": "whole-drive decision processing; parsing, metrics, plots and file I/O excluded",
+        "run_ms": [
+          3.9143000030890107,
+          3.9280999917536974,
+          4.093300027307123
+        ],
+        "mean_run_ms": 3.9785666740499437,
+        "p95_run_ms": 4.07678002375178,
+        "mean_amortized_ms_per_row": 0.0013261888913499813,
+        "p95_amortized_ms_per_row": 0.0013589266745839268,
+        "limitation": "Batch amortized CPU timings, not per-callback p95, alert delay or Jetson measurements"
+      }
+    },
+    {
+      "sample_count": 3000,
+      "duration_s": 300.0,
+      "accuracy": 0.6066666666666667,
+      "macro_f1": 0.5202925335209385,
+      "per_class": {
+        "NORMAL": {
+          "support": 2014,
+          "tp": 1246,
+          "fp": 175,
+          "fn": 768,
+          "precision": 0.8768472906403941,
+          "recall": 0.6186693147964251,
+          "f1": 0.7254730713245997
+        },
+        "WARNING": {
+          "support": 217,
+          "tp": 38,
+          "fp": 919,
+          "fn": 179,
+          "precision": 0.03970741901776385,
+          "recall": 0.17511520737327188,
+          "f1": 0.06473594548551959
+        },
+        "DROWSY": {
+          "support": 769,
+          "tp": 536,
+          "fp": 86,
+          "fn": 233,
+          "precision": 0.8617363344051447,
+          "recall": 0.6970091027308193,
+          "f1": 0.7706685837526961
+        }
+      },
+      "confusion": {
+        "rows": [
+          "NORMAL",
+          "WARNING",
+          "DROWSY"
+        ],
+        "columns": [
+          "NORMAL",
+          "WARNING",
+          "DROWSY",
+          "UNKNOWN"
+        ],
+        "counts": [
+          [
+            1246,
+            699,
+            69,
+            0
+          ],
+          [
+            162,
+            38,
+            17,
+            0
+          ],
+          [
+            13,
+            220,
+            536,
+            0
+          ]
+        ]
+      },
+      "drowsy_precision": 0.8617363344051447,
+      "drowsy_recall": 0.6970091027308193,
+      "drowsy_f1": 0.7706685837526961,
+      "false_drowsy_duration_s": 8.6,
+      "invalid_duration_s": 3.6,
+      "unknown_duration_s": 0,
+      "state_changes": 7,
+      "evaluated_prediction_changes": 7,
+      "driver_state_changes": 7,
+      "availability_status_changes": null,
+      "input_availability_changes": 4,
+      "events": {
+        "ground_truth_events": 2,
+        "predicted_events": 2,
+        "detected_events": 2,
+        "missed_events": 0,
+        "false_alert_events": 0,
+        "late_alert_events": 0,
+        "covered_events": 2,
+        "preexisting_alert_events": 0,
+        "event_precision": 1.0,
+        "event_recall": 1.0,
+        "event_f1": 1.0,
+        "coverage": 1.0,
+        "mean_latency_s": 11.6,
+        "latencies_s": [
+          1.3,
+          21.9
+        ],
+        "ground_truth": [
+          {
+            "start_s": 75.0,
+            "end_s": 80.2
+          },
+          {
+            "start_s": 140.0,
+            "end_s": 211.7
+          }
+        ],
+        "predicted": [
+          {
+            "start_s": 76.3,
+            "end_s": 80.1
+          },
+          {
+            "start_s": 161.9,
+            "end_s": 220.3
+          }
+        ],
+        "matches": [
+          {
+            "ground_truth_index": 0,
+            "prediction_index": 0,
+            "latency_s": 1.3
+          },
+          {
+            "ground_truth_index": 1,
+            "prediction_index": 1,
+            "latency_s": 21.9
+          }
+        ],
+        "late_matches": []
+      },
+      "drive": "drive1_synthetic",
+      "method": "week5_C",
+      "processing_benchmark": {
+        "clock": "time.perf_counter",
+        "repeats": 3,
+        "scope": "whole-drive decision processing; parsing, metrics, plots and file I/O excluded",
+        "run_ms": [
+          4.775899986270815,
+          4.703699960373342,
+          4.6722000115551054
+        ],
+        "mean_run_ms": 4.7172666527330875,
+        "p95_run_ms": 4.768679983681068,
+        "mean_amortized_ms_per_row": 0.0015724222175776958,
+        "p95_amortized_ms_per_row": 0.0015895599945603559,
+        "limitation": "Batch amortized CPU timings, not per-callback p95, alert delay or Jetson measurements"
+      }
+    },
+    {
+      "sample_count": 3000,
+      "duration_s": 300.0,
+      "accuracy": 0.598,
+      "macro_f1": 0.5172405568488246,
+      "per_class": {
+        "NORMAL": {
+          "support": 2014,
+          "tp": 1219,
+          "fp": 175,
+          "fn": 795,
+          "precision": 0.8744619799139168,
+          "recall": 0.6052631578947368,
+          "f1": 0.7153755868544601
+        },
+        "WARNING": {
+          "support": 217,
+          "tp": 38,
+          "fp": 908,
+          "fn": 179,
+          "precision": 0.040169133192389,
+          "recall": 0.17511520737327188,
+          "f1": 0.0653482373172829
+        },
+        "DROWSY": {
+          "support": 769,
+          "tp": 537,
+          "fp": 87,
+          "fn": 232,
+          "precision": 0.8605769230769231,
+          "recall": 0.6983094928478544,
+          "f1": 0.7709978463747308
+        }
+      },
+      "confusion": {
+        "rows": [
+          "NORMAL",
+          "WARNING",
+          "DROWSY"
+        ],
+        "columns": [
+          "NORMAL",
+          "WARNING",
+          "DROWSY",
+          "UNKNOWN"
+        ],
+        "counts": [
+          [
+            1219,
+            689,
+            70,
+            36
+          ],
+          [
+            162,
+            38,
+            17,
+            0
+          ],
+          [
+            13,
+            219,
+            537,
+            0
+          ]
+        ]
+      },
+      "drowsy_precision": 0.8605769230769231,
+      "drowsy_recall": 0.6983094928478544,
+      "drowsy_f1": 0.7709978463747308,
+      "false_drowsy_duration_s": 8.7,
+      "invalid_duration_s": 3.6,
+      "unknown_duration_s": 3.6,
+      "state_changes": 11,
+      "evaluated_prediction_changes": 11,
+      "driver_state_changes": 7,
+      "availability_status_changes": 4,
+      "input_availability_changes": 4,
+      "events": {
+        "ground_truth_events": 2,
+        "predicted_events": 2,
+        "detected_events": 2,
+        "missed_events": 0,
+        "false_alert_events": 0,
+        "late_alert_events": 0,
+        "covered_events": 2,
+        "preexisting_alert_events": 0,
+        "event_precision": 1.0,
+        "event_recall": 1.0,
+        "event_f1": 1.0,
+        "coverage": 1.0,
+        "mean_latency_s": 11.6,
+        "latencies_s": [
+          1.3,
+          21.9
+        ],
+        "ground_truth": [
+          {
+            "start_s": 75.0,
+            "end_s": 80.2
+          },
+          {
+            "start_s": 140.0,
+            "end_s": 211.7
+          }
+        ],
+        "predicted": [
+          {
+            "start_s": 76.3,
+            "end_s": 80.2
+          },
+          {
+            "start_s": 161.9,
+            "end_s": 220.4
+          }
+        ],
+        "matches": [
+          {
+            "ground_truth_index": 0,
+            "prediction_index": 0,
+            "latency_s": 1.3
+          },
+          {
+            "ground_truth_index": 1,
+            "prediction_index": 1,
+            "latency_s": 21.9
+          }
+        ],
+        "late_matches": []
+      },
+      "drive": "drive1_synthetic",
+      "method": "stable_c",
+      "processing_benchmark": {
+        "clock": "time.perf_counter",
+        "repeats": 3,
+        "scope": "whole-drive decision processing; parsing, metrics, plots and file I/O excluded",
+        "run_ms": [
+          17.429200001060963,
+          17.243599984794855,
+          17.14380003977567
+        ],
+        "mean_run_ms": 17.27220000854383,
+        "p95_run_ms": 17.410639999434352,
+        "mean_amortized_ms_per_row": 0.005757400002847943,
+        "p95_amortized_ms_per_row": 0.005803546666478117,
+        "limitation": "Batch amortized CPU timings, not per-callback p95, alert delay or Jetson measurements"
+      }
+    },
+    {
+      "sample_count": 3000,
+      "duration_s": 300.0,
+      "accuracy": 0.5933333333333334,
+      "macro_f1": 0.531273700029298,
+      "per_class": {
+        "NORMAL": {
+          "support": 2014,
+          "tp": 1230,
+          "fp": 167,
+          "fn": 784,
+          "precision": 0.8804581245526127,
+          "recall": 0.6107249255213505,
+          "f1": 0.7211961301671065
+        },
+        "WARNING": {
+          "support": 217,
+          "tp": 63,
+          "fp": 1017,
+          "fn": 154,
+          "precision": 0.058333333333333334,
+          "recall": 0.2903225806451613,
+          "f1": 0.09714726291441789
+        },
+        "DROWSY": {
+          "support": 769,
+          "tp": 487,
+          "fp": 0,
+          "fn": 282,
+          "precision": 1.0,
+          "recall": 0.6332899869960988,
+          "f1": 0.7754777070063694
+        }
+      },
+      "confusion": {
+        "rows": [
+          "NORMAL",
+          "WARNING",
+          "DROWSY"
+        ],
+        "columns": [
+          "NORMAL",
+          "WARNING",
+          "DROWSY",
+          "UNKNOWN"
+        ],
+        "counts": [
+          [
+            1230,
+            748,
+            0,
+            36
+          ],
+          [
+            154,
+            63,
+            0,
+            0
+          ],
+          [
+            13,
+            269,
+            487,
+            0
+          ]
+        ]
+      },
+      "drowsy_precision": 1.0,
+      "drowsy_recall": 0.6332899869960988,
+      "drowsy_f1": 0.7754777070063694,
+      "false_drowsy_duration_s": 0,
+      "invalid_duration_s": 3.6,
+      "unknown_duration_s": 3.6,
+      "state_changes": 11,
+      "evaluated_prediction_changes": 11,
+      "driver_state_changes": 7,
+      "availability_status_changes": 4,
+      "input_availability_changes": 4,
+      "events": {
+        "ground_truth_events": 2,
+        "predicted_events": 2,
+        "detected_events": 2,
+        "missed_events": 0,
+        "false_alert_events": 0,
+        "late_alert_events": 0,
+        "covered_events": 2,
+        "preexisting_alert_events": 0,
+        "event_precision": 1.0,
+        "event_recall": 1.0,
+        "event_f1": 1.0,
+        "coverage": 1.0,
+        "mean_latency_s": 11.6,
+        "latencies_s": [
+          1.3,
+          21.9
+        ],
+        "ground_truth": [
+          {
+            "start_s": 75.0,
+            "end_s": 80.2
+          },
+          {
+            "start_s": 140.0,
+            "end_s": 211.7
+          }
+        ],
+        "predicted": [
+          {
+            "start_s": 76.3,
+            "end_s": 78.7
+          },
+          {
+            "start_s": 161.9,
+            "end_s": 208.2
+          }
+        ],
+        "matches": [
+          {
+            "ground_truth_index": 0,
+            "prediction_index": 0,
+            "latency_s": 1.3
+          },
+          {
+            "ground_truth_index": 1,
+            "prediction_index": 1,
+            "latency_s": 21.9
+          }
+        ],
+        "late_matches": []
+      },
+      "drive": "drive1_synthetic",
+      "method": "c_fast_recovery",
+      "processing_benchmark": {
+        "clock": "time.perf_counter",
+        "repeats": 3,
+        "scope": "whole-drive decision processing; parsing, metrics, plots and file I/O excluded",
+        "run_ms": [
+          17.33040000544861,
+          17.570899974089116,
+          17.292500007897615
+        ],
+        "mean_run_ms": 17.397933329145115,
+        "p95_run_ms": 17.546849977225065,
+        "mean_amortized_ms_per_row": 0.005799311109715038,
+        "p95_amortized_ms_per_row": 0.005848949992408355,
+        "limitation": "Batch amortized CPU timings, not per-callback p95, alert delay or Jetson measurements"
+      }
+    },
+    {
+      "sample_count": 2400,
+      "duration_s": 240.0,
+      "accuracy": 0.7833333333333333,
+      "macro_f1": 0.5163076845969753,
+      "per_class": {
+        "NORMAL": {
+          "support": 1617,
+          "tp": 1178,
+          "fp": 81,
+          "fn": 439,
+          "precision": 0.9356632247815727,
+          "recall": 0.7285095856524428,
+          "f1": 0.819193324061196
+        },
+        "WARNING": {
+          "support": 783,
+          "tp": 702,
+          "fp": 439,
+          "fn": 81,
+          "precision": 0.6152497808939527,
+          "recall": 0.896551724137931,
+          "f1": 0.7297297297297298
+        },
+        "DROWSY": {
+          "support": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        }
+      },
+      "confusion": {
+        "rows": [
+          "NORMAL",
+          "WARNING",
+          "DROWSY"
+        ],
+        "columns": [
+          "NORMAL",
+          "WARNING",
+          "DROWSY",
+          "UNKNOWN"
+        ],
+        "counts": [
+          [
+            1178,
+            439,
+            0,
+            0
+          ],
+          [
+            81,
+            702,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0
+          ]
+        ]
+      },
+      "drowsy_precision": 0.0,
+      "drowsy_recall": 0.0,
+      "drowsy_f1": 0.0,
+      "false_drowsy_duration_s": 0,
+      "invalid_duration_s": 9.2,
+      "unknown_duration_s": 0,
+      "state_changes": 8,
+      "evaluated_prediction_changes": 8,
+      "driver_state_changes": 8,
+      "availability_status_changes": null,
+      "input_availability_changes": 12,
+      "events": {
+        "ground_truth_events": 0,
+        "predicted_events": 0,
+        "detected_events": 0,
+        "missed_events": 0,
+        "false_alert_events": 0,
+        "late_alert_events": 0,
+        "covered_events": 0,
+        "preexisting_alert_events": 0,
+        "event_precision": null,
+        "event_recall": null,
+        "event_f1": null,
+        "coverage": null,
+        "mean_latency_s": null,
+        "latencies_s": [],
+        "ground_truth": [],
+        "predicted": [],
+        "matches": [],
+        "late_matches": []
+      },
+      "drive": "drive2_synthetic",
+      "method": "week5_A",
+      "processing_benchmark": {
+        "clock": "time.perf_counter",
+        "repeats": 3,
+        "scope": "whole-drive decision processing; parsing, metrics, plots and file I/O excluded",
+        "run_ms": [
+          0.2682000049389899,
+          0.2826999989338219,
+          0.2791000297293067
+        ],
+        "mean_run_ms": 0.2766666778673728,
+        "p95_run_ms": 0.2823400020133704,
+        "mean_amortized_ms_per_row": 0.00011527778244473867,
+        "p95_amortized_ms_per_row": 0.000117641667505571,
+        "limitation": "Batch amortized CPU timings, not per-callback p95, alert delay or Jetson measurements"
+      }
+    },
+    {
+      "sample_count": 2400,
+      "duration_s": 240.0,
+      "accuracy": 0.7229166666666667,
+      "macro_f1": 0.4595611972331176,
+      "per_class": {
+        "NORMAL": {
+          "support": 1617,
+          "tp": 1262,
+          "fp": 310,
+          "fn": 355,
+          "precision": 0.8027989821882952,
+          "recall": 0.7804576376004947,
+          "f1": 0.7914706804640953
+        },
+        "WARNING": {
+          "support": 783,
+          "tp": 473,
+          "fp": 355,
+          "fn": 310,
+          "precision": 0.571256038647343,
+          "recall": 0.6040868454661558,
+          "f1": 0.5872129112352575
+        },
+        "DROWSY": {
+          "support": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        }
+      },
+      "confusion": {
+        "rows": [
+          "NORMAL",
+          "WARNING",
+          "DROWSY"
+        ],
+        "columns": [
+          "NORMAL",
+          "WARNING",
+          "DROWSY",
+          "UNKNOWN"
+        ],
+        "counts": [
+          [
+            1262,
+            355,
+            0,
+            0
+          ],
+          [
+            310,
+            473,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0
+          ]
+        ]
+      },
+      "drowsy_precision": 0.0,
+      "drowsy_recall": 0.0,
+      "drowsy_f1": 0.0,
+      "false_drowsy_duration_s": 0,
+      "invalid_duration_s": 9.2,
+      "unknown_duration_s": 0,
+      "state_changes": 6,
+      "evaluated_prediction_changes": 6,
+      "driver_state_changes": 6,
+      "availability_status_changes": null,
+      "input_availability_changes": 12,
+      "events": {
+        "ground_truth_events": 0,
+        "predicted_events": 0,
+        "detected_events": 0,
+        "missed_events": 0,
+        "false_alert_events": 0,
+        "late_alert_events": 0,
+        "covered_events": 0,
+        "preexisting_alert_events": 0,
+        "event_precision": null,
+        "event_recall": null,
+        "event_f1": null,
+        "coverage": null,
+        "mean_latency_s": null,
+        "latencies_s": [],
+        "ground_truth": [],
+        "predicted": [],
+        "matches": [],
+        "late_matches": []
+      },
+      "drive": "drive2_synthetic",
+      "method": "week5_B",
+      "processing_benchmark": {
+        "clock": "time.perf_counter",
+        "repeats": 3,
+        "scope": "whole-drive decision processing; parsing, metrics, plots and file I/O excluded",
+        "run_ms": [
+          3.055199980735779,
+          3.0661000055260956,
+          3.2371999695897102
+        ],
+        "mean_run_ms": 3.1194999852838614,
+        "p95_run_ms": 3.2200899731833488,
+        "mean_amortized_ms_per_row": 0.0012997916605349423,
+        "p95_amortized_ms_per_row": 0.001341704155493062,
+        "limitation": "Batch amortized CPU timings, not per-callback p95, alert delay or Jetson measurements"
+      }
+    },
+    {
+      "sample_count": 2400,
+      "duration_s": 240.0,
+      "accuracy": 0.7229166666666667,
+      "macro_f1": 0.46794531900721753,
+      "per_class": {
+        "NORMAL": {
+          "support": 1617,
+          "tp": 1186,
+          "fp": 234,
+          "fn": 431,
+          "precision": 0.8352112676056338,
+          "recall": 0.7334570191713049,
+          "f1": 0.7810339150477444
+        },
+        "WARNING": {
+          "support": 783,
+          "tp": 549,
+          "fp": 431,
+          "fn": 234,
+          "precision": 0.560204081632653,
+          "recall": 0.7011494252873564,
+          "f1": 0.6228020419739082
+        },
+        "DROWSY": {
+          "support": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        }
+      },
+      "confusion": {
+        "rows": [
+          "NORMAL",
+          "WARNING",
+          "DROWSY"
+        ],
+        "columns": [
+          "NORMAL",
+          "WARNING",
+          "DROWSY",
+          "UNKNOWN"
+        ],
+        "counts": [
+          [
+            1186,
+            431,
+            0,
+            0
+          ],
+          [
+            234,
+            549,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0
+          ]
+        ]
+      },
+      "drowsy_precision": 0.0,
+      "drowsy_recall": 0.0,
+      "drowsy_f1": 0.0,
+      "false_drowsy_duration_s": 0,
+      "invalid_duration_s": 9.2,
+      "unknown_duration_s": 0,
+      "state_changes": 4,
+      "evaluated_prediction_changes": 4,
+      "driver_state_changes": 4,
+      "availability_status_changes": null,
+      "input_availability_changes": 12,
+      "events": {
+        "ground_truth_events": 0,
+        "predicted_events": 0,
+        "detected_events": 0,
+        "missed_events": 0,
+        "false_alert_events": 0,
+        "late_alert_events": 0,
+        "covered_events": 0,
+        "preexisting_alert_events": 0,
+        "event_precision": null,
+        "event_recall": null,
+        "event_f1": null,
+        "coverage": null,
+        "mean_latency_s": null,
+        "latencies_s": [],
+        "ground_truth": [],
+        "predicted": [],
+        "matches": [],
+        "late_matches": []
+      },
+      "drive": "drive2_synthetic",
+      "method": "week5_C",
+      "processing_benchmark": {
+        "clock": "time.perf_counter",
+        "repeats": 3,
+        "scope": "whole-drive decision processing; parsing, metrics, plots and file I/O excluded",
+        "run_ms": [
+          3.6354000330902636,
+          3.67429998004809,
+          3.6347999703139067
+        ],
+        "mean_run_ms": 3.6481666611507535,
+        "p95_run_ms": 3.6704099853523076,
+        "mean_amortized_ms_per_row": 0.0015200694421461474,
+        "p95_amortized_ms_per_row": 0.0015293374938967947,
+        "limitation": "Batch amortized CPU timings, not per-callback p95, alert delay or Jetson measurements"
+      }
+    },
+    {
+      "sample_count": 2400,
+      "duration_s": 240.0,
+      "accuracy": 0.6954166666666667,
+      "macro_f1": 0.46074395144585306,
+      "per_class": {
+        "NORMAL": {
+          "support": 1617,
+          "tp": 1130,
+          "fp": 233,
+          "fn": 487,
+          "precision": 0.8290535583272194,
+          "recall": 0.6988249845392702,
+          "f1": 0.7583892617449665
+        },
+        "WARNING": {
+          "support": 783,
+          "tp": 539,
+          "fp": 406,
+          "fn": 244,
+          "precision": 0.5703703703703704,
+          "recall": 0.6883780332056194,
+          "f1": 0.6238425925925927
+        },
+        "DROWSY": {
+          "support": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        }
+      },
+      "confusion": {
+        "rows": [
+          "NORMAL",
+          "WARNING",
+          "DROWSY"
+        ],
+        "columns": [
+          "NORMAL",
+          "WARNING",
+          "DROWSY",
+          "UNKNOWN"
+        ],
+        "counts": [
+          [
+            1130,
+            406,
+            0,
+            81
+          ],
+          [
+            233,
+            539,
+            0,
+            11
+          ],
+          [
+            0,
+            0,
+            0,
+            0
+          ]
+        ]
+      },
+      "drowsy_precision": 0.0,
+      "drowsy_recall": 0.0,
+      "drowsy_f1": 0.0,
+      "false_drowsy_duration_s": 0,
+      "invalid_duration_s": 9.2,
+      "unknown_duration_s": 9.2,
+      "state_changes": 16,
+      "evaluated_prediction_changes": 16,
+      "driver_state_changes": 4,
+      "availability_status_changes": 12,
+      "input_availability_changes": 12,
+      "events": {
+        "ground_truth_events": 0,
+        "predicted_events": 0,
+        "detected_events": 0,
+        "missed_events": 0,
+        "false_alert_events": 0,
+        "late_alert_events": 0,
+        "covered_events": 0,
+        "preexisting_alert_events": 0,
+        "event_precision": null,
+        "event_recall": null,
+        "event_f1": null,
+        "coverage": null,
+        "mean_latency_s": null,
+        "latencies_s": [],
+        "ground_truth": [],
+        "predicted": [],
+        "matches": [],
+        "late_matches": []
+      },
+      "drive": "drive2_synthetic",
+      "method": "stable_c",
+      "processing_benchmark": {
+        "clock": "time.perf_counter",
+        "repeats": 3,
+        "scope": "whole-drive decision processing; parsing, metrics, plots and file I/O excluded",
+        "run_ms": [
+          13.588399975560606,
+          16.511699999682605,
+          13.739800022449344
+        ],
+        "mean_run_ms": 14.613299999230852,
+        "p95_run_ms": 16.23451000195928,
+        "mean_amortized_ms_per_row": 0.006088874999679522,
+        "p95_amortized_ms_per_row": 0.006764379167483033,
+        "limitation": "Batch amortized CPU timings, not per-callback p95, alert delay or Jetson measurements"
+      }
+    },
+    {
+      "sample_count": 2400,
+      "duration_s": 240.0,
+      "accuracy": 0.6979166666666666,
+      "macro_f1": 0.46336786259658097,
+      "per_class": {
+        "NORMAL": {
+          "support": 1617,
+          "tp": 1124,
+          "fp": 221,
+          "fn": 493,
+          "precision": 0.8356877323420074,
+          "recall": 0.6951144094001237,
+          "f1": 0.7589466576637407
+        },
+        "WARNING": {
+          "support": 783,
+          "tp": 551,
+          "fp": 412,
+          "fn": 232,
+          "precision": 0.5721703011422637,
+          "recall": 0.7037037037037037,
+          "f1": 0.6311569301260023
+        },
+        "DROWSY": {
+          "support": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        }
+      },
+      "confusion": {
+        "rows": [
+          "NORMAL",
+          "WARNING",
+          "DROWSY"
+        ],
+        "columns": [
+          "NORMAL",
+          "WARNING",
+          "DROWSY",
+          "UNKNOWN"
+        ],
+        "counts": [
+          [
+            1124,
+            412,
+            0,
+            81
+          ],
+          [
+            221,
+            551,
+            0,
+            11
+          ],
+          [
+            0,
+            0,
+            0,
+            0
+          ]
+        ]
+      },
+      "drowsy_precision": 0.0,
+      "drowsy_recall": 0.0,
+      "drowsy_f1": 0.0,
+      "false_drowsy_duration_s": 0,
+      "invalid_duration_s": 9.2,
+      "unknown_duration_s": 9.2,
+      "state_changes": 16,
+      "evaluated_prediction_changes": 16,
+      "driver_state_changes": 4,
+      "availability_status_changes": 12,
+      "input_availability_changes": 12,
+      "events": {
+        "ground_truth_events": 0,
+        "predicted_events": 0,
+        "detected_events": 0,
+        "missed_events": 0,
+        "false_alert_events": 0,
+        "late_alert_events": 0,
+        "covered_events": 0,
+        "preexisting_alert_events": 0,
+        "event_precision": null,
+        "event_recall": null,
+        "event_f1": null,
+        "coverage": null,
+        "mean_latency_s": null,
+        "latencies_s": [],
+        "ground_truth": [],
+        "predicted": [],
+        "matches": [],
+        "late_matches": []
+      },
+      "drive": "drive2_synthetic",
+      "method": "c_fast_recovery",
+      "processing_benchmark": {
+        "clock": "time.perf_counter",
+        "repeats": 3,
+        "scope": "whole-drive decision processing; parsing, metrics, plots and file I/O excluded",
+        "run_ms": [
+          13.656400027684867,
+          13.562999956775457,
+          13.709600025322288
+        ],
+        "mean_run_ms": 13.643000003260871,
+        "p95_run_ms": 13.704280025558546,
+        "mean_amortized_ms_per_row": 0.00568458333469203,
+        "p95_amortized_ms_per_row": 0.005710116677316061,
+        "limitation": "Batch amortized CPU timings, not per-callback p95, alert delay or Jetson measurements"
+      }
+    }
+  ],
+  "overall": [
+    {
+      "sample_count": 5400,
+      "accuracy": 0.7140740740740741,
+      "macro_f1": 0.6981681432262827,
+      "per_class": {
+        "NORMAL": {
+          "support": 3631,
+          "tp": 2469,
+          "fp": 92,
+          "fn": 1162,
+          "precision": 0.9640765326044514,
+          "recall": 0.6799779675020655,
+          "f1": 0.7974806201550387
+        },
+        "WARNING": {
+          "support": 1000,
+          "tp": 919,
+          "fp": 1441,
+          "fn": 81,
+          "precision": 0.38940677966101694,
+          "recall": 0.919,
+          "f1": 0.5470238095238095
+        },
+        "DROWSY": {
+          "support": 769,
+          "tp": 468,
+          "fp": 11,
+          "fn": 301,
+          "precision": 0.9770354906054279,
+          "recall": 0.6085825747724317,
+          "f1": 0.7499999999999999
+        }
+      },
+      "confusion": {
+        "rows": [
+          "NORMAL",
+          "WARNING",
+          "DROWSY"
+        ],
+        "columns": [
+          "NORMAL",
+          "WARNING",
+          "DROWSY",
+          "UNKNOWN"
+        ],
+        "counts": [
+          [
+            2469,
+            1151,
+            11,
+            0
+          ],
+          [
+            81,
+            919,
+            0,
+            0
+          ],
+          [
+            11,
+            290,
+            468,
+            0
+          ]
+        ]
+      },
+      "events": {
+        "ground_truth_events": 2,
+        "predicted_events": 4,
+        "detected_events": 2,
+        "missed_events": 0,
+        "false_alert_events": 2,
+        "late_alert_events": 0,
+        "covered_events": 2,
+        "preexisting_alert_events": 0,
+        "event_precision": 0.5,
+        "event_recall": 1.0,
+        "event_f1": 0.6666666666666666,
+        "coverage": 1.0,
+        "latencies_s": [
+          1.3,
+          15.4
+        ],
+        "mean_latency_s": 8.35
+      },
+      "duration_s": 540.0,
+      "false_drowsy_duration_s": 1.1,
+      "invalid_duration_s": 12.799999999999999,
+      "unknown_duration_s": 0,
+      "state_changes": 22,
+      "evaluated_prediction_changes": 22,
+      "input_availability_changes": 16,
+      "driver_state_changes": 22,
+      "availability_status_changes": null,
+      "drowsy_precision": 0.9770354906054279,
+      "drowsy_recall": 0.6085825747724317,
+      "drowsy_f1": 0.7499999999999999,
+      "processing_benchmark": {
+        "clock": "time.perf_counter",
+        "repeats": 3,
+        "scope": "whole-drive decision processing; parsing, metrics, plots and file I/O excluded",
+        "run_ms": [
+          0.5877000512555242,
+          0.6073000258766115,
+          0.5908000166527927
+        ],
+        "mean_run_ms": 0.5952666979283094,
+        "p95_run_ms": 0.6056500249542296,
+        "mean_amortized_ms_per_row": 0.00011023457369042767,
+        "p95_amortized_ms_per_row": 0.00011215741202856104,
+        "limitation": "Batch amortized CPU timings, not per-callback p95, alert delay or Jetson measurements"
+      },
+      "method": "week5_A",
+      "drive": "OVERALL"
+    },
+    {
+      "sample_count": 5400,
+      "accuracy": 0.7520370370370371,
+      "macro_f1": 0.7038178648295073,
+      "per_class": {
+        "NORMAL": {
+          "support": 3631,
+          "tp": 2955,
+          "fp": 479,
+          "fn": 676,
+          "precision": 0.8605125218404194,
+          "recall": 0.8138253924538694,
+          "f1": 0.8365180467091295
+        },
+        "WARNING": {
+          "support": 1000,
+          "tp": 542,
+          "fp": 806,
+          "fn": 458,
+          "precision": 0.4020771513353116,
+          "recall": 0.542,
+          "f1": 0.4616695059625213
+        },
+        "DROWSY": {
+          "support": 769,
+          "tp": 564,
+          "fp": 54,
+          "fn": 205,
+          "precision": 0.912621359223301,
+          "recall": 0.7334200260078023,
+          "f1": 0.8132660418168709
+        }
+      },
+      "confusion": {
+        "rows": [
+          "NORMAL",
+          "WARNING",
+          "DROWSY"
+        ],
+        "columns": [
+          "NORMAL",
+          "WARNING",
+          "DROWSY",
+          "UNKNOWN"
+        ],
+        "counts": [
+          [
+            2955,
+            639,
+            37,
+            0
+          ],
+          [
+            441,
+            542,
+            17,
+            0
+          ],
+          [
+            38,
+            167,
+            564,
+            0
+          ]
+        ]
+      },
+      "events": {
+        "ground_truth_events": 2,
+        "predicted_events": 1,
+        "detected_events": 1,
+        "missed_events": 1,
+        "false_alert_events": 0,
+        "late_alert_events": 0,
+        "covered_events": 1,
+        "preexisting_alert_events": 0,
+        "event_precision": 1.0,
+        "event_recall": 0.5,
+        "event_f1": 0.6666666666666666,
+        "coverage": 0.5,
+        "latencies_s": [
+          15.3
+        ],
+        "mean_latency_s": 15.3
+      },
+      "duration_s": 540.0,
+      "false_drowsy_duration_s": 5.4,
+      "invalid_duration_s": 12.799999999999999,
+      "unknown_duration_s": 0,
+      "state_changes": 18,
+      "evaluated_prediction_changes": 18,
+      "input_availability_changes": 16,
+      "driver_state_changes": 18,
+      "availability_status_changes": null,
+      "drowsy_precision": 0.912621359223301,
+      "drowsy_recall": 0.7334200260078023,
+      "drowsy_f1": 0.8132660418168709,
+      "processing_benchmark": {
+        "clock": "time.perf_counter",
+        "repeats": 3,
+        "scope": "whole-drive decision processing; parsing, metrics, plots and file I/O excluded",
+        "run_ms": [
+          6.9694999838247895,
+          6.994199997279793,
+          7.330499996896833
+        ],
+        "mean_run_ms": 7.0980666593338055,
+        "p95_run_ms": 7.296869996935129,
+        "mean_amortized_ms_per_row": 0.0013144567887655196,
+        "p95_amortized_ms_per_row": 0.0013512722216546535,
+        "limitation": "Batch amortized CPU timings, not per-callback p95, alert delay or Jetson measurements"
+      },
+      "method": "week5_B",
+      "drive": "OVERALL"
+    },
+    {
+      "sample_count": 5400,
+      "accuracy": 0.6583333333333333,
+      "macro_f1": 0.64064710479746,
+      "per_class": {
+        "NORMAL": {
+          "support": 3631,
+          "tp": 2432,
+          "fp": 409,
+          "fn": 1199,
+          "precision": 0.8560366068285815,
+          "recall": 0.6697879372073808,
+          "f1": 0.7515451174289246
+        },
+        "WARNING": {
+          "support": 1000,
+          "tp": 587,
+          "fp": 1350,
+          "fn": 413,
+          "precision": 0.30304594734124934,
+          "recall": 0.587,
+          "f1": 0.3997276132107593
+        },
+        "DROWSY": {
+          "support": 769,
+          "tp": 536,
+          "fp": 86,
+          "fn": 233,
+          "precision": 0.8617363344051447,
+          "recall": 0.6970091027308193,
+          "f1": 0.7706685837526961
+        }
+      },
+      "confusion": {
+        "rows": [
+          "NORMAL",
+          "WARNING",
+          "DROWSY"
+        ],
+        "columns": [
+          "NORMAL",
+          "WARNING",
+          "DROWSY",
+          "UNKNOWN"
+        ],
+        "counts": [
+          [
+            2432,
+            1130,
+            69,
+            0
+          ],
+          [
+            396,
+            587,
+            17,
+            0
+          ],
+          [
+            13,
+            220,
+            536,
+            0
+          ]
+        ]
+      },
+      "events": {
+        "ground_truth_events": 2,
+        "predicted_events": 2,
+        "detected_events": 2,
+        "missed_events": 0,
+        "false_alert_events": 0,
+        "late_alert_events": 0,
+        "covered_events": 2,
+        "preexisting_alert_events": 0,
+        "event_precision": 1.0,
+        "event_recall": 1.0,
+        "event_f1": 1.0,
+        "coverage": 1.0,
+        "latencies_s": [
+          1.3,
+          21.9
+        ],
+        "mean_latency_s": 11.6
+      },
+      "duration_s": 540.0,
+      "false_drowsy_duration_s": 8.6,
+      "invalid_duration_s": 12.799999999999999,
+      "unknown_duration_s": 0,
+      "state_changes": 11,
+      "evaluated_prediction_changes": 11,
+      "input_availability_changes": 16,
+      "driver_state_changes": 11,
+      "availability_status_changes": null,
+      "drowsy_precision": 0.8617363344051447,
+      "drowsy_recall": 0.6970091027308193,
+      "drowsy_f1": 0.7706685837526961,
+      "processing_benchmark": {
+        "clock": "time.perf_counter",
+        "repeats": 3,
+        "scope": "whole-drive decision processing; parsing, metrics, plots and file I/O excluded",
+        "run_ms": [
+          8.411300019361079,
+          8.377999940421432,
+          8.306999981869012
+        ],
+        "mean_run_ms": 8.365433313883841,
+        "p95_run_ms": 8.407970011467114,
+        "mean_amortized_ms_per_row": 0.0015491543173858965,
+        "p95_amortized_ms_per_row": 0.0015570314836050212,
+        "limitation": "Batch amortized CPU timings, not per-callback p95, alert delay or Jetson measurements"
+      },
+      "method": "week5_C",
+      "drive": "OVERALL"
+    },
+    {
+      "sample_count": 5400,
+      "accuracy": 0.6412962962962963,
+      "macro_f1": 0.6352030455083614,
+      "per_class": {
+        "NORMAL": {
+          "support": 3631,
+          "tp": 2349,
+          "fp": 408,
+          "fn": 1282,
+          "precision": 0.8520130576713819,
+          "recall": 0.6469292206003856,
+          "f1": 0.7354414527238572
+        },
+        "WARNING": {
+          "support": 1000,
+          "tp": 577,
+          "fp": 1314,
+          "fn": 423,
+          "precision": 0.3051295610787943,
+          "recall": 0.577,
+          "f1": 0.39916983742649603
+        },
+        "DROWSY": {
+          "support": 769,
+          "tp": 537,
+          "fp": 87,
+          "fn": 232,
+          "precision": 0.8605769230769231,
+          "recall": 0.6983094928478544,
+          "f1": 0.7709978463747308
+        }
+      },
+      "confusion": {
+        "rows": [
+          "NORMAL",
+          "WARNING",
+          "DROWSY"
+        ],
+        "columns": [
+          "NORMAL",
+          "WARNING",
+          "DROWSY",
+          "UNKNOWN"
+        ],
+        "counts": [
+          [
+            2349,
+            1095,
+            70,
+            117
+          ],
+          [
+            395,
+            577,
+            17,
+            11
+          ],
+          [
+            13,
+            219,
+            537,
+            0
+          ]
+        ]
+      },
+      "events": {
+        "ground_truth_events": 2,
+        "predicted_events": 2,
+        "detected_events": 2,
+        "missed_events": 0,
+        "false_alert_events": 0,
+        "late_alert_events": 0,
+        "covered_events": 2,
+        "preexisting_alert_events": 0,
+        "event_precision": 1.0,
+        "event_recall": 1.0,
+        "event_f1": 1.0,
+        "coverage": 1.0,
+        "latencies_s": [
+          1.3,
+          21.9
+        ],
+        "mean_latency_s": 11.6
+      },
+      "duration_s": 540.0,
+      "false_drowsy_duration_s": 8.7,
+      "invalid_duration_s": 12.799999999999999,
+      "unknown_duration_s": 12.799999999999999,
+      "state_changes": 27,
+      "evaluated_prediction_changes": 27,
+      "input_availability_changes": 16,
+      "driver_state_changes": 11,
+      "availability_status_changes": 16,
+      "drowsy_precision": 0.8605769230769231,
+      "drowsy_recall": 0.6983094928478544,
+      "drowsy_f1": 0.7709978463747308,
+      "processing_benchmark": {
+        "clock": "time.perf_counter",
+        "repeats": 3,
+        "scope": "whole-drive decision processing; parsing, metrics, plots and file I/O excluded",
+        "run_ms": [
+          31.017599976621568,
+          33.75529998447746,
+          30.883600062225014
+        ],
+        "mean_run_ms": 31.88550000777468,
+        "p95_run_ms": 33.48152998369187,
+        "mean_amortized_ms_per_row": 0.005904722223661978,
+        "p95_amortized_ms_per_row": 0.00620028333031331,
+        "limitation": "Batch amortized CPU timings, not per-callback p95, alert delay or Jetson measurements"
+      },
+      "method": "stable_c",
+      "drive": "OVERALL"
+    },
+    {
+      "sample_count": 5400,
+      "accuracy": 0.6398148148148148,
+      "macro_f1": 0.6392561340455734,
+      "per_class": {
+        "NORMAL": {
+          "support": 3631,
+          "tp": 2354,
+          "fp": 388,
+          "fn": 1277,
+          "precision": 0.8584974471188913,
+          "recall": 0.6483062517212889,
+          "f1": 0.7387415659814844
+        },
+        "WARNING": {
+          "support": 1000,
+          "tp": 614,
+          "fp": 1429,
+          "fn": 386,
+          "precision": 0.30053842388644153,
+          "recall": 0.614,
+          "f1": 0.40354912914886626
+        },
+        "DROWSY": {
+          "support": 769,
+          "tp": 487,
+          "fp": 0,
+          "fn": 282,
+          "precision": 1.0,
+          "recall": 0.6332899869960988,
+          "f1": 0.7754777070063694
+        }
+      },
+      "confusion": {
+        "rows": [
+          "NORMAL",
+          "WARNING",
+          "DROWSY"
+        ],
+        "columns": [
+          "NORMAL",
+          "WARNING",
+          "DROWSY",
+          "UNKNOWN"
+        ],
+        "counts": [
+          [
+            2354,
+            1160,
+            0,
+            117
+          ],
+          [
+            375,
+            614,
+            0,
+            11
+          ],
+          [
+            13,
+            269,
+            487,
+            0
+          ]
+        ]
+      },
+      "events": {
+        "ground_truth_events": 2,
+        "predicted_events": 2,
+        "detected_events": 2,
+        "missed_events": 0,
+        "false_alert_events": 0,
+        "late_alert_events": 0,
+        "covered_events": 2,
+        "preexisting_alert_events": 0,
+        "event_precision": 1.0,
+        "event_recall": 1.0,
+        "event_f1": 1.0,
+        "coverage": 1.0,
+        "latencies_s": [
+          1.3,
+          21.9
+        ],
+        "mean_latency_s": 11.6
+      },
+      "duration_s": 540.0,
+      "false_drowsy_duration_s": 0,
+      "invalid_duration_s": 12.799999999999999,
+      "unknown_duration_s": 12.799999999999999,
+      "state_changes": 27,
+      "evaluated_prediction_changes": 27,
+      "input_availability_changes": 16,
+      "driver_state_changes": 11,
+      "availability_status_changes": 16,
+      "drowsy_precision": 1.0,
+      "drowsy_recall": 0.6332899869960988,
+      "drowsy_f1": 0.7754777070063694,
+      "processing_benchmark": {
+        "clock": "time.perf_counter",
+        "repeats": 3,
+        "scope": "whole-drive decision processing; parsing, metrics, plots and file I/O excluded",
+        "run_ms": [
+          30.986800033133477,
+          31.133899930864573,
+          31.002100033219904
+        ],
+        "mean_run_ms": 31.040933332405984,
+        "p95_run_ms": 31.120719941100106,
+        "mean_amortized_ms_per_row": 0.00574832098748259,
+        "p95_amortized_ms_per_row": 0.005763096285388908,
+        "limitation": "Batch amortized CPU timings, not per-callback p95, alert delay or Jetson measurements"
+      },
+      "method": "c_fast_recovery",
+      "drive": "OVERALL"
+    }
+  ]
+}
