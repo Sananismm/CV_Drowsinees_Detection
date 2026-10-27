@@ -92,7 +92,7 @@ Frame 128 at 5.120 s is OPEN again, with average EAR 0.225. The tracker finishes
 
 ![Left, right and average EAR over the processed video](docs/images/ear_timeline.png)
 
-Blue and orange show left/right EAR; green shows their average. The dashed line is the 0.15 threshold. Dips below it explain raw CLOSED decisions, while the final OPEN state can wait for reopening confirmation. The plot reads saved EAR values without additional smoothing. These images illustrate predictions, not ground-truth accuracy. [Timeline](docs/images/ear_timeline.png) [Plot code](in_demo.py)
+Blue and orange show left/right EAR; green shows their average. The dashed line is the 0.15 threshold. Dips below it explain raw CLOSED decisions, while the final OPEN state can wait for reopening confirmation. The plot reads saved EAR values without additional smoothing. These images illustrate predictions. [Timeline](docs/images/ear_timeline.png) [Plot code](in_demo.py)
 
 ## Installation and Usage
 
