@@ -6,6 +6,26 @@ import cv2
 import mediapipe as mp
 import numpy as np
 
+from sg1_contract import LANDMARK_TOPOLOGY, SCHEMA_VERSION
+
+
+def clamped_landmark_box(coords, image_width: int, image_height: int):
+    """Return an in-frame xyxy box for normalized landmark coordinates."""
+
+    points = np.asarray(coords, dtype=np.float32)
+    if points.ndim != 2 or points.shape[1] != 2 or len(points) == 0:
+        raise ValueError("coords must contain at least one normalized [x,y] point")
+    if not np.isfinite(points).all():
+        raise ValueError("coords must contain only finite values")
+    if image_width < 1 or image_height < 1:
+        raise ValueError("image dimensions must be positive")
+
+    x1 = max(0, min(image_width, int(np.floor(points[:, 0].min() * image_width))))
+    y1 = max(0, min(image_height, int(np.floor(points[:, 1].min() * image_height))))
+    x2 = max(0, min(image_width, int(np.ceil(points[:, 0].max() * image_width))))
+    y2 = max(0, min(image_height, int(np.ceil(points[:, 1].max() * image_height))))
+    return [x1, y1, x2, y2]
+
 
 @dataclass(frozen=True)
 class DetectorConfig:
@@ -46,6 +66,15 @@ class SG1FaceLandmarkDetector:
 
     def process(self, frame_bgr, frame_id: int, timestamp_ms: int):
         started = time.perf_counter()
+        if (
+            not isinstance(frame_bgr, np.ndarray)
+            or frame_bgr.ndim != 3
+            or frame_bgr.shape[2] != 3
+            or frame_bgr.size == 0
+        ):
+            raise ValueError("frame_bgr must be a non-empty HxWx3 NumPy array")
+        if not isinstance(frame_id, int) or isinstance(frame_id, bool) or frame_id < 0:
+            raise ValueError("frame_id must be a non-negative integer")
         h, w = frame_bgr.shape[:2]
         frame = self._resize(frame_bgr)
         rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
@@ -56,10 +85,12 @@ class SG1FaceLandmarkDetector:
         elapsed_ms = (time.perf_counter() - started) * 1000.0
 
         base = {
+            "schema_version": SCHEMA_VERSION,
             "frame_id": int(frame_id),
             "timestamp_ms": int(timestamp_ms),
             "image_width": int(w),
             "image_height": int(h),
+            "landmark_topology": LANDMARK_TOPOLOGY,
             "config_name": self.config.name,
         }
         if not result.face_landmarks:
@@ -77,17 +108,11 @@ class SG1FaceLandmarkDetector:
         coords = np.asarray([[float(p.x), float(p.y)] for p in landmarks], dtype=np.float32)
         # Coordinates are normalized to the resized image; preserve full-frame geometry
         # by mapping the normalized points through the same scale ratio.
-        resized_h, resized_w = frame.shape[:2]
-        px = coords[:, 0] * resized_w
-        py = coords[:, 1] * resized_h
-        x1 = max(0, min(w, int(np.floor(px.min() * w / resized_w))))
-        y1 = max(0, min(h, int(np.floor(py.min() * h / resized_h))))
-        x2 = max(0, min(w, int(np.ceil(px.max() * w / resized_w))))
-        y2 = max(0, min(h, int(np.ceil(py.max() * h / resized_h))))
+        face_box = clamped_landmark_box(coords, w, h)
         return {
             **base,
             "status": "OK",
-            "face_bbox_xyxy": [x1, y1, x2, y2],
+            "face_bbox_xyxy": face_box,
             "landmarks_xy_normalized": coords.round(6).tolist(),
             "landmark_count": int(len(coords)),
             # The MediaPipe Tasks result exposes landmarks, not the detector's per-face

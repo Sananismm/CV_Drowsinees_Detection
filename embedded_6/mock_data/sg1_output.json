@@ -1,0 +1,10 @@
+{
+    "timestamp": 12.4,
+    "frame_id": 372,
+    "face_detected": true,
+    "face_bbox": [120, 80, 300, 300],
+    "face_confidence": 0.96,
+    "left_eye_landmarks": [],
+    "right_eye_landmarks": [],
+    "mouth_landmarks": []
+}

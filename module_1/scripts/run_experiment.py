@@ -1,17 +1,28 @@
 import argparse
 import csv
+import hashlib
 import json
 from pathlib import Path
 import statistics
+import sys
 import time
 
 import cv2
 import numpy as np
 
 from sg1_detector import DetectorConfig, SG1FaceLandmarkDetector, draw_result
+from sg1_contract import LANDMARK_TOPOLOGY, SCHEMA_VERSION, validate_sg1_record
 
 
 ROOT = Path(__file__).resolve().parents[1]
+
+
+def sha256_file(path):
+    digest = hashlib.sha256()
+    with path.open("rb") as stream:
+        for block in iter(lambda: stream.read(1024 * 1024), b""):
+            digest.update(block)
+    return digest.hexdigest().upper()
 
 
 def read_configs(path):
@@ -42,44 +53,60 @@ def process_one(video_path, output_dir, config, model_path, frame_stride, max_fr
             cap.release()
             raise RuntimeError(f"Could not create annotated video: {out_path}")
 
-    detector = SG1FaceLandmarkDetector(model_path, config)
+    detector = None
     latencies, centers, landmark_counts = [], [], []
     frame_id = 0
     processed = detected = 0
     wall_start = time.perf_counter()
-    with pred_path.open("w", encoding="utf-8") as predictions, fail_path.open("w", newline="", encoding="utf-8") as failures:
-        fail_writer = csv.writer(failures)
-        fail_writer.writerow(["frame_idx", "timestamp_ms", "reason"])
-        while True:
-            ok, frame = cap.read()
-            if not ok:
-                break
-            current_id = frame_id
-            frame_id += 1
-            if current_id % frame_stride:
-                continue
-            if max_frames and processed >= max_frames:
-                break
-            timestamp_ms = int(round(current_id * 1000.0 / source_fps)) if source_fps > 0 else current_id * 33
-            output = detector.process(frame, current_id, timestamp_ms)
-            predictions.write(json.dumps(output, separators=(",", ":")) + "\n")
-            processed += 1
-            latencies.append(float(output["inference_ms"]))
-            if output["status"] == "OK":
-                detected += 1
-                landmark_counts.append(int(output["landmark_count"]))
-                x1, y1, x2, y2 = output["face_bbox_xyxy"]
-                centers.append(((x1 + x2) / (2 * source_w), (y1 + y2) / (2 * source_h)))
-            else:
-                fail_writer.writerow([current_id, timestamp_ms, "NO_FACE"])
-            if video_writer is not None:
-                video_writer.write(draw_result(frame, output))
+    try:
+        detector = SG1FaceLandmarkDetector(model_path, config)
+        with pred_path.open("w", encoding="utf-8") as predictions, fail_path.open(
+            "w", newline="", encoding="utf-8"
+        ) as failures:
+            fail_writer = csv.writer(failures)
+            fail_writer.writerow(["frame_idx", "timestamp_ms", "reason"])
+            while True:
+                ok, frame = cap.read()
+                if not ok:
+                    break
+                current_id = frame_id
+                frame_id += 1
+                if current_id % frame_stride:
+                    continue
+                if max_frames and processed >= max_frames:
+                    break
+                timestamp_ms = (
+                    int(round(current_id * 1000.0 / source_fps))
+                    if source_fps > 0
+                    else current_id * 33
+                )
+                output = detector.process(frame, current_id, timestamp_ms)
+                validate_sg1_record(output)
+                predictions.write(json.dumps(output, separators=(",", ":")) + "\n")
+                processed += 1
+                latencies.append(float(output["inference_ms"]))
+                if output["status"] == "OK":
+                    detected += 1
+                    landmark_counts.append(int(output["landmark_count"]))
+                    x1, y1, x2, y2 = output["face_bbox_xyxy"]
+                    centers.append(
+                        (
+                            (x1 + x2) / (2 * source_w),
+                            (y1 + y2) / (2 * source_h),
+                        )
+                    )
+                else:
+                    fail_writer.writerow([current_id, timestamp_ms, "NO_FACE"])
+                if video_writer is not None:
+                    video_writer.write(draw_result(frame, output))
+    finally:
+        if detector is not None:
+            detector.close()
+        cap.release()
+        if video_writer is not None:
+            video_writer.release()
 
     wall_elapsed = time.perf_counter() - wall_start
-    detector.close()
-    cap.release()
-    if video_writer is not None:
-        video_writer.release()
     jitter = [float(np.linalg.norm(np.subtract(b, a))) for a, b in zip(centers, centers[1:])]
     sorted_lat = sorted(latencies)
     p95 = float(np.percentile(sorted_lat, 95)) if sorted_lat else 0.0
@@ -89,7 +116,7 @@ def process_one(video_path, output_dir, config, model_path, frame_stride, max_fr
         "min_face_detection_confidence": config.min_face_detection_confidence,
         "min_face_presence_confidence": config.min_face_presence_confidence,
         "min_tracking_confidence": config.min_tracking_confidence,
-        "video": str(video_path),
+        "video": video_path.name,
         "source_width": source_w,
         "source_height": source_h,
         "source_fps": round(source_fps, 3),
@@ -141,10 +168,16 @@ def main():
         writer.writeheader()
         writer.writerows(rows)
     metadata = {
-        "model_path": str(model_path),
+        "schema_version": SCHEMA_VERSION,
+        "landmark_topology": LANDMARK_TOPOLOGY,
+        "model_filename": model_path.name,
+        "model_sha256": sha256_file(model_path),
+        "python_version": sys.version.split()[0],
         "mediapipe_version": __import__("mediapipe").__version__,
         "opencv_version": cv2.__version__,
-        "input_video": str(video_path),
+        "numpy_version": np.__version__,
+        "input_video": video_path.name,
+        "input_video_sha256": sha256_file(video_path),
         "frame_stride": stride,
         "max_frames": max_frames,
         "configurations": [config.__dict__ for config in configs],

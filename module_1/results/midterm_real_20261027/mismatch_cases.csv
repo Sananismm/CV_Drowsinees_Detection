@@ -1,0 +1,10 @@
+clip,config_name,frame_idx,iou,mismatch_type
+P1043061_na,baseline,432,0.468,below_iou_threshold
+P1043061_na,baseline,576,0.4321,below_iou_threshold
+P1043061_na,lower_threshold,432,0.4666,below_iou_threshold
+P1043061_na,lower_threshold,576,0.4321,below_iou_threshold
+P1043061_na,lower_resolution,432,0.4783,below_iou_threshold
+P1043061_na,lower_resolution,576,0.4481,below_iou_threshold
+P1043080_na,baseline,224,0.4812,below_iou_threshold
+P1043080_na,lower_threshold,224,0.4812,below_iou_threshold
+P1043080_na,lower_resolution,224,0.4884,below_iou_threshold
