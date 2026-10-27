@@ -1,0 +1,27 @@
+name: SG5 midterm contracts and regression tests
+on:
+  push:
+    branches: [sg5/midterm-integration]
+  pull_request:
+    paths:
+      - 'module_5/**'
+      - 'module_4/**'
+      - 'interfaces/**'
+      - 'embedded_6/sg5_handoff/**'
+      - '.github/workflows/sg5-midterm.yml'
+permissions:
+  contents: read
+jobs:
+  headless:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python -m pip install numpy==1.26.4 PyYAML==6.0.2 jsonschema==4.23.0 pytest==8.3.5 matplotlib==3.10.3
+      - run: python -m unittest discover -s module_5/midterm/tests -v
+      - run: python -m pytest module_4/tests -q
+      - run: python -m module_5.midterm.evaluate --output /tmp/sg5-evaluation --plot
+      - run: python -m module_5.midterm.demo --scenario drowsy --output /tmp/sg5-demo
+      - run: python embedded_6/sg5_handoff/consume.py --input /tmp/sg5-demo/sg6_stream.jsonl --events-only
