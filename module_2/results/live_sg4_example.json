@@ -1,0 +1,37 @@
+{
+  "closure_duration_sec": null,
+  "closure_event": null,
+  "cnn": {
+    "called": false,
+    "eye_state": "UNKNOWN",
+    "eyes": [],
+    "reason": "disabled_in_ear_only",
+    "valid": false
+  },
+  "ear": 0.34060599679384423,
+  "ear_eye_state": "OPEN",
+  "eye_closure_prob": null,
+  "eye_state": "OPEN",
+  "eye_valid": true,
+  "face_confidence": null,
+  "frame_id": 0,
+  "invalid_reason": null,
+  "is_blink": false,
+  "left_ear": 0.34745140435770006,
+  "method": "EAR_0.15_open2",
+  "quality": {
+    "cnn_agreement": false,
+    "cnn_available": false,
+    "cnn_called": false,
+    "cnn_margin": null,
+    "cnn_signed_score": null,
+    "cnn_state": "UNKNOWN",
+    "cnn_used": false,
+    "ear_imbalance": 0.040195461197349874,
+    "ear_signed_score": -1.0,
+    "geometry_valid": true
+  },
+  "right_ear": 0.3337605892299884,
+  "schema_version": "sg2.sg4.v2",
+  "timestamp": 0.0
+}

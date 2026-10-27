@@ -1,0 +1,87 @@
+{
+  "version": "sg2.selection.v1",
+  "declared_before_fusion_results": true,
+  "evaluation_status": "exploratory: previous test-participant results informed the user-directed operational method choice; no additional independent participants available in the downloaded dataset",
+  "selection_videos": [
+    "8",
+    "9"
+  ],
+  "evaluation_videos": [
+    "10",
+    "11"
+  ],
+  "evaluation_scope": "all decoded frames in complete recordings, acquisition timestamps; labelled clear OPEN/fully-CLOSED frames for classification; fully-CLOSED intervals for closure-event matching",
+  "rule": {
+    "minimum_coverage": 0.95,
+    "closed_miss_rate_tolerance_over_EAR": 0.01,
+    "event_recall_tolerance_over_EAR": 0.05,
+    "cost": "5*false_open/n_closed + 2*unknown_closed/n_closed + false_closed/n_open + 0.25*unknown_open/n_open",
+    "tie_break": [
+      "lower cost",
+      "fewer unmatched predicted closure intervals",
+      "higher coverage",
+      "fewer smoothing frames",
+      "lower complexity",
+      "candidate name"
+    ],
+    "if_no_eligible": "EAR baseline; explicitly report failed constraints"
+  },
+  "fusion_grids": {
+    "confidence_margin": [
+      0.2,
+      0.5,
+      0.8
+    ],
+    "EAR_weight": [
+      0.25,
+      0.5,
+      0.75
+    ],
+    "decision_threshold": [
+      -0.1,
+      0.0,
+      0.1
+    ],
+    "maximum_EAR_imbalance": [
+      0.3,
+      0.6,
+      1.0
+    ],
+    "EAR_first_uncertainty_band": [
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.8,
+      1.0
+    ],
+    "EAR_first_CNN_minimum_margin": [
+      0.0,
+      0.2,
+      0.5,
+      0.8
+    ],
+    "operational_method": {
+      "method": "ear_first",
+      "ear_uncertainty_band": 0.8,
+      "cnn_min_margin": 0.0,
+      "open_frames": 2,
+      "max_open_delay_sec": 0.08,
+      "name": "0.0_0.8_0.08_ear_first_2",
+      "decision_status": "user-directed final engineering choice after exploratory comparison; not the original validation protocol winner",
+      "original_validation_protocol_winner": "0.25_0.08_weighted_2_-0.1"
+    },
+    "open_confirmation_frames": [
+      1,
+      2,
+      3
+    ],
+    "maximum_open_delay_sec": 0.08
+  },
+  "score_semantics": "CNN softmax and EAR normalized margin are uncalibrated diagnostic/decision scores, never calibrated probabilities; EAR-first tests a validation-selected absolute EAR margin band and a bilateral minimum CNN softmax margin",
+  "calibration": "not fitted: insufficient independent participant groups for a dedicated calibration cohort; weighted fusion is explicitly nonprobabilistic",
+  "event_iou_threshold": 0.2,
+  "near_duplicate_rule": "64-bit perceptual hash Hamming <=4 AND resized grayscale 32x32 mean absolute intensity difference <=2/255 across distinct splits; flag/reject, never silently remove test samples"
+}

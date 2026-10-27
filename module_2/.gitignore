@@ -1,0 +1,8 @@
+.venv/
+__pycache__/
+*.pyc
+local/
+*.pt
+*.onnx
+!models/best.pt
+/results/instructor_demo/

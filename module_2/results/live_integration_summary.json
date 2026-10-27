@@ -1,0 +1,103 @@
+{
+  "status": "PASS",
+  "scope": "Exact 33-file staged export; fresh actual repository SG1 detector; software integration and output consistency, not labelled accuracy or Jetson validation",
+  "video_basename": "P1042801_720.mp4",
+  "source_video_sha256": "1baa61ccb7d4ba8650b90a9a3cef3403d3ccfc61e42ed4bea5d37eaad0e86e2e",
+  "sg1_source_sha256": "63441301bd1c009071eb0ac4203189e27311fb98195d941fa63f45f7e7622786",
+  "staged_source_sha256": {
+    "module_2/__init__.py": "11b33b8ce162b8f9408ca3b5e0cb5eebfac382fd9a080a6941dd6d014fabb43e",
+    "module_2/adapters.py": "445c0bafddb8fc945a67e72691ed67b9c2e82d91b0417efe4e8b0ae048d74fd9",
+    "module_2/bootstrap.py": "5a82838eb29bb51f235837bdd96469a026bdde1ae5dbb8cc856db7e8e53568c9",
+    "module_2/cnn.py": "e483f2bc838997c0206e23aeedf1864b50243005a5a6099058f159eddb6d24f1",
+    "module_2/crops.py": "aa0978459ec571d8e835fd5cd23981ab55dbebea6c47879e39756891c7a93720",
+    "module_2/demo.py": "5f91229f45f2e2c70e571dd03d5aab1aa93efe88a637e93f222764af095ec9a0",
+    "module_2/evaluate.py": "65b47f610ac9b70bac6edfe4bc16f710bc46fb9865f575f39e3aa34976885832",
+    "module_2/events.py": "bde855bb1760fdf34a1883b689db1e40eabf91796c500a79f777ccca012c6c81",
+    "module_2/example.py": "4d7358b3ccd3f16f1772b7167b3f1ac00f95d6ad8783644db4190674674104cf",
+    "module_2/eye_analysis.py": "9694dfbf8bdc73fbc93db6a747887b65ac42a82034ce67675c1b8681f8ad5e56",
+    "module_2/fusion.py": "9eedd3a750a3219967cf7d3a7435744ffadab9f008dde8b637e4b2a70d260246",
+    "module_2/leakage.py": "abc3d5dc20fd85ee5649dec3a08cfa419595919a7caa8e113f858dbeca9508b1",
+    "module_2/metrics.py": "c7b92f48b8469445e73c512015976bad62abb401ad189d372d3e2f8d70b03d12",
+    "module_2/prepare_data.py": "565f960f5f9473ad620f942cc415bb251be340c5d81df9691fbaffcdea6fa407",
+    "module_2/processor.py": "7e7a7468b9f25d5a088f60aa8a3899cf813eb4d5eac37f232b46f28808b4e5d5",
+    "module_2/selection_protocol.json": "b3c8bae4fedb9a8309c132b7fc0c658a8356e12a20abaca1f7ff77c85a9a1bbf",
+    "module_2/tests/test_final.py": "f0b9348a4f8df100007144471e54564517697c58a7db90c6f7f3cdde109b5f86",
+    "module_2/tests/test_sg2.py": "4b138a990202b9652877065742deb4d0df176df36789b1517284c5d29dd95a4b",
+    "module_2/train.py": "a5bcea504808c36bc5865dc7f2a4533a44df9772709b8ea5da39cc54ed33eb3b"
+  },
+  "verification": {
+    "frames": 590,
+    "fresh_detect_for_video_calls": 590,
+    "direct_handoffs": 590,
+    "cached_landmarks_used": false,
+    "max_independent_EAR_error": 0.0,
+    "eye_state_counts": {
+      "OPEN": 455,
+      "CLOSED": 135
+    },
+    "closures": 10,
+    "blink_candidates": 5,
+    "source_and_annotated_video": {
+      "original": {
+        "header_frames": 590,
+        "fps": 25.0,
+        "width": 1280,
+        "height": 720,
+        "decoded_frames": 590,
+        "max_pts_vs_nominal_error_sec": 7.105427357601002e-15
+      },
+      "annotated": {
+        "header_frames": 590,
+        "fps": 25.0,
+        "width": 1680,
+        "height": 720,
+        "decoded_frames": 590,
+        "max_pts_vs_nominal_error_sec": 7.105427357601002e-15
+      }
+    },
+    "sg4_cues_validated": 590,
+    "sg4_bridge_pass": true,
+    "native_sg4_error": "'>=' not supported between instances of 'NoneType' and 'float'",
+    "threshold": 0.15,
+    "open_frames": 2,
+    "max_open_delay_sec": 0.08,
+    "cnn_calls": 0
+  },
+  "tests": {
+    "pytest_passed": 36,
+    "unittest_passed": 36,
+    "skipped": 0
+  },
+  "algorithm_equivalence": {
+    "controlled_replay_frames": 590,
+    "EAR_state_event_fields_match_preferred": true,
+    "byte_identical_to_preferred": false
+  },
+  "platform": {
+    "python": "3.13.16",
+    "mediapipe": "0.10.35",
+    "numpy": "2.5.4",
+    "opencv-contrib-python": "5.0.0.93",
+    "torch": "2.14.1+cpu",
+    "pytest": "9.1.1"
+  },
+  "raw_evidence": "Retained outside Git in SG2_LIVE_INTEGRATION_VERIFICATION/submission_audit_20261027; no absolute personal path required",
+  "model_asset_sha256": "64184e229b263107bc2b804c6625db1341ff2bb731874b0bcc2fe6544e0bc9ff",
+  "packaging_correction": {
+    "protocol_sha256": "b3c8bae4fedb9a8309c132b7fc0c658a8356e12a20abaca1f7ff77c85a9a1bbf",
+    "selected_configuration_unchanged": true,
+    "source_byte_convention": "module_2 source and protocol digests use exact Git index bytes",
+    "historical_test_scope": "Counts above are the independently verified pre-packaging source run; no executable bytes or selected settings changed."
+  },
+  "packaging_verification": {
+    "complete_pytest_suite": "36 passed, zero skipped",
+    "complete_unittest_suite": "36 passed, zero skipped",
+    "controlled_replay_frames": 590,
+    "canonical_SG2_and_SG4_packets_identical_to_prior_fresh_run": true,
+    "preferred_EAR_state_event_fields_match": true,
+    "selected_config_unchanged": true,
+    "all_executable_source_index_bytes_unchanged": true,
+    "protocol_checksum_matches_submitted_and_worktree_bytes": true,
+    "note": "This recheck replays existing fresh SG1 records with original raw video; it is not an additional fresh landmark inference run."
+  }
+}
