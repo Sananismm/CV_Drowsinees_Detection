@@ -74,7 +74,7 @@ Configured confidence thresholds are acceptance thresholds, **not** measured con
 
 ## 5. Experiment design
 
-All settings use the same model, five input clips, full-frame processing, and the same 20 manual annotation frames:
+All settings use the same model, five input clips, full-frame processing, and the same 20 provisional reference-box frames:
 
 | Setting | Input long side | Face/presence/tracking thresholds | Question |
 |---|---:|---:|---|
@@ -98,7 +98,7 @@ The sole no-face result was frame 576 of `P1043079_na`, which is fully black. Al
 
 ### Manual face-box check
 
-Four frames per clip (20 total) were manually box-labeled and scored with intersection over union (IoU). IoU is `intersection area / union area`: 1 is identical rectangles and 0 is no overlap. At the chosen 0.50 threshold, a prediction/reference pair with lower overlap is a localization mismatch.
+Four frames per clip (20 total) were visually boxed by an AI assistant and scored with intersection over union (IoU). The boxes have not been independently reviewed by a human, so the results measure provisional agreement, not validated ground-truth accuracy. IoU is `intersection area / union area`: 1 is identical rectangles and 0 is no overlap. At the chosen 0.50 threshold, a prediction/reference pair with lower overlap is a localization mismatch.
 
 | Setting | TP | IoU-mismatch FP | IoU-mismatch FN | Precision | Recall | F1 |
 |---|---:|---:|---:|---:|---:|---:|
@@ -106,15 +106,15 @@ Four frames per clip (20 total) were manually box-labeled and scored with inters
 | Lower threshold | 17 | 3 | 3 | 0.85 | 0.85 | 0.85 |
 | Lower resolution | 17 | 3 | 3 | 0.85 | 0.85 | 0.85 |
 
-Each of the three below-threshold cases has a prediction and a manual face box; the evaluator counts each such mismatch as one FP and one FN. These are paired localization errors, not three invented faces plus three unrelated missing faces. Since only 20 frames were labeled, a single frame changes recall by about five percentage points. Do not treat 0.85 as a stable population estimate.
+Each of the three below-threshold cases has a prediction and a provisional reference box; the evaluator counts each mismatch as one FP and one FN. They are paired overlap mismatches, not proven model failures before the reference boxes are reviewed. Since only 20 face-positive frames were labeled, a single frame changes recall by about five percentage points; false-alarm rate and landmark accuracy are not established.
 
 ### Week 6 decision
 
-Carry 192 px / 0.50 forward as a **provisional speed candidate**: it was about 19.6% faster end-to-end than baseline on this desktop (`(92.193 / 77.081 - 1) × 100`) with the same observed coverage and small-set box scores. Lowering thresholds showed no measured coverage or labeled-box benefit. Re-test on diverse conditions and the target Jetson before selecting a final setting. Desktop throughput is not Jetson throughput.
+Carry 192 px / 0.50 forward as a **provisional speed candidate**: it was about 19.6% faster end-to-end than baseline in the historical desktop run (`(92.193 / 77.081 - 1) × 100`) with the same observed coverage and small-set box agreement. The later run is reported separately in [MIDTERM_REAL_VIDEO_RESULTS.md](MIDTERM_REAL_VIDEO_RESULTS.md). Lowering thresholds showed no measured coverage or reference-box agreement benefit. Re-test on diverse conditions before selecting a final setting.
 
 ## 7. What is and is not established
 
-**Established by this run:** three configs ran on identical five-clip footage; detector/landmark availability and timing were recorded; one black-frame failure was reviewed; 20 face boxes were manually checked; code writes frame-synchronized ROI/landmark records; a 100-frame demonstration ran.
+**Established by this run:** three configs ran on identical five-clip footage; returned-face/landmark availability and timing were recorded; one black-frame failure was reviewed; 20 AI-assisted reference boxes were estimated; code writes frame-synchronized ROI/landmark records; a 100-frame demonstration ran. Independent human review of the reference boxes is still required.
 
 **Not established:** broad detector accuracy, landmark coordinate accuracy, robustness to systematic profile/occlusion/glasses/daylight tests, equivalence to the actual Week 4 baseline, acceptance of the V1 interface by SG-2/SG-3, or performance/memory on Jetson. These should be explicit Week 6 tasks, not assumed from high coverage.
 

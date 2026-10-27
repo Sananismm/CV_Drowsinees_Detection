@@ -18,6 +18,9 @@ results/*
 !results/downloaded_samples/qualitative_review.png
 !results/downloaded_samples/ground_truth/
 !results/downloaded_samples/ground_truth/*.csv
+!results/midterm_real_20261027/
+!results/midterm_real_20261027/*.csv
+!results/midterm_real_20261027/example_no_face.json
 results/**/predictions_*.jsonl
 results/**/failures_*.csv
 results/**/annotated_*.mp4

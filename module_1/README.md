@@ -4,9 +4,11 @@
 **Project stream:** B - Driver Drowsiness Monitoring
 **Sub-group:** SG-1 - Driver Face and Landmark Detection
 
-This folder contains the runnable SG-1 module, its Week 5 experiment evidence and its midterm hardening work. It compares MediaPipe Face Landmarker configurations on the *same video frames*, writes validated detection/landmark outputs, records latency and coverage, and can calculate precision/recall against manually annotated face boxes. It does not invent results for footage that has not been supplied or labeled.
+This folder contains the runnable SG-1 module, its Week 5 experiment evidence and its midterm hardening work. It compares MediaPipe Face Landmarker configurations on the *same video frames*, writes validated detection/landmark outputs, records latency and coverage, and can calculate box agreement against reference boxes.
 
 For a complete explanation with system diagrams, frame-processing flow, normalization, interface, metric definitions, results, and limitations, start with [`docs/SG1_DEEP_DIVE.md`](docs/SG1_DEEP_DIVE.md). The hands-on presentation/demo script is [`docs/SG1_DEMO_AND_EXPLANATION.md`](docs/SG1_DEMO_AND_EXPLANATION.md), and the course-rubric audit is [`docs/SG1_EVALUATION_CHECKLIST.md`](docs/SG1_EVALUATION_CHECKLIST.md).
+
+For the current midterm rerun, use [`docs/MIDTERM_DEMO.md`](docs/MIDTERM_DEMO.md), [`docs/MIDTERM_REAL_VIDEO_RESULTS.md`](docs/MIDTERM_REAL_VIDEO_RESULTS.md), and [`docs/MIDTERM_PRESENTATION.md`](docs/MIDTERM_PRESENTATION.md).
 
 ## Documentation map
 
@@ -20,7 +22,7 @@ Important current state:
 - SG-2 and SG-3 must accept the contract before it is called frozen.
 - The 192 px configuration remains provisional until broader and Jetson testing.
 - The detector, runtime validator, JSON Schema and tracked fixtures now implement the same V1 field set.
-- The local automated suite currently contains 31 passing tests.
+- The local automated suite passed 50 tests on 2026-10-27, including evaluator input validation and pooled-summary checks. Check the current branch's CI status after any later change.
 
 ## Headline results
 
@@ -30,7 +32,7 @@ Important current state:
 | Lower thresholds, 256 px / 0.35 | 99.966% | 8.132 ms | 78.362 | 0.85 |
 | Lower resolution, 192 px / 0.50 | 99.966% | 6.274 ms | 92.193 | 0.85 |
 
-These results cover five mostly nighttime clips (2,932 frames) and only 20 manually labeled boxes. The 192 px setting is a provisional speed candidate, not a final accuracy or Jetson decision. See the experiment record for the one all-black missed frame and interpretation. Do not commit source videos, annotated face videos, or model binaries; this repository keeps aggregate evidence and small manual-label CSVs while the full streams are regenerated locally.
+These historical results cover five mostly nighttime clips (2,932 frames) and 20 provisional boxes estimated by an AI assistant and not independently reviewed. Face coverage is returned-face availability; it does not verify the correct driver or landmark accuracy. The 192 px setting is a provisional speed candidate, not a final accuracy or Jetson decision. The current midterm rerun and its separate timing protocol are documented in [`docs/MIDTERM_REAL_VIDEO_RESULTS.md`](docs/MIDTERM_REAL_VIDEO_RESULTS.md). Keep source videos, annotated face videos, and model binaries local.
 
 ## Visual input/output example
 
@@ -51,7 +53,7 @@ See [`docs/INPUT_OUTPUT_EXAMPLE.md`](docs/INPUT_OUTPUT_EXAMPLE.md) for exactly w
 | Preserve interface | Emits frame ID, timestamp, dimensions, box, normalized landmark points and status. | JSON Lines; stable SG-1 output schema |
 | Compare settings | Runs baseline, threshold and input-resolution variants over the same video. | Controlled parameter study |
 | Measure speed and coverage | Calculates face coverage, latency percentiles, approximate inference FPS and end-to-end throughput. | Python timing + CSV summary |
-| Score accuracy | Matches predicted face rectangles with manually labeled ground-truth boxes using IoU >= 0.50. | Precision, recall, F1, false positives and missed faces |
+| Score box agreement | Matches predicted face rectangles with reference boxes using IoU >= 0.50. | Provisional precision, recall, F1 and paired overlap mismatches |
 
 **Week 5 alternatives:** baseline 256 px / 0.50 thresholds; lower acceptance thresholds 0.35 at 256 px; and lower input resolution 192 px / 0.50 thresholds. This provides one baseline plus two meaningful alternatives while keeping the model, clip and frame sampling fixed. A later study can add a different detector, but its outputs should be compared using the same labeled frames and interface.
 
@@ -70,24 +72,22 @@ These are controlled configuration comparisons, not three separate trained model
 Open PowerShell in this folder and run:
 
 ```powershell
-py -3.11 -m venv .venv
-.\.venv\Scripts\Activate.ps1
-python -m pip install --upgrade pip
-pip install -r requirements.txt
-python scripts\download_model.py
+py -3.12 -m venv .venv
+.\.venv\Scripts\python.exe -m pip install -r requirements-lock.txt
+.\.venv\Scripts\python.exe scripts\download_model.py
 ```
 
-Contributors running the schema and unit tests should install `requirements-dev.txt` instead.
+The lock file includes the schema-test dependency and was used for the 2026-10-27 Windows validation. To use the shorter `python` commands below, activate the environment with `.\.venv\Scripts\Activate.ps1`, or replace `python` with `.\.venv\Scripts\python.exe`.
 
 If PowerShell blocks virtual-environment activation, run the environment's Python directly instead:
 
 ```powershell
-.\.venv\Scripts\python.exe -m pip install -r requirements.txt
+.\.venv\Scripts\python.exe -m pip install -r requirements-lock.txt
 .\.venv\Scripts\python.exe scripts\download_model.py
 .\.venv\Scripts\python.exe scripts\verify_setup.py --smoke-model
 ```
 
-Python 3.10-3.12 is recommended. On Jetson, install the Python/OpenCV/MediaPipe builds compatible with the team's JetPack image; desktop wheels are not necessarily compatible with Jetson ARM64.
+Python 3.12 is used in the recorded Windows runs. If the `py` launcher does not find Python, use the full path to a Python 3.12 interpreter to create `.venv`, or install Python 3.12 first. If the project `.venv` is already set up, use its `Scripts\python.exe` directly without activation. Desktop wheels are not necessarily compatible with Jetson ARM64.
 
 ## Capture a test clip from your camera
 
@@ -152,7 +152,7 @@ Repeat for each predictions file and compare precision, recall, F1, false positi
 
 ## SG-1 output interface
 
-Each JSONL line contains a result for one frame:
+Each JSONL line contains a result for one frame. This abbreviated illustration shows only two points; it is not a valid 478-point fixture. Use [`../interfaces/examples/sg1_v1_ok.json`](../interfaces/examples/sg1_v1_ok.json) for a complete valid record:
 
 ```json
 {
@@ -178,7 +178,7 @@ The normative draft is [`docs/INTERFACE_CONTRACT.md`](docs/INTERFACE_CONTRACT.md
 
 ## Week 5 decision record
 
-The comparison on five downloaded driver-facing clips, including exploratory manual face-box evaluation on 20 sampled frames, is recorded in `docs/WEEK5_EXPERIMENT_RECORD.md`. The annotation rules and label files are in `docs/MANUAL_ANNOTATION_PROTOCOL.md` and `results/downloaded_samples/ground_truth/`; pooled box metrics are in `results/downloaded_samples/manual_box_metrics_summary.csv`. The 192 px recommendation is provisional: it performed similarly on this small label set and was faster on this desktop, but broader accuracy and Jetson performance remain unverified. If the group selects different common clips, rerun all configurations on those same clips before finalizing. Keep results and the chosen configuration with the subgroup branch; avoid committing raw or personally identifying video unless the team has permission.
+The historical comparison is recorded in `docs/WEEK5_EXPERIMENT_RECORD.md`; its 20 AI-assisted reference boxes and review limitations are described in `docs/MANUAL_ANNOTATION_PROTOCOL.md`. The primary and backup configuration rationale is in `docs/MIDTERM_METHOD_DECISION.md`. The 192 px recommendation is provisional: it performed similarly against this small reference set and was faster on this desktop, but broader accuracy remains unverified.
 
 The historical 100-frame presentation explanation is in `docs/SG1_DEMO_AND_EXPLANATION.md`; its private video outputs are not distributed. A reproducible generated fallback is documented in `docs/MIDTERM_DEMO.md`, with its non-sensitive aggregate table under `results/midterm_demo/comparison.csv`. The official SG-1 criterion/rubric status is in `docs/SG1_EVALUATION_CHECKLIST.md`.
 
@@ -196,7 +196,8 @@ Get-ChildItem "$env:USERPROFILE\Downloads\P104*_na.mp4" | ForEach-Object {
 
 - Only one primary face is configured (`num_faces=1`), as expected for a driver camera.
 - Landmarks are returned in normalized coordinates; the face box is the enclosing rectangle of those landmarks, not an independent detector box.
-- Current precision/recall/F1 are based on only 20 manually labeled frames and should be expanded before making a broad accuracy claim.
+- Current box precision/recall/F1 are agreement against only 20 AI-assisted, independently unreviewed face-box estimates; no landmark positions or no-face negatives were labeled.
+- The single-face output can select a passenger or other face; frame coverage does not prove correct driver selection.
 - Desktop results do not establish Jetson speed. Repeat the same experiment on Jetson and record its power mode, JetPack version and `tegrastats` observations before claiming embedded performance.
 - The model is a general face landmark model, not a safety-certified driver-monitoring component.
 

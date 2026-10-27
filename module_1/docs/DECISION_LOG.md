@@ -133,5 +133,5 @@ Decision:
 
 Reason:
 
-- The approved raw Week 5 videos are not present locally.
+- The five downloaded Week 5 clips were rerun locally on 2026-10-27; permission for wider sharing or presentation must still be confirmed.
 - Generated or repeated frames are not a valid substitute for benchmark data.

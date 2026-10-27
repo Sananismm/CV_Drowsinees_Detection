@@ -17,10 +17,32 @@ Run from `module_1`:
 
 ```powershell
 py -3.12 -m venv .venv
-.\.venv\Scripts\python.exe -m pip install -r requirements-dev.txt
+.\.venv\Scripts\python.exe -m pip install -r requirements-lock.txt
 .\.venv\Scripts\python.exe scripts\download_model.py
 .\.venv\Scripts\python.exe scripts\verify_setup.py --smoke-model
 ```
+
+## Demo using the five downloaded clips
+
+The five clips were processed on 2026-10-27. To regenerate 100-frame annotated demonstrations from the copies in your Windows Downloads folder, run this from `module_1/`. Choose a **new** output directory: the runner overwrites same-named outputs without prompting.
+
+```powershell
+$python = '.\.venv\Scripts\python.exe'
+$downloads = Join-Path $env:USERPROFILE 'Downloads'
+$outputRoot = 'results\my_midterm_demo'
+if (Test-Path $outputRoot) { throw 'Choose a new output directory to avoid overwriting results.' }
+$clips = @('P10427801_na', 'P1043061_na', 'P1043079_na', 'P1043080_na', 'P1043128_na')
+foreach ($clip in $clips) {
+    $inputPath = Join-Path $downloads ($clip + '.mp4')
+    $outputPath = Join-Path $outputRoot $clip
+    & $python scripts\run_experiment.py --input $inputPath --output-dir $outputPath --max-frames 100 --save-video
+    if ($LASTEXITCODE -ne 0) { throw "Demo failed: $clip" }
+    & $python scripts\verify_experiment.py $outputPath
+    if ($LASTEXITCODE -ne 0) { throw "Verification failed: $clip" }
+}
+```
+
+Each clip folder contains three `annotated_<configuration>.mp4` videos and a `comparison.csv`. The primary candidate's video is `annotated_lower_resolution.mp4`; the baseline backup's is `annotated_baseline.mp4`. These are four-second visual demonstrations, not the full-video benchmark. Their first 100 frames do not include all reference-label frame IDs; do not score the short runs against the full label set. Confirm usage permission for the source videos before redistributing or publicly presenting identifiable footage.
 
 ## Reproducible local fallback demo
 
@@ -63,9 +85,9 @@ Do not commit private footage, per-frame predictions or annotated videos.
 1. State SG-1 input and output.
 2. Show `INTERFACE_CONTRACT.md` and the JSON Schema.
 3. Run `verify_setup.py --smoke-model`.
-4. Play one annotated output video.
-5. Open one `OK` record and one `NO_FACE` record.
-6. Show `comparison.csv`.
+4. Play one annotated output video from a downloaded clip.
+5. Open one `OK` record and the real black-frame [`NO_FACE` example](../results/midterm_real_20261027/example_no_face.json).
+6. Show the full-video [aggregate comparison](../results/midterm_real_20261027/aggregate_comparison.csv) and the [primary/backup decision](MIDTERM_METHOD_DECISION.md).
 7. Run the tests.
 8. State limitations without weakening them.
 
@@ -83,8 +105,8 @@ These numbers come from a generated 110-frame interface-demo video. They are evi
 
 ## Before entering the evaluation
 
-- [ ] Replace the fallback with an approved raw driver clip if available.
-- [ ] Run the experiment verifier on that clip.
+- [x] Run the full benchmark and short demos locally on the five downloaded clips and verify each output.
+- [ ] Confirm usage permission for the chosen driver clip and rehearse with that file available.
 - [ ] Ask SG-2 and SG-3 to run the fixtures.
 - [ ] Record their acceptance or objections.
 - [ ] Rehearse within the allotted time.

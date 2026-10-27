@@ -33,6 +33,8 @@ SG-6 uses the contract for integration.
 
 ## Proposed record
 
+The following abbreviated illustration shows two landmarks instead of the full 478 while retaining the production count. It is **not** a complete valid `OK` record and must not be passed to the validator. For a valid complete 478-point record, use [`sg1_v1_ok.json`](../../interfaces/examples/sg1_v1_ok.json); the corresponding valid missing-face example is [`sg1_v1_no_face.json`](../../interfaces/examples/sg1_v1_no_face.json).
+
 ```json
 {
   "schema_version": "sg1.v1",
