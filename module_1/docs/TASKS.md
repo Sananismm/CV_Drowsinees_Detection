@@ -1,59 +1,27 @@
-# SG-1 Task Board
+# SG-1 task board
 
-Update this file with the GitHub project board.
-Every task needs an owner and evidence.
+Status recorded: 28 October 2026. Owners: Muhammad Bilal Maqbool (470990) and Sharjeel Hanif (455543).
 
-## P0 - Before midterm
+[Live project board](https://github.com/users/Sananismm/projects/2) · [Evidence and recorded milestones](SG1_PROGRESS_20261028.md)
 
-| Task | Owner | Status | Evidence |
+| Task | Subgroup owners | Current state | Evidence |
 |---|---|---|---|
-| Review new SG-1 documentation | Sharjeel, Bilal | In progress | `docs/README.md` |
-| Add schema fields to detector output | Sharjeel | Review | `scripts/sg1_detector.py`; tests pass |
-| Add machine-readable JSON schema | Sharjeel | Review | `interfaces/sg1_v1.schema.json`; schema tests pass |
-| Add full positive fixture | Sharjeel | Review | `interfaces/examples/sg1_v1_ok.json` |
-| Add no-face fixture to shared interfaces | Sharjeel | Review | `interfaces/examples/sg1_v1_no_face.json` |
-| Add setup verification command | Sharjeel | Review | `scripts/verify_setup.py`; local PASS |
-| Add unit tests | Sharjeel, Bilal | Review | 60 tests pass locally; confirm CI for current head |
-| Run generated fallback demo | Sharjeel | Review | `results/midterm_demo/comparison.csv`; verifier PASS |
-| Run downloaded-video demo | Sharjeel, Bilal | Review | Five clips processed; verify usage permission and rehearse |
-| Review reference boxes independently | SG-1 | Todo | 20 AI-assisted boxes, human review pending |
-| Review interface with SG-2 | SG-1 and SG-2 | Blocked | Requires SG-2 acceptance record |
-| Review interface with SG-3 | SG-1 and SG-3 | Blocked | Requires SG-3 mouth-index decision |
-| Update SG-6 mock schema | SG-1 and SG-6 | Blocked | Requires SG-6 branch and review |
-| Prepare midterm demonstration | Sharjeel, Bilal | In progress | `docs/MIDTERM_DEMO.md`; rehearsal pending |
-| Review shared SG-1 branch evidence | Sharjeel, Bilal | In progress | Review current branch head and results |
+| SG-1: Implement face and 478-point landmark video pipeline | Bilal, Sharjeel | Done | [Current evidence](SG1_PROGRESS_20261028.md) |
+| SG-1: Add V1 schema, OK/NO_FACE fixtures and setup validation | Bilal, Sharjeel | Done | [Current evidence](SG1_PROGRESS_20261028.md) |
+| SG-1: Compare three detector configurations on common driver videos | Bilal, Sharjeel | Done | [Current evidence](SG1_PROGRESS_20261028.md) |
+| SG-1: Verify complete-video results and pooled benchmark aggregation | Bilal, Sharjeel | Done | [Current evidence](SG1_PROGRESS_20261028.md) |
+| SG-1: Provide runnable webcam/saved-video preview and VS Code setup | Bilal, Sharjeel | Done | [Current evidence](SG1_PROGRESS_20261028.md) |
+| SG-1: Document algorithm selection, module role and reproducible midterm demo | Bilal, Sharjeel | Done | [Current evidence](SG1_PROGRESS_20261028.md) |
+| SG-1: Review independent OpenCV DNN + dlib backup and failure evidence | Bilal, Sharjeel | In review | [Current evidence](SG1_PROGRESS_20261028.md) |
+| SG-1: Independently review labels and expand difficult-condition validation | Bilal, Sharjeel | Ready | [Current evidence](SG1_PROGRESS_20261028.md) |
+| SG-1: Obtain SG-2/SG-3 interface acceptance and rehearse the module demo | Bilal, Sharjeel | Ready — awaiting SG-2/SG-3 acceptance; rehearsal pending | [Current evidence](SG1_PROGRESS_20261028.md) |
 
-## P1 - Integration gate
+## Remaining acceptance gates
 
-| Task | Owner | Status | Evidence |
-|---|---|---|---|
-| Connect real SG-1 output to SG-2 | SG-1 and SG-2 | Blocked | Adapter and real fixture ready; SG-2 acceptance absent |
-| Connect real SG-1 output to SG-3 | SG-1 and SG-3 | Blocked | Generic adapter ready; mouth indices and acceptance absent |
-| Preserve frame ID and timestamp | SG-1, SG-2, SG-3 | Review | Adapter tests pass locally |
-| Test invalid-face propagation | SG-1, SG-2, SG-3 | Review | SG-2 no-face fixture and adapter test pass locally |
-| Replace duplicate downstream detection | SG-2 and SG-3 | Blocked | Downstream code change belongs to SG-2/SG-3 |
-| Freeze V1 interface | Team | Blocked | Consumer acceptance absent |
+- Human review of the 20 AI-assisted reference boxes is pending. No validated accuracy claim is made.
+- Landmark-point labels, broader conditions and driver/passenger selection require further tests.
+- The independent DNN+dlib implementation was run locally. Shared-package publication/review and 68-point downstream adaptation remain open.
+- SG-2/SG-3 must run and accept the fixtures before the draft V1 interface is frozen.
+- Presenter rehearsal and a person-present webcam demonstration are pending.
 
-## P2 - Robustness and Jetson
-
-| Task | Owner | Status | Evidence |
-|---|---|---|---|
-| Expand manual labels | SG-1 | Todo | Label manifest |
-| Add no-face negatives | SG-1 | Todo | Metrics |
-| Test profile pose | SG-1 | Todo | Results |
-| Test glasses and occlusion | SG-1 | Todo | Results |
-| Test lighting and blur | SG-1 | Todo | Results |
-| Run on Jetson | SG-1 and SG-6 | Todo | Run log |
-| Compare 192 px and 256 px on Jetson | SG-1 and SG-6 | Todo | Metrics table |
-| Record memory and compute use | SG-6 with SG-1 | Todo | Profile log |
-
-## Status rules
-
-- `Todo`: no work started.
-- `In progress`: an owner is actively working.
-- `Blocked`: the blocker and owner are recorded.
-- `Review`: implementation exists and needs review.
-- `Done`: evidence is linked and accepted.
-
-Do not mark a task done because a document says it should exist.
-Mark it done only when the evidence exists.
+Done identifies implemented and evidenced task scope. It does not imply consumer acceptance, completed rehearsal or instructor assessment.

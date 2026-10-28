@@ -1,0 +1,38 @@
+{
+  "python": "3.12.10",
+  "platform": "Windows-11-10.0.26300-SP0",
+  "opencv": "4.11.0",
+  "numpy": "1.26.4",
+  "dlib_binary_distribution": "20.0.1.post1",
+  "mediapipe": "0.10.35",
+  "opencv_num_threads": 1,
+  "timing": "external process() latency; loop FPS includes capture open/decode/validation/JSONL writing/close, excludes model load and drawing; no warm-up excluded",
+  "selection": "highest-confidence SSD face; no driver identity assurance",
+  "model_sources": [
+    {
+      "file": "deploy.prototxt",
+      "source": "https://raw.githubusercontent.com/opencv/opencv/4.x/samples/dnn/face_detector/deploy.prototxt",
+      "bytes": 28104,
+      "sha256": "dcd661dc48fc9de0a341db1f666a2164ea63a67265c7f779bc12d6b3f2fa67e9"
+    },
+    {
+      "file": "res10_300x300_ssd_iter_140000.caffemodel",
+      "source": "https://raw.githubusercontent.com/opencv/opencv_3rdparty/dnn_samples_face_detector_20170830/res10_300x300_ssd_iter_140000.caffemodel",
+      "bytes": 10666211,
+      "sha256": "2a56a11a57a4a295956b0660b4a3d76bbdca2206c4961cea8efe7d95c7cb2f2d"
+    },
+    {
+      "file": "shape_predictor_68_face_landmarks.dat.bz2",
+      "source": "https://dlib.net/files/shape_predictor_68_face_landmarks.dat.bz2",
+      "bytes": 64040097,
+      "sha256": "7d6637b8f34ddb0c1363e09a4628acb34314019ec3566fd66b80c04dda6980f5"
+    },
+    {
+      "file": "shape_predictor_68_face_landmarks.dat",
+      "source": "decompressed from the above upstream .bz2",
+      "bytes": 99693937,
+      "sha256": "fbdc2cb80eb9aa7a758672cbfdda32ba6300efe9b6e6c7a299ff7e736b11b92f"
+    }
+  ],
+  "mediapipe_model_sha256": "64184e229b263107bc2b804c6625db1341ff2bb731874b0bcc2fe6544e0bc9ff"
+}

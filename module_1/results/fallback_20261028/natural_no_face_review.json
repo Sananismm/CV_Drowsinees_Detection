@@ -1,0 +1,31 @@
+{
+  "all_no_face_cases": [
+    {
+      "clip": "P10427801_na.mp4",
+      "frame_id": 218
+    },
+    {
+      "clip": "P10427801_na.mp4",
+      "frame_id": 219
+    },
+    {
+      "clip": "P1043079_na.mp4",
+      "frame_id": 576
+    }
+  ],
+  "extracted": [
+    {
+      "clip": "P10427801_na.mp4",
+      "frame_id": 218
+    },
+    {
+      "clip": "P1043079_na.mp4",
+      "frame_id": 576
+    },
+    {
+      "clip": "P10427801_na.mp4",
+      "frame_id": 219
+    }
+  ],
+  "interpretation": "Observed output status only. Inspect raw frames to distinguish a visible-face miss from truly absent/unusable imagery."
+}

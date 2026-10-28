@@ -1,0 +1,11 @@
+model,condition,images,face_returned,no_face
+opencv_dnn_dlib68,original,5,5,0
+opencv_dnn_dlib68,dark_10pct,5,0,5
+opencv_dnn_dlib68,face_box_occluded,5,0,5
+opencv_dnn_dlib68,gaussian_blur_101,5,1,4
+opencv_dnn_dlib68,real_black_frame,1,0,1
+mediapipe_192,original,5,5,0
+mediapipe_192,dark_10pct,5,0,5
+mediapipe_192,face_box_occluded,5,0,5
+mediapipe_192,gaussian_blur_101,5,1,4
+mediapipe_192,real_black_frame,1,0,1
