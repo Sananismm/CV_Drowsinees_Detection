@@ -47,7 +47,7 @@ Missing observations, gaps over 0.2 seconds and end-of-video terminate the curre
 
 ## Experiments and Method Comparison
 
-We tested EAR thresholding, a CNN classifier, EAR/CNN fusion approaches, and EAR with temporal filtering. We selected **EAR with temporal filtering** because the EAR-based methods performed better than the CNN and earlier fusion method in our preliminary comparison, without requiring additional CNN inference. This keeps frame-by-frame processing simple, while reopening confirmation is used to make transitions between CLOSED and OPEN more stable. [Method settings](final_method.json) [Decision rules](fusion.py)
+We tested EAR thresholding,and EAR with temporal filtering. We selected **EAR with temporal filtering** because the EAR-based methods performed better than the earlier fusion method in our preliminary comparison, without requiring additional CNN inference. This keeps frame-by-frame processing simple, while reopening confirmation is used to make transitions between CLOSED and OPEN more stable. [Method settings](final_method.json) [Decision rules](fusion.py)
 
 The figures below use the same **28 clearly labelled frames**, counting UNKNOWN predictions as incorrect; the sample details and exact calculations are in [the experiment records](docs/experiments.md).
 
