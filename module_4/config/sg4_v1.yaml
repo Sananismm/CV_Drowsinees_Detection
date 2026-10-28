@@ -38,7 +38,7 @@ nod_merge_gap_ms: 1000
 nod_face_loss_ms: 300             # face lost within 300 ms of pitch <= nod_off_deg = head drop
 
 # --- Windows (seconds) ------------------------------------------------------
-perclos_window_s: 60              # SG-4 decision (SG-5 did not state one)
+perclos_window_s: 60              # SG-4 decision 
 long_blink_window_s: 30           # SG-5 contract
 yawn_window_s: 60                 # SG-5 contract
 nod_window_s: 60
