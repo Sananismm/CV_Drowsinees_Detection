@@ -162,7 +162,7 @@ Tests use the supplied fixtures and temporary local files; a video dataset is no
 
 SG1 provides the frame ID, source timestamp, image dimensions and normalized landmarks. SG2 accepts the repository's legacy full record, `sg1.v1` full records with 478 points, or the compact ordered eye packet. Timestamps are converted from milliseconds to seconds; mismatched identity/time raises an error, and invalid geometry becomes UNKNOWN. [Input contract](SG1_INTEGRATION.md) [Adapter](adapters.py)
 
-SG2 writes `sg2.v2` records and `sg2.sg4.v2` cues. Cues include final `eye_state`, `eye_valid`, EAR values, closure interval/duration and a one-frame blink-candidate flag. `eye_closure_prob` stays null because we do not provide a calibrated probability; unavailable SG1 confidence also stays null. [Output contract](SG4_HANDOFF.md) [Example cue](results/live_sg4_example.json)
+SG2 writes `sg2.v2` records and `sg2.sg4.v2` cues. Cues include final `eye_state`, `eye_valid`, EAR values, closure interval/duration and a one-frame blink-candidate[Output contract](SG4_HANDOFF.md)
 
 The demo passes these cues through the existing `SG4Bridge` and disables SG3 yawn/nod cues for the eye-only run. The current consumer requirements are described in the [SG4 compatibility notes](SG4_HANDOFF.md). [Bridge](adapters.py)
 
