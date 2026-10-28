@@ -31,3 +31,6 @@
 **What remains?** Verify the current demo on the connected camera, GUI and failure paths; obtain subgroup agreement, validate real landmarks and temporal decisions, test physical alerts and measure robustness and resource use. Synthetic outputs do not establish safe driver monitoring.
 
 **Final evaluation plan?** Complete real-camera and long-duration testing, representative labelled data and lighting/pose studies; validate timing, missing data, subgroup handoffs and physical alerts with owners. Do not claim unmeasured performance.
+
+
+**Fixture provenance clarification:** The SG1 positive landmark fixture used in these controlled tests was generated from an existing tracked SG1 sample image, not generated entirely from artificial landmarks. Tests alter those coordinates and use synthetic frames/scenarios; they do not prove live camera-to-decision operation or accuracy. See the upstream `module_1/scripts/generate_interface_fixtures.py` and `interfaces/examples/sg1_v1_ok.json` on the main branch.

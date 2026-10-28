@@ -23,3 +23,6 @@ A record must carry a valid integer frame_id and timestamp; missing/negative ide
 - **Recorded video:** integrated/README.md documents 120 frames through SG1–SG5 at roughly 14 FPS; no raw execution log was located for this review. Treat this as a documented historical observation.
 - **Live:** the optional run_integrated.py contains a camera path, but a live capture-to-decision run is not evidenced. The main YuNet demo has no live SG2–SG5 wiring; YuNet's five points cannot provide SG2 EAR.
 - **Pending:** owner acceptance of SG1/SG2 mapping, SG3 mouth semantics, SG4 input confidence and PERCLOS interpretation, SG5 status/alert handling, physical hardware and real-device robustness. Copies do not update automatically with upstream branches. Sources are owned by their respective subgroups.
+
+
+**Fixture provenance clarification:** The SG1 positive landmark fixture used in these controlled tests was generated from an existing tracked SG1 sample image, not generated entirely from artificial landmarks. Tests alter those coordinates and use synthetic frames/scenarios; they do not prove live camera-to-decision operation or accuracy. See the upstream `module_1/scripts/generate_interface_fixtures.py` and `interfaces/examples/sg1_v1_ok.json` on the main branch.

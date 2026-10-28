@@ -33,3 +33,6 @@ Status as of 28 October 2026; no marks are claimed. PASS means the stated eviden
 | Acceleration | Zero CUDA devices reported in prior OpenCV audit; CPU baseline | Optional verified acceleration later | P2 | Make no unsupported GPU claims |
 
 Before evaluation: execute the [demo checklist](SG6_MIDTERM_DEMO_GUIDE.md), retain private metrics and resolve errors; then get SG1–SG5 agreement on [interfaces](SG6_INTEGRATION_INTERFACES.md).
+
+
+**Fixture provenance clarification:** The SG1 positive landmark fixture used in these controlled tests was generated from an existing tracked SG1 sample image, not generated entirely from artificial landmarks. Tests alter those coordinates and use synthetic frames/scenarios; they do not prove live camera-to-decision operation or accuracy. See the upstream `module_1/scripts/generate_interface_fixtures.py` and `interfaces/examples/sg1_v1_ok.json` on the main branch.

@@ -126,3 +126,6 @@ SG6 has demonstrable detector inference on recorded frames, reproducible benchma
 - [OpenCV face detection documentation](https://docs.opencv.org/4.x/d0/dd4/tutorial_dnn_face.html); [OpenCV cascade tutorial](https://docs.opencv.org/4.x/db/d28/tutorial_cascade_classifier.html).
 - [NVIDIA Jetson Linux documentation](https://docs.nvidia.com/jetson/archives/r36.4.3/DeveloperGuide/); [MediaPipe Face Landmarker](https://ai.google.dev/edge/mediapipe/solutions/vision/face_landmarker). Check MediaPipe model-specific terms before redistribution; the task model is local and ignored.
 - [SG6 commit b4bf9ec](https://github.com/Sananismm/CV_Drowsinees_Detection/commit/b4bf9ec42c8b5aa119eae5f78c7c499665822911). SG2, SG4 and SG5 reference snapshots are attributed in embedded_6/reference_modules/README.md; see integrated/BRANCH_AUDIT.md for the newer copies.
+
+
+**Fixture provenance clarification:** The SG1 positive landmark fixture used in these controlled tests was generated from an existing tracked SG1 sample image, not generated entirely from artificial landmarks. Tests alter those coordinates and use synthetic frames/scenarios; they do not prove live camera-to-decision operation or accuracy. See the upstream `module_1/scripts/generate_interface_fixtures.py` and `interfaces/examples/sg1_v1_ok.json` on the main branch.
