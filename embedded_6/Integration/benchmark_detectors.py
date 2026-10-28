@@ -105,6 +105,12 @@ for path in images:
 results = {
     "opencv_version": cv2.__version__,
     "dataset_frames": len(frames),
+    "resolutions": sorted({f"{frame.shape[1]}x{frame.shape[0]}" for frame in frames}),
+    "warmup_calls_per_detector": 5,
+    "backend": "OpenCV default CPU (no CUDA requested)",
+    "timing_boundary": "detector call, including Haar grayscale conversion and YuNet input-size setup; excludes image loading and camera capture",
+    "haar_parameters": {"scaleFactor": 1.1, "minNeighbors": 5, "minSize": [40, 40]},
+    "yunet_parameters": {"score_threshold": 0.6, "nms_threshold": 0.3, "top_k": 5000},
     "haar": benchmark("Haar Cascade", detect_haar, frames),
     "yunet": benchmark("YuNet", detect_yunet, frames),
 }

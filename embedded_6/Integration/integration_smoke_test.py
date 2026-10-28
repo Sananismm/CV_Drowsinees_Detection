@@ -21,7 +21,7 @@ sg4 = load_json("sg4_output.json")
 sg5 = load_json("sg5_output.json")
 
 
-print("\n=== SG6 INTEGRATION SMOKE TEST ===")
+print("\n=== SG6 SYNTHETIC MOCK FIXTURE DISPLAY ===")
 
 
 print("\n[SG1] Face & Landmark Detection")
@@ -56,6 +56,6 @@ print("Confidence:", sg5["confidence"])
 
 
 print("\n================================")
-print("SG6 integration smoke test PASSED")
-print("SG1 -> SG2/SG3 -> SG4 -> SG5 data interfaces loaded successfully.")
+print("Mock fixture files loaded")
+print("Fixtures only; no subgroup algorithms or interface compatibility verified. Run integrated/tests for synthetic algorithm tests.")
 print("================================")
