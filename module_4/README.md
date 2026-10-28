@@ -40,7 +40,7 @@ The adapter also accepts **SG-2's native eye record** (`eye_state`, `eye_valid`,
 
 | Field | Type | Meaning | Window |
 |---|---|---|---|
-| `time_s` | float | SG-1 capture time of the latest frame, in seconds, increasing | — |
+| `time_s` | float | SG-1 capture time of the latest frame, in seconds, increasing | current frame |
 | `perclos` | float 0–1 | Share of **valid** time with eyes ≥ 80% closed (P80). Not a percentage | 60 s |
 | `face_valid` | 0/1 | Current frame has a face with confidence ≥ 0.5 | current frame |
 | `long_blinks` | int | Closures ≥ 0.5 s (microsleeps), counted when the closure reaches 0.5 s | 30 s |
