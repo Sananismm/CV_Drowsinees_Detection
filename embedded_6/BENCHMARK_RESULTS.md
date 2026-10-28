@@ -46,3 +46,11 @@ python embedded_6/Integration/benchmark_detectors.py
 
 The benchmark dataset contains identifiable camera frames.
 These frames must remain private and must not be committed.
+
+## Re-run on 2026-10-28
+
+The existing 150 private frames were rerun on this Jetson with OpenCV 4.14.0: Haar 150/150 frames, 40.74 ms mean and 24.55 inference FPS; YuNet 150/150, 25.02 ms and 39.96 inference FPS. These are separate observed timings, not a guarantee; operating conditions can affect them. The same limitations above apply. The machine reported Jetson Linux R36.4.7 at this audit. The images and generated JSON are ignored and remain local.
+
+## Additional rerun on 2026-10-28
+
+Same 150 private frames, 640×480, five warm-up calls per detector, OpenCV 4.14.0 default CPU: Haar 40.32 ms mean (24.80 inference FPS), YuNet 24.23 ms (41.27 inference FPS); both covered 150/150 frames. Timings include Haar grayscale conversion or YuNet input-size setup, exclude image decoding and capture. Configuration is recorded in ignored `evidence/detector_benchmark.json`. This is not a labelled accuracy study or live processing FPS.
