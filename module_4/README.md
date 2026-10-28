@@ -10,7 +10,7 @@ Camera → SG-1 face/landmarks → SG-2 eye/blink ┐
                                                    (CPU thread on the Jetson Orin Nano, SG-6)
 ```
 
-**Status:** working on mock and stand-in input. SG-2 and SG-3 have not delivered final outputs yet. SG-2's draft eye output is already supported through [`src/sg4/adapters.py`](src/sg4/adapters.py). See [`documentation/sg4_status.md`](../documentation/sg4_status.md).
+[`src/sg4/adapters.py`](src/sg4/adapters.py). See [`documentation/sg4_status.md`](../documentation/sg4_status.md).
 
 ## Dependencies
 
