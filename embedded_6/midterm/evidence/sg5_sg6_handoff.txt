@@ -1,0 +1,18 @@
+test_adapter_matches_real_sg6_legacy_validator (module_5.midterm.tests.test_sg6_contract.SG6ConsumerTests.test_adapter_matches_real_sg6_legacy_validator) ... ok
+test_arrival_watchdog_uses_separate_clock_and_does_not_fabricate_capture_time (module_5.midterm.tests.test_sg6_contract.SG6ConsumerTests.test_arrival_watchdog_uses_separate_clock_and_does_not_fabricate_capture_time) ... ok
+test_backward_same_session_replay_is_rejected (module_5.midterm.tests.test_sg6_contract.SG6ConsumerTests.test_backward_same_session_replay_is_rejected) ... ok
+test_drowsy_requests_sound_and_visual_only_while_usable (module_5.midterm.tests.test_sg6_contract.SG6ConsumerTests.test_drowsy_requests_sound_and_visual_only_while_usable) ... ok
+test_empty_cli_input_emits_a_fault_instead_of_silent_normal (module_5.midterm.tests.test_sg6_contract.SG6ConsumerTests.test_empty_cli_input_emits_a_fault_instead_of_silent_normal) ... ok
+test_events_only_retains_status_changes_even_if_state_is_unchanged (module_5.midterm.tests.test_sg6_contract.SG6ConsumerTests.test_events_only_retains_status_changes_even_if_state_is_unchanged) ... ok
+test_malformed_foreign_or_inconsistent_messages_raise (module_5.midterm.tests.test_sg6_contract.SG6ConsumerTests.test_malformed_foreign_or_inconsistent_messages_raise) ... ok
+test_normal_requests_no_warning_and_no_fault (module_5.midterm.tests.test_sg6_contract.SG6ConsumerTests.test_normal_requests_no_warning_and_no_fault) ... ok
+test_real_sg4_hard_state_bridge_to_sg6_detects_sustained_closure (module_5.midterm.tests.test_sg6_contract.SG6ConsumerTests.test_real_sg4_hard_state_bridge_to_sg6_detects_sustained_closure) ... ok
+test_real_sg4_mock_streams_flow_into_status_aware_sg6_requests (module_5.midterm.tests.test_sg6_contract.SG6ConsumerTests.test_real_sg4_mock_streams_flow_into_status_aware_sg6_requests) ... ok
+test_stale_normal_is_a_fault_not_a_fresh_awake_result (module_5.midterm.tests.test_sg6_contract.SG6ConsumerTests.test_stale_normal_is_a_fault_not_a_fresh_awake_result) ... ok
+test_stdin_cli_emits_requests_and_rejects_foreign_json (module_5.midterm.tests.test_sg6_contract.SG6ConsumerTests.test_stdin_cli_emits_requests_and_rejects_foreign_json) ... ok
+test_warning_is_visual_not_drowsiness_buzzer (module_5.midterm.tests.test_sg6_contract.SG6ConsumerTests.test_warning_is_visual_not_drowsiness_buzzer) ... ok
+
+----------------------------------------------------------------------
+Ran 13 tests in 5.964s
+
+OK

@@ -1,0 +1,6 @@
+.venv-integrated/
+models/face_landmarker.task
+__pycache__/
+*.py[cod]
+# Private camera images, recordings, and run measurements
+/evidence/

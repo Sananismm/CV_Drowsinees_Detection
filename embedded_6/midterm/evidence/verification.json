@@ -1,0 +1,91 @@
+{
+  "recorded_at_utc": "2026-11-17T19:01:27.672052+00:00",
+  "platform": "Windows-10-10.0.26200-SP0",
+  "architecture": "AMD64",
+  "python": "3.11.5",
+  "packages": {
+    "numpy": "1.26.4",
+    "opencv-python": "4.10.0.84",
+    "PyYAML": "6.0.3",
+    "jsonschema": "4.23.0"
+  },
+  "scope": "camera-free PC tests; blank-frame detector inference and synthetic integration; no private recorded frame is present",
+  "excluded": [
+    "live camera",
+    "GUI",
+    "Jetson runtime",
+    "physical GPIO/buzzer",
+    "labelled accuracy"
+  ],
+  "all_passed": true,
+  "suites": [
+    {
+      "name": "detector_demo",
+      "command": [
+        "python",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "embedded_6/Integration",
+        "-p",
+        "test_midterm_demo.py",
+        "-v"
+      ],
+      "exit_code": 0,
+      "tests_run": 8,
+      "log": "detector_demo.txt",
+      "log_sha256": "80427b455e10f211c08d9554bd94392fe7f6052627bca3b6f39ec1de8d47549e"
+    },
+    {
+      "name": "synthetic_integration",
+      "command": [
+        "python",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "embedded_6/integrated/tests",
+        "-p",
+        "test_pipeline.py",
+        "-v"
+      ],
+      "exit_code": 0,
+      "tests_run": 4,
+      "log": "synthetic_integration.txt",
+      "log_sha256": "eca97fc63933c423635a6272e35cc64464703cbd904f404736cb9c7bdd374535"
+    },
+    {
+      "name": "sg5_sg6_handoff",
+      "command": [
+        "python",
+        "-m",
+        "unittest",
+        "module_5.midterm.tests.test_sg6_contract",
+        "-v"
+      ],
+      "exit_code": 0,
+      "tests_run": 13,
+      "log": "sg5_sg6_handoff.txt",
+      "log_sha256": "c3a96a3ac0f998f84107478c3860fecb64b2028b87f8746e2d3f431bef84bf27"
+    },
+    {
+      "name": "submission_utilities",
+      "command": [
+        "python",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "embedded_6/midterm/tests",
+        "-p",
+        "test_*.py",
+        "-v"
+      ],
+      "exit_code": 0,
+      "tests_run": 3,
+      "log": "submission_utilities.txt",
+      "log_sha256": "c3748d114c149bf7d7e49b4d65672497d5d2eb67512ace78dd986ad6cdcaeb69"
+    }
+  ]
+}

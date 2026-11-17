@@ -1,0 +1,9 @@
+test_identity_and_invalid_inputs (test_pipeline.IntegratedTest.test_identity_and_invalid_inputs) ... ok
+test_missing_face_is_not_normal_evidence (test_pipeline.IntegratedTest.test_missing_face_is_not_normal_evidence) ... ok
+test_sustained_eye_closure_reaches_sg5 (test_pipeline.IntegratedTest.test_sustained_eye_closure_reaches_sg5) ... ok
+test_yawn_reaches_temporal_and_decision (test_pipeline.IntegratedTest.test_yawn_reaches_temporal_and_decision) ... ok
+
+----------------------------------------------------------------------
+Ran 4 tests in 0.238s
+
+OK
