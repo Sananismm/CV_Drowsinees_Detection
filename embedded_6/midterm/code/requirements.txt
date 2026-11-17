@@ -1,0 +1,6 @@
+# Detector demo, benchmark and all camera-free verification suites.
+# Use a separate environment from the optional MediaPipe pipeline.
+numpy==1.26.4
+opencv-python==4.10.0.84
+PyYAML==6.0.3
+jsonschema==4.23.0

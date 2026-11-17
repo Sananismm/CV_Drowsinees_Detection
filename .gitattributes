@@ -5,3 +5,4 @@
 *.jpeg binary
 *.mp4 binary
 *.onnx binary
+embedded_6/midterm/evidence/*.txt text eol=lf

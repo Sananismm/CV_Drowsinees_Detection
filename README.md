@@ -76,6 +76,14 @@ Camera
              Driver Alert
 ```
 
+## SG6 post-midterm submission
+
+- [SG6 submission package, setup and evidence](embedded_6/midterm/README.md)
+- Members: Muhammad Sanan Khan and Muhammad Sami.
+- YuNet primary / Haar backup; historical Jetson detector measurements and fresh
+  PC checks are recorded separately. Demo video, target validation, board update
+  and final email remain pending as detailed in the package.
+
 ## SG5 midterm integration checkpoint
 
 On branch `sg5-midterm-integration`, SG5 consumes the actual SG4 temporal engine

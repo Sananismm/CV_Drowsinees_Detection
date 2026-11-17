@@ -1,0 +1,24 @@
+{
+  "evidence_type": "historical_document_transcription",
+  "fresh_measurement": false,
+  "raw_measurement_json_available_in_checkout": false,
+  "private_frames_available_in_checkout": false,
+  "source_base_commit": "a6f2e78571c3ae0e36f994a9c0c09de67f9bbda6",
+  "sources": ["embedded_6/BENCHMARK_RESULTS.md", "embedded_6/docs/SG6_MIDTERM_TECHNICAL_REPORT.md"],
+  "runs": [
+    {"label": "original, date unspecified", "haar_mean_ms": 31.65, "haar_detector_fps": 31.59, "yunet_mean_ms": 17.89, "yunet_detector_fps": 55.91, "frames_per_detector": 150},
+    {"label": "2026-10-28 first rerun", "haar_mean_ms": 40.74, "haar_detector_fps": 24.55, "yunet_mean_ms": 25.02, "yunet_detector_fps": 39.96, "frames_per_detector": 150},
+    {"label": "2026-10-28 additional rerun", "haar_mean_ms": 40.32, "haar_detector_fps": 24.80, "yunet_mean_ms": 24.23, "yunet_detector_fps": 41.27, "frames_per_detector": 150}
+  ],
+  "latest_run_reported_configuration": {
+    "device": "NVIDIA Jetson Orin Nano",
+    "jetson_linux": "R36.4.7",
+    "opencv": "4.14.0",
+    "resolution": [640, 480],
+    "warmup_calls_per_detector": 5,
+    "backend": "OpenCV default CPU",
+    "frames_with_detection_per_detector": 150,
+    "timing_boundary": "detector call including Haar grayscale / YuNet input-size setup; excludes capture, decode, display and downstream processing"
+  },
+  "limitations": ["coverage is not accuracy", "no independent ground truth", "no fresh target result", "raw evidence absent", "power and thermal conditions not recorded"]
+}

@@ -1,0 +1,14 @@
+SG6: camera index 0, yunet, OpenCV 4.10.0; no recording
+test_explicit_camera_backend (test_midterm_demo.DemoTests.test_explicit_camera_backend) ... ok
+test_headless_and_cleanup (test_midterm_demo.DemoTests.test_headless_and_cleanup) ... ok
+test_help_and_invalid_selection (test_midterm_demo.DemoTests.test_help_and_invalid_selection) ... ok
+test_interrupt_cleanup (test_midterm_demo.DemoTests.test_interrupt_cleanup) ... ok
+test_metrics (test_midterm_demo.DemoTests.test_metrics) ... ok
+test_missing_model (test_midterm_demo.DemoTests.test_missing_model) ... ok
+test_open_and_read_failure_cleanup (test_midterm_demo.DemoTests.test_open_and_read_failure_cleanup) ... ok
+test_real_detectors_on_blank_and_sample (test_midterm_demo.DemoTests.test_real_detectors_on_blank_and_sample) ... ok
+
+----------------------------------------------------------------------
+Ran 8 tests in 2.795s
+
+OK

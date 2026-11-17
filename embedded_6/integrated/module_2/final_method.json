@@ -1,0 +1,154 @@
+{
+  "schema_version": "sg2.method.v1",
+  "selected": {
+    "method": "EAR",
+    "ear_threshold": 0.15,
+    "open_frames": 2,
+    "max_open_delay_sec": 0.08,
+    "name": "EAR_0.15_open2"
+  },
+  "selection_rule": {
+    "minimum_coverage": 0.95,
+    "closed_miss_rate_tolerance_over_EAR": 0.01,
+    "event_recall_tolerance_over_EAR": 0.05,
+    "cost": "5*false_open/n_closed + 2*unknown_closed/n_closed + false_closed/n_open + 0.25*unknown_open/n_open",
+    "tie_break": [
+      "lower cost",
+      "fewer unmatched predicted closure intervals",
+      "higher coverage",
+      "fewer smoothing frames",
+      "lower complexity",
+      "candidate name"
+    ],
+    "if_no_eligible": "EAR baseline; explicitly report failed constraints"
+  },
+  "original_validation_protocol_winner": {
+    "method": "weighted",
+    "ear_weight": 0.25,
+    "threshold": -0.1,
+    "open_frames": 2,
+    "max_open_delay_sec": 0.08,
+    "name": "0.25_0.08_weighted_2_-0.1"
+  },
+  "operational_selection_status": "EAR selected as current SG-1 video operational method after prediction-blind manual diagnostics showed substantially fewer false-CLOSED errors; CNN is excluded from operational decisions and available only in explicitly selected experimental modes. This purposive single-reviewer sample is exploratory and did not provide an independent held-out estimate.",
+  "manual_review_evidence": {
+    "clear_frames": 28,
+    "ambiguous_frames_excluded": 22,
+    "ear_accuracy": 0.9285714285714286,
+    "cnn_bilateral_accuracy_on_classified": 0.4,
+    "cnn_false_closed_on_open": 14,
+    "legacy_ear_first_accuracy": 0.6071428571428571,
+    "scope": "small purposive single-reviewer diagnostic sample; not population representative or independent confirmation",
+    "confusion_matrix": [
+      [
+        19,
+        1
+      ],
+      [
+        1,
+        7
+      ]
+    ]
+  },
+  "historical_ear_first_validation_metrics": {
+    "config": {
+      "method": "ear_first",
+      "ear_uncertainty_band": 0.8,
+      "cnn_min_margin": 0.0,
+      "open_frames": 2,
+      "max_open_delay_sec": 0.08,
+      "name": "0.0_0.8_0.08_ear_first_2"
+    },
+    "classification": {
+      "n_total": 15415,
+      "n_scored": 15415,
+      "coverage": 1.0,
+      "accuracy": 0.993058709049627,
+      "accuracy_with_abstentions_as_errors": 0.993058709049627,
+      "precision": 0.7724288840262582,
+      "recall": 0.9915730337078652,
+      "f1": 0.8683886838868389,
+      "confusion_matrix": [
+        [
+          14955,
+          104
+        ],
+        [
+          3,
+          353
+        ]
+      ],
+      "matrix_order": [
+        "OPEN",
+        "CLOSED"
+      ],
+      "false_open": 3,
+      "false_closed": 104,
+      "stream_frames": 15797,
+      "stream_unknown": 14,
+      "stream_coverage": 0.9991137557764133,
+      "unknown_closed": 0,
+      "unknown_open": 0,
+      "unknown_rate": 0.0,
+      "closed_misses_including_unknown": 3,
+      "closed_miss_rate": 0.008426966292134831,
+      "decision_cost": 0.04904100052900539
+    },
+    "events": {
+      "ground_truth": 71,
+      "predicted": 87,
+      "matched": 71,
+      "false_events": 16,
+      "missed_events": 0,
+      "precision": 0.8160919540229885,
+      "recall": 1.0,
+      "f1": 0.8987341772151899,
+      "iou_threshold": 0.2,
+      "onset_error": {
+        "mean_signed_sec": -0.003239436619717515,
+        "mean_absolute_sec": 0.006112676056337542,
+        "p95_absolute_sec": 0.03200000000001069
+      },
+      "offset_error": {
+        "mean_signed_sec": 0.047788732394367824,
+        "mean_absolute_sec": 0.047788732394367824,
+        "p95_absolute_sec": 0.09649999999999892
+      },
+      "duration_error": {
+        "mean_signed_sec": 0.05102816901408534,
+        "mean_absolute_sec": 0.05119718309859239,
+        "p95_absolute_sec": 0.1109999999999971
+      },
+      "prolonged_ground_truth": 3,
+      "prolonged_matched": 3,
+      "prolonged_recall": 1.0
+    },
+    "stability": {
+      "state_changes": 180,
+      "known_adjacent_pairs": 15776,
+      "change_fraction": 0.01140973630831643,
+      "incomplete_events": 0,
+      "opening_confirmation_delay": {
+        "count": 90,
+        "mean_sec": 0.03325555555555659,
+        "max_sec": 0.04800000000000182,
+        "p95_sec": 0.04800000000000102
+      },
+      "maximum_configured_open_delay_sec": 0.08
+    },
+    "decision_latency": {
+      "mean_ms": 0.012258119313292182,
+      "p50_ms": 0.011800089851021767,
+      "p95_ms": 0.013299984857439995,
+      "n": 15797
+    },
+    "eligible": true
+  },
+  "protocol_sha256": "b3c8bae4fedb9a8309c132b7fc0c658a8356e12a20abaca1f7ff77c85a9a1bbf",
+  "checkpoint_sha256": "725c89e5d9414656758ce94924b19d290cce7f8bff453e5ccc34806d65d99e23",
+  "historical_EyeBlink8_selection_videos": [
+    "8",
+    "9"
+  ],
+  "historical_EyeBlink8_evaluation_status": "exploratory: previous test-participant results informed the user-directed operational method choice; no additional independent participants available in the downloaded dataset"
+}
